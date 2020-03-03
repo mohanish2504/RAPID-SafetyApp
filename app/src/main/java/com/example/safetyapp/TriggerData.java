@@ -47,7 +47,7 @@ public class TriggerData {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d(TAG,"Got Data from firebase");
+                Log.d(TAG,"Got Data from firebas");
 
                 Iterable<DataSnapshot> k = dataSnapshot.getChildren();
                 for(DataSnapshot t : k){
