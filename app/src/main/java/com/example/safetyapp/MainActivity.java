@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static String channelID = "Notification Channel";
     private static String Token;
     DatabaseReference databaseReference;
+    SendData sendData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,38 +47,18 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.disp);
         sharedPref = getApplicationContext().getSharedPreferences("Counter", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
-        if(sharedPref.contains("click_counter")){
-            click_counter = sharedPref.getInt("click_counter",0);
-            if(click_counter >= 10){
-                editor.putInt("click_counter",0);
-                totalTime = sharedPref.getLong("totalTime",0);
-                editor.putLong("totalTime",0);
-                editor.commit();
-                Log.d("AverageTime",Long.toString(totalTime/10));
-                textView.setText(Long.toString(totalTime/10));
-            }
-        }
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "getInstanceId failed", task.getException());
-                            return;
-                        }
-                        String token = task.getResult().getToken();
-                        Token = token;
-                        databaseReference = FirebaseDatabase.getInstance().getReference();
+        sendData = new SendData();
 
-                        //UserToken userToken = new UserToken(123,Token);
+        checkCounter();
 
-                        databaseReference.child("Tokens").child(token).setValue(true);
-                    }
-                });
+        setToken();
 
+        createMethod();
 
-        FirebaseMessaging.getInstance().subscribeToTopic("general")
+        scheduleJob();
+
+        /*FirebaseMessaging.getInstance().subscribeToTopic("general")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -87,28 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         //Log.d(TAG, msg);
                         Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
-                });
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Project";
-            String description = "new message";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(channelID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            Log.d("MainActivity","Starting Process");
-            RestartServiceBroadcastReceiver.scheduleJob(getApplicationContext());
-        } else {
-            ProcessMainClass bck = new ProcessMainClass();
-            bck.launchService(getApplicationContext());
-        }
+                });*/
 
     }
 
@@ -133,5 +94,64 @@ public class MainActivity extends AppCompatActivity {
 
 
     }*/
+
+    private void checkCounter(){
+        if(sharedPref.contains("click_counter")){
+            click_counter = sharedPref.getInt("click_counter",0);
+            if(click_counter >= 10){
+                editor.putInt("click_counter",0);
+                totalTime = sharedPref.getLong("totalTime",0);
+                editor.putLong("totalTime",0);
+                editor.commit();
+                Log.d("AverageTime",Long.toString(totalTime/10));
+                textView.setText(Long.toString(totalTime/10));
+            }
+        }
+    }
+
+    private void setToken(){
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        String token = task.getResult().getToken();
+                        Token = token;
+                        sendData.sendToken("",token);
+
+                    }
+                });
+    }
+
+    private void createMethod(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Project";
+            String description = "new message";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(channelID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+    }
+
+    private void scheduleJob(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            // Log.d("MainActivity","Starting Process");
+            RestartServiceBroadcastReceiver.scheduleJob(getApplicationContext());
+        } else {
+            ProcessMainClass bck = new ProcessMainClass();
+            bck.launchService(getApplicationContext());
+        }
+    }
+
+
+
 
 }

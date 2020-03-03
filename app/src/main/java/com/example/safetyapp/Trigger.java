@@ -1,9 +1,13 @@
 package com.example.safetyapp;
 
+import android.os.Handler;
 import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class Trigger {
     private static String TAG = Trigger.class.getSimpleName();
@@ -16,13 +20,15 @@ public class Trigger {
         Log.d(TAG,"here");
         androidId="A11";
         trigger = new TriggerData();
+        trigger.setData();
+
 
     }
 
     public void registerTrigger(){
         setReference();
-        databaseReference.child(androidId).setValue(trigger);
     }
+
 
 
 }

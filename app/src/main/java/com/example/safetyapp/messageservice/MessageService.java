@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -17,12 +18,18 @@ import com.google.firebase.messaging.RemoteMessage;
 public class MessageService extends FirebaseMessagingService {
     private static String channelID = "Notification Channel";
     private static String TAG = FirebaseMessagingService.class.getSimpleName();
-
-
+    private static SendData sendData = new SendData();
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(TAG,"Service started");
+
+    }
+
+    @Override
+    public void onNewToken(@NonNull String s) {
+        super.onNewToken(s);
+        sendData.sendToken("",s);
 
     }
 

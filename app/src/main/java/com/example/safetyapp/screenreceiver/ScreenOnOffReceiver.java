@@ -31,13 +31,14 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
     SharedPreferences.Editor editor;
     private static int i=0,clicks=0;
     private static int clickCounter = 0;
+    private static Trigger trigger = new Trigger();
 
     @Override
     public void onReceive(Context context, Intent intent) {
         currentClickTime = System.currentTimeMillis();
         sharedPref = context.getApplicationContext().getSharedPreferences("Click_Recorder",Context.MODE_PRIVATE) ;
         editor = sharedPref.edit();
-        Trigger trigger = new Trigger();
+
         /*if(!sharedPref.contains("click_counter")){
             editor.putLong("totalTime",0);
             editor.putInt("click_counter",0);
