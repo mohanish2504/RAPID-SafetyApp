@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         scheduleJob();
 
+        int i;
+
         /*FirebaseMessaging.getInstance().subscribeToTopic("general")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
