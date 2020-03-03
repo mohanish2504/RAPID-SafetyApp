@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/nevigroup1"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/editprofile"
+            android:title="@string/edit_profile"
+            android:icon="@drawable/ic_menu_edit"/>
+
+        <item android:id="@+id/report"
+            android:title="@string/report"
+            android:icon="@drawable/ic_menu_report"/>
+
+        <item android:id="@+id/settings"
+            android:title="@string/settings"
+            android:icon="@drawable/ic_menu_settings"/>
+
+        <item android:id="@+id/share"
+            android:title="@string/share"
+            android:icon="@drawable/ic_menu_share"/>
+
+        <item android:id="@+id/logout"
+            android:title="@string/log_out"
+            android:icon="@drawable/ic_menu_logout"/>
+
+    </group>
+</menu>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#070707">
+
+
+    <EditText
+        android:layout_centerInParent="true"
+        android:id="@+id/userid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/user_filed"
+        android:ems="10"
+        android:hint="@string/enter_your_name"
+        android:inputType="textPersonName"
+        android:textColorHint="#FFFFFF"
+        android:gravity="center"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:layout_marginTop="24dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:layout_below="@id/userid"
+        android:background="@drawable/passfield"
+        android:hint="@string/enter_your_password"
+        android:textColorHint="#FFFFFF"
+        android:gravity="center"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:layout_marginTop="24dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in"
+        android:background="@drawable/button"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/pass"/>
+
+
+</RelativeLayout>

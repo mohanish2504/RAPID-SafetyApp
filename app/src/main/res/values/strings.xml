@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">SafetyApp</string>
     <string name="hello_world">Hello World......!</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="enter_your_password">Enter Your Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="enter_your_email">Enter Your Email</string>
+    <string name="confrim_password">Confrim Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="demo">Demo</string>
+    <string name="safe">Safe</string>
+    <string name="help">Help</string>
+    <string name="portal">Portal</string>
+    <string name="jone_gmail_com">jone@gmail.com</string>
+    <string name="name">Jone Doe</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="report">Report</string>
+    <string name="settings">Settings</string>
+    <string name="share">Share</string>
+    <string name="log_out">Log Out</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="save_details">Save Details</string>
 </resources>
