@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
 
+
+
         sharedPref = getApplicationContext().getSharedPreferences("Counter", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
 
@@ -93,6 +95,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(mToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     /*@Override
     protected void onDestroy() {
         super.onDestroy();
@@ -116,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }*/
 
     private void checkCounter(){
-        if(sharedPref.contains("click_counter")){
+       /* if(sharedPref.contains("click_counter")){
             click_counter = sharedPref.getInt("click_counter",0);
             if(click_counter >= 10){
                 editor.putInt("click_counter",0);
@@ -126,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.d("AverageTime",Long.toString(totalTime/10));
                 textView.setText(Long.toString(totalTime/10));
             }
-        }
+        }*/
     }
 
     private void setToken(){

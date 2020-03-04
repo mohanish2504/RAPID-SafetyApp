@@ -39,34 +39,9 @@ public class TriggerData {
         if(!Tokens.isEmpty())Tokens.clear();
 
         final Date currentTime = Calendar.getInstance().getTime();
-
-
-        final DatabaseReference databaseReference,valuesetter;
-        databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Log.d(TAG,"Got Data from firebas");
-
-                Iterable<DataSnapshot> k = dataSnapshot.getChildren();
-                for(DataSnapshot t : k){
-                   // Log.d(TAG,t.getKey());
-                    Tokens.add(t.getKey());
-                }
-
-                DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Triggers");
-                //dbref.removeValue();
-                dbref.child(String.valueOf(currentTime)).setValue(Tokens);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d(TAG,"no Data");
-            }
-        });
-
+        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Triggers");
+        //dbref.removeValue();
+        dbref.child(String.valueOf(currentTime)).setValue("true");
         //return Tokens;
     }
 }
