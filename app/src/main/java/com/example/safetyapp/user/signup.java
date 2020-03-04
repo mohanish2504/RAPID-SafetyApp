@@ -1,8 +1,10 @@
-package com.example.safetyapp;
+package com.example.safetyapp.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.safetyapp.R;
 
 public class signup extends AppCompatActivity {
 

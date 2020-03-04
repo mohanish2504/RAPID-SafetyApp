@@ -1,4 +1,4 @@
-package com.example.safetyapp;
+package com.example.safetyapp.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.safetyapp.R;
 
 public class welcome extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class welcome extends AppCompatActivity {
         btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(welcome.this,signin.class);
+                Intent i=new Intent(welcome.this, signin.class);
                 startActivity(i);
             }
         });
@@ -27,7 +29,7 @@ public class welcome extends AppCompatActivity {
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(welcome.this,signup.class);
+                Intent i=new Intent(welcome.this, signup.class);
                 startActivity(i);
             }
         });

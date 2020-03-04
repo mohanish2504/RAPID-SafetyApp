@@ -43,5 +43,19 @@
         android:textColor="@android:color/black"
         android:layout_below="@id/pass"/>
 
+    <TextView
+        android:id="@+id/forgetpasstext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signin"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="161dp"
+        android:layout_marginRight="161dp"
+        android:gravity="center"
+        android:text="@string/forget_password"
+        android:textColor="@color/white" />
+
 
 </RelativeLayout>

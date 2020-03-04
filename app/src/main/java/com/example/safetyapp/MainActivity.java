@@ -20,6 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
+import com.example.safetyapp.user.profile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static String TAG = MainActivity.class.getSimpleName();
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
-    int click_counter ;
+    int click_counter;
     long totalTime;
     TextView textView;
     private static String channelID = "Notification Channel";
@@ -51,18 +52,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDrawerLayout=(DrawerLayout)findViewById(R.id.drawerlayout);
-        mToggle=new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        NavigationView navigationView=(NavigationView)findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
 
 
         sharedPref = getApplicationContext().getSharedPreferences("Counter", Context.MODE_PRIVATE);
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(mToggle.onOptionsItemSelected(item)) {
+        if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -114,18 +113,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ProcessMainClass bck = new ProcessMainClass();
             bck.launchService(getApplicationContext());
         }
-
     }
-
-
     //@Override
     protected void onResume() {
         super.onResume();
-
-
     }*/
 
-    private void checkCounter(){
+    private void checkCounter() {
        /* if(sharedPref.contains("click_counter")){
             click_counter = sharedPref.getInt("click_counter",0);
             if(click_counter >= 10){
@@ -139,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }*/
     }
 
-    private void setToken(){
+    private void setToken() {
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -150,13 +144,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                         String token = task.getResult().getToken();
                         Token = token;
-                        sendData.sendToken("",token);
+                        sendData.sendToken("", token);
 
                     }
                 });
     }
 
-    private void createMethod(){
+    private void createMethod() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Project";
             String description = "new message";
@@ -171,8 +165,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void scheduleJob(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+    private void scheduleJob() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Log.d("MainActivity","Starting Process");
             RestartServiceBroadcastReceiver.scheduleJob(getApplicationContext());
         } else {
@@ -184,10 +178,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int id=menuItem.getItemId();
-        if(id==R.id.editprofile)
-        {
-            Intent i=new Intent(MainActivity.this,profile.class);
+        int id = menuItem.getItemId();
+        if (id == R.id.editprofile) {
+            Intent i = new Intent(MainActivity.this,profile.class);
             startActivity(i);
         }
         return false;

@@ -17,11 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".profile"></activity>
-        <activity android:name=".signup" />
-        <activity android:name=".signin" />
+        <activity android:name=".user.forget_password"></activity>
+        <activity android:name=".user.profile" />
+        <activity android:name=".user.signup" />
+        <activity android:name=".user.signin" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".welcome">
+        <activity android:name=".user.welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

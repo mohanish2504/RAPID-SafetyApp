@@ -1,4 +1,4 @@
-package com.example.safetyapp;
+package com.example.safetyapp.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.safetyapp.MainActivity;
+import com.example.safetyapp.R;
 
 public class signin extends AppCompatActivity {
 
@@ -18,7 +21,7 @@ public class signin extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(signin.this,MainActivity.class);
+                Intent i=new Intent(signin.this, MainActivity.class);
                 startActivity(i);
             }
         });

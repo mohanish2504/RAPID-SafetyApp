@@ -22,4 +22,5 @@
     <string name="close">Close</string>
     <string name="enter_new_password">Enter New Password</string>
     <string name="save_details">Save Details</string>
+    <string name="forget_password">Forget Password</string>
 </resources>
