@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,14 +23,18 @@ import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
 import com.example.safetyapp.user.profile;
+import com.example.safetyapp.user.welcome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.sql.Ref;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,14 +52,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     SendData sendData;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    MenuItem btnlogout;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mAuth=FirebaseAuth.getInstance();
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        btnlogout =(MenuItem) findViewById(R.id.logout);
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -91,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });*/
+
+
 
     }
 
@@ -182,6 +195,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.editprofile) {
             Intent i = new Intent(MainActivity.this,profile.class);
             startActivity(i);
+        }
+        else if(id == R.id.logout){
+            FirebaseAuth.getInstance().signOut();
+            finish();
+            startActivity(new Intent(this,welcome.class));
         }
         return false;
     }
