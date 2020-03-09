@@ -111,7 +111,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
             }
 
             ++i;
-            if(i==6 && !test){
+            if(i==5 && !test){
                 Log.d("rem","removed");
                 editor.remove("lastClickTime");
                 i=0;
