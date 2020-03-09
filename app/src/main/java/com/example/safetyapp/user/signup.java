@@ -55,6 +55,8 @@ public class signup extends AppCompatActivity {
                 }
                 else if(name.isEmpty() && email.isEmpty() && pwd.isEmpty()){
                     Toast.makeText(signup.this,"Please Fill Sign Up Fileds",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(signup.this,"LOL--:)",Toast.LENGTH_SHORT).show();
+
                 }
                 else if(!(name.isEmpty() && email.isEmpty() && pwd.isEmpty())){
                     mAuth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(signup.this, new OnCompleteListener<AuthResult>() {
