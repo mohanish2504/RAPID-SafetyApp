@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:502181782828:android:6c6287dfc70d179ada3889",
+        "mobilesdk_app_id": "1:502181782828:android:01fec6a74859b65ada3889",
         "android_client_info": {
-          "package_name": "com.example.project"
+          "package_name": "com.example.location"
         }
       },
       "oauth_client": [
         {
-          "client_id": "502181782828-0cu37g8ip7grt0vk2baqhr3i17k3dqsn.apps.googleusercontent.com",
+          "client_id": "502181782828-j5k915lf4bdkql0go6vt3gkhhetmioo5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.project",
+            "package_name": "com.example.location",
             "certificate_hash": "71758e79f4ee363524fd67a95989c4b96bba4792"
           }
         },
@@ -51,6 +51,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "502181782828-oh5vqfhrmp808tvsci9f8q5k1d6mfa1k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.safetyapp",
+            "certificate_hash": "e8c871606e96f39ca76bde71d8a869875abca16c"
+          }
+        },
         {
           "client_id": "502181782828-sk33kfmmhq9s92dn613o40qvvt88mbqb.apps.googleusercontent.com",
           "client_type": 3
