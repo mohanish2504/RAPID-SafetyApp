@@ -144,6 +144,7 @@ public class Service extends android.app.Service {
         intentFilter.setPriority(900);
 
         unregisterScreenReceiver();
+
         screenOnOffReceiver = new ScreenOnOffReceiver();
 
         registerReceiver(screenOnOffReceiver, intentFilter);
