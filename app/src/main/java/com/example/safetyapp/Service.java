@@ -138,8 +138,7 @@ public class Service extends android.app.Service {
 
         intentFilter.addAction("android.intent.action.SCREEN_ON");
         intentFilter.addAction("android.intent.action.SCREEN_OFF");
-        intentFilter.addAction("android.intent.action.BOOT_COMPLETED");
-        intentFilter.addAction("android.intent.action.LOCKED_BOOT_COMPLETED");
+
 
         intentFilter.setPriority(900);
 

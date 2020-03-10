@@ -22,20 +22,62 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class ScreenOnOffReceiver extends BroadcastReceiver {
 
     public final static String SCREEN_TOGGLE_TAG = "SCREEN_TOGGLE_TAG";
-    long lastClickTime;
-    long currentClickTime;
+    long lastPress;
+    long currentPress;
     long difference;
     long least=Long.MAX_VALUE,highest=0;
     boolean test = false;
-    SharedPreferences sharedPref;
-    SharedPreferences.Editor editor;
+    private static SharedPreferences sharedPref = null;
+    private static SharedPreferences.Editor editor = null;
     private static int i=0,clicks=0;
-    private static int clickCounter = 0;
+    private static int pressCounter = 0;
     private static Trigger trigger = new Trigger();
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        currentClickTime = System.currentTimeMillis();
+
+        if(sharedPref == null || editor == null){
+            sharedPref = context.getSharedPreferences("Lastpress",Context.MODE_PRIVATE);
+            editor = sharedPref.edit();
+        }
+
+        currentPress = System.currentTimeMillis();
+
+        Log.d("currentPress", Long.toString(currentPress));
+
+
+        lastPress = sharedPref.getLong("lastPress",currentPress);
+
+        Log.d("lastPress", Long.toString(lastPress));
+
+        editor.putLong("lastPress",currentPress);
+
+        difference = currentPress - lastPress;
+
+        editor.commit();
+
+        if(difference <= 1500) pressCounter++;
+
+        else {
+                pressCounter = 0;
+        }
+
+        Log.d("difference",Integer.toString(pressCounter)+" "+Long.toString(difference));
+
+        if(pressCounter==5){
+            pressCounter = 0;
+            try {
+                overrideDND(context);
+                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone r = RingtoneManager.getRingtone(context.getApplicationContext(), notification);
+                r.play();
+                trigger.registerTrigger();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        /*currentClickTime = System.currentTimeMillis();
         sharedPref = context.getApplicationContext().getSharedPreferences("Click_Recorder",Context.MODE_PRIVATE) ;
         editor = sharedPref.edit();
 
@@ -51,7 +93,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
             editor.putInt("click_counter",click_counter);
             editor.commit();
             Log.d("click_counter hi",Integer.toString(click_counter));
-        }*/
+        }
         String action = intent.getAction();
 
         if(Intent.ACTION_SCREEN_OFF.equals(action) || Intent.ACTION_SCREEN_ON.equals(action))
@@ -126,7 +168,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
                 }
                 editor.commit();
             }
-        }
+        }*/
     }
 
 
@@ -134,7 +176,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
 
         Log.d("overrideDND()","about to ask for permission");
-        // Check if the notification policy access has been granted for the app.
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
                 Log.d("overrideDND()","asking for permissions");
