@@ -12,9 +12,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
-import com.example.safetyapp.Trigger;
-
-import java.util.concurrent.TimeUnit;
+import com.example.safetyapp.Triggers.Trigger;
 
 import static android.app.NotificationManager.INTERRUPTION_FILTER_ALL;
 import static android.content.Context.NOTIFICATION_SERVICE;

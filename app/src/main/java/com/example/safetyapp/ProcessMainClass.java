@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import com.example.safetyapp.Services.Service;
+
 public class ProcessMainClass {
     private final static String TAG = ProcessMainClass.class.getSimpleName();
     private static Intent serviceIntent = null;
@@ -13,7 +15,7 @@ public class ProcessMainClass {
     }
 
     private void setIntent(Context context){
-        if(serviceIntent == null) serviceIntent = new Intent(context,Service.class);
+        if(serviceIntent == null) serviceIntent = new Intent(context, Service.class);
     }
 
     public void launchService(Context context){

@@ -1,20 +1,14 @@
-package com.example.safetyapp;
+package com.example.safetyapp.Triggers;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 public class TriggerData {
     private static List<String> Tokens = new ArrayList<String>();
