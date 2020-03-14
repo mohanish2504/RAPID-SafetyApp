@@ -37,23 +37,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header"
-        android:background="@color/colorPrimary">
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/name"
-            android:hint="@string/name"
-            android:textColorHint="@color/white"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/editname"
-            android:textColor="@color/white"/>
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="0dp">
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/email"
-            android:layout_below="@id/editname"
             android:hint="@string/enter_your_email"
             android:gravity="center"
             android:layout_centerHorizontal="true"
@@ -63,30 +53,53 @@
             android:layout_marginTop="24dp"/>
 
         <EditText
-            android:id="@+id/editpass"
+            android:id="@+id/phoneno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword"
-            android:hint="@string/enter_new_password"
-            android:background="@drawable/passfield"
+            android:inputType="phone"
+            android:hint="Enter Your Mobile Number"
             android:layout_below="@id/editemail"
+            android:background="@drawable/mobile"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
             android:textColorHint="@color/white"
             android:gravity="center"
-            android:layout_marginTop="24dp"/>
+            android:textColor="@color/white"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/editpass"
             android:background="@drawable/button"
-            android:text="@string/save_details"
-            android:gravity="center"
-            android:id="@+id/editbutton"
+            android:layout_below="@id/phoneno"
+            android:layout_marginTop="24dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="24dp"/>
+            android:text="Send OTP"
+            android:id="@+id/sendotp"/>
 
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sendotp"
+            android:background="@drawable/otp"
+            android:layout_marginTop="24dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Enter Your OTP"
+            android:textColorHint="@color/white"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:inputType="number"
+            android:id="@+id/otp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:layout_below="@id/otp"
+            android:layout_marginTop="24dp"
+            android:layout_centerHorizontal="true"
+            android:text="VERIFY DETAILS"
+            android:id="@+id/mverifydetails"/>
 
 
     </RelativeLayout>
