@@ -8,7 +8,7 @@
     android:padding="16dp">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,19 +18,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:layout_below="@id/user_img"
-        android:text="@string/name"
-        android:id="@+id/user_name"
-        android:textColor="#FFFFFF"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/jone_gmail_com"
         android:textColor="#FFFFFF"
-        android:layout_below="@id/user_name"/>
+        android:id="@+id/nav_email"
+        android:layout_below="@id/user_img"/>
 
 
 </RelativeLayout>

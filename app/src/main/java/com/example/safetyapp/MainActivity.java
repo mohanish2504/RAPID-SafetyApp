@@ -10,10 +10,11 @@ import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.LoginFilter;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,22 +25,21 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
+import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.profile;
 import com.example.safetyapp.user.welcome;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.sql.Ref;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -60,11 +60,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     MenuItem btnlogout;
     private FirebaseAuth mAuth;
     private static final int PERMISSIONS_REQUEST = 1;
+    ImageView user_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        user_img = findViewById(R.id.user_img);
+
+
+        Button btnportal = findViewById(R.id.btnportal);
+        btnportal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, portal.class);
+                startActivity(i);
+            }
+        });
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            String email = user.getEmail();
+            TextView textView = (TextView) findViewById(R.id.nav_email);
+            textView.setText(email);
+
+            if(user.getPhotoUrl() != null){
+                Glide.with(this)
+                        .load(user.getPhotoUrl())
+                        .into((ImageView)user_img );
+            }
+        }
+
 
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -122,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         scheduleJob();
 
-        int i;
 
         /*FirebaseMessaging.getInstance().subscribeToTopic("general")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

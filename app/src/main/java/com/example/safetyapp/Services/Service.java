@@ -6,13 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.IBinder;
-import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -25,7 +22,6 @@ import com.example.safetyapp.utilities.Notification;
 import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -33,8 +29,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class Service extends android.app.Service {
 
@@ -180,8 +174,8 @@ public class Service extends android.app.Service {
                         geoFireLoc.setLocation(android_id, new GeoLocation(location.getLatitude(), location.getLongitude()), new GeoFire.CompletionListener() {
                             @Override
                             public void onComplete(String key, DatabaseError error) {
-                                Log.d("Locations UPdates", "Completed");
-                                Toast.makeText(getApplicationContext(),"Completed", LENGTH_SHORT).show();
+                               // Log.d("Locations UPdates", "Completed");
+                                //Toast.makeText(getApplicationContext(),"Completed", LENGTH_SHORT).show();
                             }
                         });
                     }

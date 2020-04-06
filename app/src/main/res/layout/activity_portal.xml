@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#070707"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/photo"
+                android:id="@+id/frag_user_image"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:id="@+id/frag_map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/frag_user_email"
+                    android:text="@string/welcome"
+                    android:textColor="#070707"
+                    android:textAlignment="center"/>
+
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/frag_map_navi"
+                    android:text="@string/navigate_me"
+                    android:background="@drawable/navi_button"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
