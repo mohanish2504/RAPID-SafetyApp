@@ -174,7 +174,7 @@ public class Service extends android.app.Service {
                         geoFireLoc.setLocation(android_id, new GeoLocation(location.getLatitude(), location.getLongitude()), new GeoFire.CompletionListener() {
                             @Override
                             public void onComplete(String key, DatabaseError error) {
-                               // Log.d("Locations UPdates", "Completed");
+                                Log.d("Locations UPdates", "Completed");
                                 //Toast.makeText(getApplicationContext(),"Completed", LENGTH_SHORT).show();
                             }
                         });
@@ -190,8 +190,8 @@ public class Service extends android.app.Service {
     private void initializeLocationResources(){
         if(request==null){
             request = new LocationRequest();
-            request.setInterval(10000);
-            request.setFastestInterval(5000);
+            request.setInterval(35*60*1000);
+            request.setFastestInterval(30*60*1000);
             request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         }
         if(locationClient==null)
@@ -203,9 +203,7 @@ public class Service extends android.app.Service {
             geoFireTrigger = new GeoFire(locationRef);
         }
         if(android_id==null)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
-                android_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-            }
+            android_id = getSharedPreferences("TokenKey",MODE_PRIVATE).getString("Token",null);
     }
 
 

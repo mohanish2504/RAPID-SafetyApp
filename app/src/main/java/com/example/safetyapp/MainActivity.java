@@ -92,24 +92,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
 
-        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Toast.makeText(this, "Please enable location services", Toast.LENGTH_SHORT).show();
-            //finish();
-        }
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1000);
 
 
-        } else {
-            // already permission granted
-        }
 
-
-        int permission = ContextCompat.checkSelfPermission(this,
+        /*int permission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
         if (permission == PackageManager.PERMISSION_GRANTED) {
 
@@ -117,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST);
-        }
+        }*/
 
 
         mAuth=FirebaseAuth.getInstance();
@@ -215,9 +201,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             return;
                         }
                         String token = task.getResult().getToken();
-                        Token = token;
-                        sendData.sendToken("", token);
-
+                        getSharedPreferences("TokenKey",MODE_PRIVATE).edit().putString("Token",token).apply();
                     }
                 });
     }
