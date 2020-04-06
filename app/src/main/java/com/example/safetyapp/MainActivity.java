@@ -93,35 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
-
-        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Toast.makeText(this, "Please enable location services", Toast.LENGTH_SHORT).show();
-            //finish();
-        }
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1000);
-
-
-        } else {
-            // already permission granted
-        }
-
-
-        int permission = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        if (permission == PackageManager.PERMISSION_GRANTED) {
-
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSIONS_REQUEST);
-        }
-
-
         mAuth=FirebaseAuth.getInstance();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
@@ -142,29 +113,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         sendData = new SendData();
 
-        checkCounter();
-
         setToken();
 
         createMethod();
 
         scheduleJob();
-
-
-        /*FirebaseMessaging.getInstance().subscribeToTopic("general")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = "Subscribed";
-                        if (!task.isSuccessful()) {
-                            msg = "failed";
-                        }
-                        //Log.d(TAG, msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                });*/
-
-
 
     }
 
@@ -174,37 +127,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /*@Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("onDestroy()","Destroyed");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            Log.d("onDestroy()","Starting Process");
-            RestartServiceBroadcastReceiver.scheduleJob(getApplicationContext());
-        } else {
-            ProcessMainClass bck = new ProcessMainClass();
-            bck.launchService(getApplicationContext());
-        }
-    }
-    //@Override
-    protected void onResume() {
-        super.onResume();
-    }*/
-
-    private void checkCounter() {
-       /* if(sharedPref.contains("click_counter")){
-            click_counter = sharedPref.getInt("click_counter",0);
-            if(click_counter >= 10){
-                editor.putInt("click_counter",0);
-                totalTime = sharedPref.getLong("totalTime",0);
-                editor.putLong("totalTime",0);
-                editor.commit();
-                Log.d("AverageTime",Long.toString(totalTime/10));
-                textView.setText(Long.toString(totalTime/10));
-            }
-        }*/
     }
 
     private void setToken() {
