@@ -58,7 +58,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
         if(difference <= 1500) pressCounter++;
 
         else {
-                pressCounter = 0;
+                pressCounter = 1;
         }
 
         Log.d("difference",Integer.toString(pressCounter)+" "+Long.toString(difference));
@@ -70,7 +70,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
                 Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 Ringtone r = RingtoneManager.getRingtone(context.getApplicationContext(), notification);
                 r.play();
-                trigger.registerTrigger();
+                trigger.registerTrigger(context);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -1,5 +1,6 @@
 package com.example.safetyapp.Triggers;
 
+import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
@@ -19,18 +20,18 @@ public class Trigger {
     private static String androidId;
     private static TriggerData trigger;
 
-    private void setReference(){
+    private void setReference(Context context){
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Triggers");
         Log.d(TAG,"here");
         androidId="A11";
         trigger = new TriggerData();
-        trigger.setData();
+        trigger.setData(context);
 
 
     }
 
-    public void registerTrigger(){
-        setReference();
+    public void registerTrigger(Context context){
+        setReference(context);
         registerGeoFire();
     }
 

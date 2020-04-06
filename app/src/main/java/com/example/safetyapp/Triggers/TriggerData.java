@@ -1,7 +1,12 @@
 package com.example.safetyapp.Triggers;
 
+import android.content.Context;
+import android.location.Location;
 import android.util.Log;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,15 +32,23 @@ public class TriggerData {
         Tokens = tokens;
     }
 
-    public void setData(){
+    public void setData(Context context){
         Log.d(TAG,"setting Data");
 
         if(!Tokens.isEmpty())Tokens.clear();
 
         final Date currentTime = Calendar.getInstance().getTime();
-        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Triggers");
+        final DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Triggers");
         //dbref.removeValue();
-        dbref.child(String.valueOf(currentTime)).setValue("true");
+        Location location;
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                dbref.child(String.valueOf(currentTime)).setValue(location);
+            }
+        });
+
         //return Tokens;
     }
 }
