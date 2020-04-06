@@ -1,0 +1,8 @@
+[debug] [2020-03-18T06:15:24.929Z] ----------------------------------------------------------------------
+[debug] [2020-03-18T06:15:24.930Z] Command:       /home/mak/.nvm/versions/node/v12.16.1/bin/node /home/mak/.nvm/versions/node/v12.16.1/bin/firebase deploy
+[debug] [2020-03-18T06:15:24.930Z] CLI Version:   7.15.0
+[debug] [2020-03-18T06:15:24.930Z] Platform:      linux
+[debug] [2020-03-18T06:15:24.930Z] Node Version:  v12.16.1
+[debug] [2020-03-18T06:15:24.994Z] Time:          Wed Mar 18 2020 11:45:24 GMT+0530 (India Standard Time)
+[debug] [2020-03-18T06:15:24.995Z] ----------------------------------------------------------------------
+[debug] [2020-03-18T06:15:24.995Z] 
