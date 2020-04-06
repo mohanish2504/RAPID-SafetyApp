@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        user_img = findViewById(R.id.user_img);
+        //user_img = findViewById(R.id.user_img);
 
 
         Button btnportal = findViewById(R.id.btnportal);
@@ -79,17 +79,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null){
+        /*if(user != null){
             String email = user.getEmail();
-            TextView textView = (TextView) findViewById(R.id.nav_email);
+            /*TextView textView = (TextView) findViewById(R.id.nav_email);
             textView.setText(email);
-
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             if(user.getPhotoUrl() != null){
                 Glide.with(this)
                         .load(user.getPhotoUrl())
                         .into((ImageView)user_img );
             }
-        }
+        }*/
 
 
 
@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
