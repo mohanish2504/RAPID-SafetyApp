@@ -60,13 +60,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     MenuItem btnlogout;
     private FirebaseAuth mAuth;
     private static final int PERMISSIONS_REQUEST = 1;
-    ImageView user_img;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        user_img = findViewById(R.id.user_img);
 
 
         Button btnportal = findViewById(R.id.btnportal);
@@ -81,7 +80,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){
             String email = user.getEmail();
-            TextView textView = (TextView) findViewById(R.id.nav_email);
+            NavigationView navigationView = findViewById(R.id.nav_view);
+            View hView = navigationView.getHeaderView(0);
+            ImageView user_img = (ImageView) hView.findViewById(R.id.user_img);
+            TextView textView = (TextView) hView.findViewById(R.id.nav_email);
             textView.setText(email);
 
             if(user.getPhotoUrl() != null){
