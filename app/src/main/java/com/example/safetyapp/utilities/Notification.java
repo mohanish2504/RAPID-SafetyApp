@@ -18,9 +18,6 @@ import com.example.safetyapp.R;
 public class Notification {
     private PendingIntent notificationPendingIntent;
 
-    /**
-     * This is the method  called to create the Notification
-     */
     public android.app.Notification setNotification(Context context, String title, String text, int icon) {
         if (notificationPendingIntent == null) {
             Intent notificationIntent = new Intent(context, MainActivity.class);
@@ -76,5 +73,4 @@ public class Notification {
 
         return notification;
     }
-
 }

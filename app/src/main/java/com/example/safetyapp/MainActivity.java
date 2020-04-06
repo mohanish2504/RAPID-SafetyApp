@@ -139,8 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             return;
                         }
                         String token = task.getResult().getToken();
-                        Token = token;
-                        sendData.sendToken("", token);
+                        getSharedPreferences("TokenDetails",MODE_PRIVATE).edit().putString("Token",token).apply();;
 
                     }
                 });
