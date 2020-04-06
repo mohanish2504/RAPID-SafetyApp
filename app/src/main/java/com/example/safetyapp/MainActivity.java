@@ -60,13 +60,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     MenuItem btnlogout;
     private FirebaseAuth mAuth;
     private static final int PERMISSIONS_REQUEST = 1;
-    ImageView user_img;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //user_img = findViewById(R.id.user_img);
 
 
         Button btnportal = findViewById(R.id.btnportal);
@@ -79,23 +78,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        /*if(user != null){
+        if(user != null){
             String email = user.getEmail();
-            /*TextView textView = (TextView) findViewById(R.id.nav_email);
+            NavigationView navigationView = findViewById(R.id.nav_view);
+            View hView = navigationView.getHeaderView(0);
+            ImageView user_img = (ImageView) hView.findViewById(R.id.user_img);
+            TextView textView = (TextView) hView.findViewById(R.id.nav_email);
             textView.setText(email);
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
             if(user.getPhotoUrl() != null){
                 Glide.with(this)
                         .load(user.getPhotoUrl())
                         .into((ImageView)user_img );
             }
-        }*/
+        }
 
 
+        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(this, "Please enable location services", Toast.LENGTH_SHORT).show();
+            //finish();
+        }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1000);
 
 
+        } else {
+            // already permission granted
+        }
 
-        /*int permission = ContextCompat.checkSelfPermission(this,
+
+        int permission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
         if (permission == PackageManager.PERMISSION_GRANTED) {
 
@@ -103,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST);
-        }*/
+        }
 
 
         mAuth=FirebaseAuth.getInstance();
@@ -157,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (mToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -202,7 +217,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             return;
                         }
                         String token = task.getResult().getToken();
-                        getSharedPreferences("TokenKey",MODE_PRIVATE).edit().putString("Token",token).apply();
+                        Token = token;
+                        sendData.sendToken("", token);
+
                     }
                 });
     }
