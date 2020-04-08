@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="250dp"
         android:text="Wait for the code I sent you"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -36,7 +36,9 @@
         android:layout_below="@+id/progressbar"
         android:background="@drawable/otp"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:textAlignment="center"/>
 
     <Button
         android:layout_width="wrap_content"

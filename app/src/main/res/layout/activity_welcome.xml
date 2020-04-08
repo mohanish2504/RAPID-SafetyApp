@@ -10,11 +10,12 @@
         android:id="@+id/btn_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:text="Welcome"
         android:textColor="@android:color/black"
-        android:background="@drawable/button"/>
+        android:background="@drawable/button"
+        android:textAllCaps="true"/>
 
-    <Button
+    <!--<Button
         android:layout_centerInParent="true"
         android:id="@+id/btn_signup"
         android:layout_width="wrap_content"
@@ -23,5 +24,5 @@
         android:text="Sign Up"
         android:layout_margin="24dp"
         android:textColor="@android:color/black"
-        android:layout_below="@id/btn_signin"/>
+        android:layout_below="@id/btn_signin"/>-->
 </RelativeLayout>
