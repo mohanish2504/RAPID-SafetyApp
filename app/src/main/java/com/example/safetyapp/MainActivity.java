@@ -67,6 +67,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Intent intent = getIntent();
+        //overridePendingTransition(0, 0);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+       // overridePendingTransition(0, 0);
+
         sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
 
         btnsafetystatus = (Button) findViewById(R.id.btnsafe);
@@ -87,11 +94,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
                     stopService(sirenIntent);
                     getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","ON").apply();
+                    setContentView(R.layout.activity_main);
                     recreate();
                 }else if(safetystatus.equals("ON")){
                     btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
                     startService(sirenIntent);
                     getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
+                    setContentView(R.layout.activity_main);
                     recreate();
                 }
             }
