@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user.phoneno"
+    android:background="@color/colorPrimary">
+
+    <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ccp"
+        android:layout_marginTop="300dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/mobile"
+        android:id="@+id/phone_no"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ccp"
+        android:layout_marginTop="20dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:layout_below="@id/phone_no"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Verify Number"
+        android:id="@+id/verify"/>
+
+
+
+</RelativeLayout>

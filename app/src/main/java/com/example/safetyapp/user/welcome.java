@@ -36,7 +36,7 @@ public class welcome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPrefs.saveSharedSetting(welcome.this, "Safety", "true");
-                Intent i=new Intent(welcome.this, signin.class);
+                Intent i=new Intent(welcome.this, phoneno.class);
                 startActivity(i);
             }
         });
@@ -45,11 +45,11 @@ public class welcome extends AppCompatActivity {
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(welcome.this, signup.class);
+                Intent i=new Intent(welcome.this, phoneno.class);
                 startActivity(i);
             }
         });
-        CCSession();
+        //CCSession();
     }
     public void CCSession(){
 
