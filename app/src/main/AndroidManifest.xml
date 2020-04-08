@@ -20,9 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".user.phoneno"></activity>
+        <activity android:name=".user.verify_phone" />
 
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key" />
 
         <activity android:name=".user.portal" />
         <activity android:name=".user.forget_password" />
