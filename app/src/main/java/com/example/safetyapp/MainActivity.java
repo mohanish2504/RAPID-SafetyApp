@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Button btnportal,btnsafetystatus;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -88,20 +88,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         btnsafetystatus.setOnClickListener(new View.OnClickListener() {
+            String str = safetystatus;
             @Override
             public void onClick(View v) {
-                if(safetystatus.equals("OFF")) {
-                    btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
+                Log.d(TAG,str);
+                if(str.equals("OFF")) {
+                    Log.d(TAG,"OFF to ON");
                     stopService(sirenIntent);
-                    getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","ON").apply();
-                    setContentView(R.layout.activity_main);
-                    recreate();
-                }else if(safetystatus.equals("ON")){
-                    btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
+                    getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
+                    str = "ON";
+                    btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.green));
+                }else if(str.equals("ON")){
+                    Log.d(TAG,"ON to OFF");
                     startService(sirenIntent);
                     getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
-                    setContentView(R.layout.activity_main);
-                    recreate();
+                    str = "OFF";
+                    btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.red));
                 }
             }
         });
