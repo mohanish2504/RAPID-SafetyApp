@@ -29,7 +29,7 @@ public class MessageService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
-        sendData.sendToken("",s);
+        getSharedPreferences("Info",MODE_PRIVATE).edit().putString("Token",s).apply();
 
     }
 
@@ -66,7 +66,7 @@ public class MessageService extends FirebaseMessagingService {
 
 
     public void notifyFunc(String title, String body){
-        Log.d("message","notify");
+        Log.d("message",body);
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this, "Notification Channel")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(title)

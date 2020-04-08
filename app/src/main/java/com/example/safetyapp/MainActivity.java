@@ -48,9 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static String TAG = MainActivity.class.getSimpleName();
     SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
-    int click_counter;
-    long totalTime;
-    TextView textView;
     private static String channelID = "Notification Channel";
     private static String Token;
     DatabaseReference databaseReference;
@@ -59,8 +56,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle mToggle;
     MenuItem btnlogout;
     private FirebaseAuth mAuth;
-    private static final int PERMISSIONS_REQUEST = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             return;
                         }
                         String token = task.getResult().getToken();
-                        getSharedPreferences("TokenDetails",MODE_PRIVATE).edit().putString("Token",token).apply();;
+                        getSharedPreferences("Info",MODE_PRIVATE).edit().putString("Token",token).apply();
 
                     }
                 });

@@ -22,7 +22,7 @@ public class Trigger {
 
     private void setReference(Context context){
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Triggers");
-        Log.d(TAG,"here");
+        //Log.d(TAG,"here");
         androidId="A11";
         trigger = new TriggerData();
         trigger.setData(context);

@@ -44,6 +44,7 @@ public class Service extends android.app.Service {
     public static Location locationUser;
 
 
+
     public Service(){super();}
 
 
@@ -160,27 +161,26 @@ public class Service extends android.app.Service {
         int permission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
         if (permission == PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG,"getting Location");
-            // Request location updates and when an update is
-            // received, store the location in Firebase
-            locationClient.requestLocationUpdates(request, new LocationCallback() {
+            Log.d(TAG,"Getting Location");
+            locationClient.requestLocationUpdates(request,new LocationCallback(){
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     super.onLocationResult(locationResult);
                     Location location = locationResult.getLastLocation();
-                    Log.d(TAG,String.valueOf(location));
-                    if (location != null) {
-                        locationUser = location;
+                    if(location!=null){
+                        Log.d(TAG,"Got location");
+                        android_id =  getSharedPreferences("Info",MODE_PRIVATE).getString("Token",null);
                         geoFireLoc.setLocation(android_id, new GeoLocation(location.getLatitude(), location.getLongitude()), new GeoFire.CompletionListener() {
                             @Override
                             public void onComplete(String key, DatabaseError error) {
-                                Log.d("Locations UPdates", "Completed");
-                                //Toast.makeText(getApplicationContext(),"Completed", LENGTH_SHORT).show();
+                                Log.d("Locations Updates", "Completed");
                             }
                         });
                     }
+
                 }
-            }, null);
+            },null);
+
         }
         else{
             Log.d(TAG,"not getting Location");
@@ -190,7 +190,7 @@ public class Service extends android.app.Service {
     private void initializeLocationResources(){
         if(request==null){
             request = new LocationRequest();
-            request.setInterval(35*60*1000);
+            request.setInterval(45*60*1000);
             request.setFastestInterval(30*60*1000);
             request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         }
@@ -202,8 +202,7 @@ public class Service extends android.app.Service {
             geoFireLoc = new GeoFire(locationRef);
             geoFireTrigger = new GeoFire(locationRef);
         }
-        if(android_id==null)
-            android_id = getSharedPreferences("TokenKey",MODE_PRIVATE).getString("Token",null);
+        if(android_id==null) android_id = getSharedPreferences("Info",MODE_PRIVATE).getString("Token",null);
     }
 
 
