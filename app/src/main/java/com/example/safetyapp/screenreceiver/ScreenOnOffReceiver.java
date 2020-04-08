@@ -11,7 +11,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.safetyapp.MainActivity;
+import com.example.safetyapp.R;
+import com.example.safetyapp.RingtonePlayer;
 import com.example.safetyapp.Triggers.Trigger;
 
 import static android.app.NotificationManager.INTERRUPTION_FILTER_ALL;
@@ -19,31 +23,29 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class ScreenOnOffReceiver extends BroadcastReceiver {
 
-    public final static String SCREEN_TOGGLE_TAG = "SCREEN_TOGGLE_TAG";
+    private static final String TAG = ScreenOnOffReceiver.class.getSimpleName();
     long lastPress;
     long currentPress;
     long difference;
-    long least=Long.MAX_VALUE,highest=0;
-    boolean test = false;
     private static SharedPreferences sharedPref = null;
     private static SharedPreferences.Editor editor = null;
-    private static int i=0,clicks=0;
     private static int pressCounter = 0;
     private static Trigger trigger = new Trigger();
-
+    private  Context context;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        this.context = context;
+
         if(sharedPref == null || editor == null){
-            sharedPref = context.getSharedPreferences("Lastpress",Context.MODE_PRIVATE);
+            sharedPref = context.getSharedPreferences("Info",Context.MODE_PRIVATE);
             editor = sharedPref.edit();
         }
 
         currentPress = System.currentTimeMillis();
 
         Log.d("currentPress", Long.toString(currentPress));
-
 
         lastPress = sharedPref.getLong("lastPress",currentPress);
 
@@ -53,7 +55,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
 
         difference = currentPress - lastPress;
 
-        editor.commit();
+        editor.apply();
 
         if(difference <= 1500) pressCounter++;
 
@@ -61,37 +63,57 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
                 pressCounter = 1;
         }
 
+        alert();
+
         Log.d("difference",Integer.toString(pressCounter)+" "+Long.toString(difference));
 
-        if(pressCounter==5){
+    }
+
+    private void alert(){
+        long minimumTriggerTime = 2*60*1000;
+        long currentTriggerTime = System.currentTimeMillis();
+        long previousTriggerTime = sharedPref.getLong("LastTrigger",currentTriggerTime);
+
+        /*if(pressCounter==5){
             pressCounter = 0;
             try {
-                overrideDND(context);
+                Log.d(TAG,"Trigger Accepted");
                 Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                Ringtone r = RingtoneManager.getRingtone(context.getApplicationContext(), notification);
+                Uri mUri = Uri.parse("android.resource://com.example.safetyapp/raw/siren");
+                Ringtone r = RingtoneManager.getRingtone(context.getApplicationContext(), mUri);
                 r.play();
+                editor.putLong("LastTrigger",currentTriggerTime);
                 trigger.registerTrigger(context);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-    }
+        }*/
 
+        if(pressCounter==5 && ((currentTriggerTime-previousTriggerTime>=minimumTriggerTime) || (currentTriggerTime-previousTriggerTime == 0))){
+            pressCounter = 0;
+            try {
+                Log.d(TAG,"Trigger Accepted");
 
-    void overrideDND(Context context) {
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+                RingtonePlayer.setContext(context);
+                RingtonePlayer.r.play();
 
-        Log.d("overrideDND()","about to ask for permission");
+                editor.putLong("LastTrigger",currentTriggerTime);
+                trigger.registerTrigger(context);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
-                Log.d("overrideDND()","asking for permissions");
-                Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                editor.putString("TriggerStatus","ON").apply();
+
+                Intent intent = new Intent(context,MainActivity.class);
                 context.startActivity(intent);
-            }
-            mNotificationManager.setInterruptionFilter(INTERRUPTION_FILTER_ALL);
 
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if(pressCounter == 5) {
+            pressCounter = 0;
+            Log.d(TAG,"Trigger Not Accepted");
+            Toast.makeText(context,"You must wait for atleast 2 minutes to make new Trigger request",Toast.LENGTH_LONG).show();
         }
     }
 

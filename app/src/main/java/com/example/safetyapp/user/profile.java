@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -132,6 +134,7 @@ public class profile<CircleImageView> extends AppCompatActivity {
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
+
     }
 
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -210,6 +213,9 @@ public class profile<CircleImageView> extends AppCompatActivity {
 
     private void setUserProfileUrl(Uri uri){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.updateEmail("mohanishp1@gmail.com");
+        getSharedPreferences("Info",MODE_PRIVATE).edit().putString("uniqueID",user.getUid()).apply();
 
         UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(uri)

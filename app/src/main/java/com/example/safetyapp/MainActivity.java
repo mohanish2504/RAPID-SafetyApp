@@ -57,13 +57,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     MenuItem btnlogout;
     private FirebaseAuth mAuth;
 
+    Button btnportal,btnsafetystatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        Button btnportal = findViewById(R.id.btnportal);
+       btnportal = findViewById(R.id.btnportal);
         btnportal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

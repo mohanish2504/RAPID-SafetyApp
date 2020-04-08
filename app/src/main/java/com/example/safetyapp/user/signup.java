@@ -15,7 +15,9 @@ import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class signup extends AppCompatActivity {

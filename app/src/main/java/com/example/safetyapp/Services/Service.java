@@ -168,6 +168,7 @@ public class Service extends android.app.Service {
                     super.onLocationResult(locationResult);
                     Location location = locationResult.getLastLocation();
                     if(location!=null){
+                        locationUser = location;
                         Log.d(TAG,"Got location");
                         android_id =  getSharedPreferences("Info",MODE_PRIVATE).getString("Token",null);
                         geoFireLoc.setLocation(android_id, new GeoLocation(location.getLatitude(), location.getLongitude()), new GeoFire.CompletionListener() {
