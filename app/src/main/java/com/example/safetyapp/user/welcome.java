@@ -41,14 +41,14 @@ public class welcome extends AppCompatActivity {
             }
         });
 
-        /*Button btn_signup=(Button)findViewById(R.id.btn_signup);
+        Button btn_signup=(Button)findViewById(R.id.btn_signup);
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(welcome.this, phoneno.class);
                 startActivity(i);
             }
-        });*/
+        });
         CCSession();
     }
     public void CCSession(){
