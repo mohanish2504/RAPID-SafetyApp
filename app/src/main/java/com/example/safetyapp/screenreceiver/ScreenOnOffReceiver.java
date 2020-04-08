@@ -1,25 +1,15 @@
 package com.example.safetyapp.screenreceiver;
 
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.safetyapp.MainActivity;
-import com.example.safetyapp.R;
-import com.example.safetyapp.RingtonePlayer;
+import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.Triggers.Trigger;
-
-import static android.app.NotificationManager.INTERRUPTION_FILTER_ALL;
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class ScreenOnOffReceiver extends BroadcastReceiver {
 
@@ -31,7 +21,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
     private static SharedPreferences.Editor editor = null;
     private static int pressCounter = 0;
     private static Trigger trigger = new Trigger();
-    private  Context context;
+    private  static Context context;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -70,7 +60,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
     }
 
     private void alert(){
-        long minimumTriggerTime = 2*60*1000;
+        long minimumTriggerTime = 2*1000;
         long currentTriggerTime = System.currentTimeMillis();
         long previousTriggerTime = sharedPref.getLong("LastTrigger",currentTriggerTime);
 
@@ -94,14 +84,17 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
             try {
                 Log.d(TAG,"Trigger Accepted");
 
-                RingtonePlayer.setContext(context);
-                RingtonePlayer.r.play();
+
 
                 editor.putLong("LastTrigger",currentTriggerTime);
                 trigger.registerTrigger(context);
 
-                editor.putString("TriggerStatus","ON").apply();
+                editor.putString("SafetyStatus","OFF").apply();
 
+                Log.d(TAG,"Starting New Activity");
+
+                Intent sirenIntent = new Intent(context, RingtonePlayingService.class);
+                context.startService(sirenIntent);
                 Intent intent = new Intent(context,MainActivity.class);
                 context.startActivity(intent);
 
@@ -117,4 +110,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
         }
     }
 
+    public static Context getContext(){
+        return context;
+    }
 }

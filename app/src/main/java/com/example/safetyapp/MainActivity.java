@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.safetyapp.Firebase.SendData;
+import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
 import com.example.safetyapp.user.portal;
@@ -57,13 +59,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     MenuItem btnlogout;
     private FirebaseAuth mAuth;
 
+    Intent sirenIntent;
+
     Button btnportal,btnsafetystatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
 
+        btnsafetystatus = (Button) findViewById(R.id.btnsafe);
+
+        final String safetystatus = getSharedPreferences("Info",MODE_PRIVATE).getString("SafetyStatus","ON");
+        Log.d(TAG,safetystatus);
+
+        if(safetystatus.equals("OFF")) {
+            btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
+        }else if(safetystatus.equals("ON")){
+            btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
+        }
+
+        btnsafetystatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(safetystatus.equals("OFF")) {
+                    btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
+                    stopService(sirenIntent);
+                    getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","ON").apply();
+                    recreate();
+                }else if(safetystatus.equals("ON")){
+                    btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
+                    startService(sirenIntent);
+                    getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
+                    recreate();
+                }
+            }
+        });
 
        btnportal = findViewById(R.id.btnportal);
         btnportal.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +200,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
@@ -183,4 +214,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
+
 }
