@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +32,8 @@ public class verify_phone extends AppCompatActivity {
     private EditText editTextcode;
     private String mVerificationId;
     private FirebaseAuth mAuth;
+    private String codeSend;
+    private static final String TAG = AppCompatActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class verify_phone extends AppCompatActivity {
         Intent intent = getIntent();
         String mobile = intent.getStringExtra("mobile");
         String countrycode = intent.getStringExtra("countrycode");
+
+        sendVerificationCode(mobile,countrycode);
 
         findViewById(R.id.sign__in).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +64,32 @@ public class verify_phone extends AppCompatActivity {
         });
     }
     private void sendVerificationCode(String mobile, String countrycode){
+
+         PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+
+                String code = phoneAuthCredential.getSmsCode();
+
+                if(code != null){
+                    editTextcode.setText(code);
+                    verifyVerificationCode(code);
+                }
+
+            }
+
+            @Override
+            public void onVerificationFailed(FirebaseException e) {
+                Toast.makeText(verify_phone.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+            public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken){
+                super.onCodeSent(s, forceResendingToken);
+                mVerificationId = s;
+            }
+        };
+
+        Log.d(TAG,countrycode+mobile);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 countrycode + mobile,
                 60,
@@ -67,29 +98,6 @@ public class verify_phone extends AppCompatActivity {
                 mCallbacks);
     }
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-        @Override
-        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-
-            String code = phoneAuthCredential.getSmsCode();
-
-            if(code != null){
-                editTextcode.setText(code);
-                verifyVerificationCode(code);
-            }
-
-        }
-
-        @Override
-        public void onVerificationFailed(FirebaseException e) {
-            Toast.makeText(verify_phone.this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken){
-            super.onCodeSent(s, forceResendingToken);
-            mVerificationId = s;
-        }
-    };
 
     private void verifyVerificationCode(String code){
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);

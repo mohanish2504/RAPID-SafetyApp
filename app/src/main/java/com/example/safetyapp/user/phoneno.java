@@ -27,7 +27,8 @@ public class phoneno extends AppCompatActivity {
         findViewById(R.id.verify).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String countrycode = ccp.toString().trim();
+
+                String countrycode = ccp.getSelectedCountryCodeWithPlus();
                 String mobile = editTextMobile.getText().toString();
 
                 if(mobile.isEmpty() || mobile.length() < 10){
