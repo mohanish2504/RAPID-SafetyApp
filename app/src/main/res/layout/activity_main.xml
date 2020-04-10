@@ -6,21 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:id="@+id/drawerlayout"
-    android:background="@color/colorPrimary">
+    android:background="#FFFFFF">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center">
 
         <LinearLayout
+            android:weightSum="3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
 
             <Button
+                android:layout_weight="1"
                 android:id="@+id/tutorial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,6 +33,7 @@
                 />
 
             <Button
+                android:layout_weight="1"
                 android:id="@+id/help_center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,8 +56,10 @@
         <LinearLayout
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
+               android:weightSum="3"
               >
             <Button
+                   android:layout_weight="1"
                    android:id="@+id/help_requests"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
@@ -64,6 +69,7 @@
                    android:paddingBottom="30dp"/>
 
             <Button
+                android:layout_weight="1"
                    android:id="@+id/info"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
