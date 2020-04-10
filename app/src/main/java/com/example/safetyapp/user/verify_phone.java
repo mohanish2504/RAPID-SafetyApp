@@ -114,6 +114,7 @@ public class verify_phone extends AppCompatActivity {
                             Intent intent = new Intent(verify_phone.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
+                            //finish();
 
                         } else {
 

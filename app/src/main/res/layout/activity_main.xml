@@ -15,8 +15,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="50dp">
+            android:layout_gravity="center"
+            >
 
             <Button
                 android:id="@+id/btndemo"
@@ -25,6 +25,8 @@
                 android:layout_marginTop="40dp"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/demo"
+                android:shadowColor="#FF0000"
+                android:shadowRadius="100dp"
                 android:text="@string/demo"
                 android:textSize="25sp"
                 android:textColor="#070707"/>
