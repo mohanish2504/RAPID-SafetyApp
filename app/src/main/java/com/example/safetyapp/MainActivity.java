@@ -76,15 +76,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
 
-        btnsafetystatus = (Button) findViewById(R.id.btnsafe);
+        btnsafetystatus = (Button) findViewById(R.id.safe);
 
         final String safetystatus = getSharedPreferences("Info",MODE_PRIVATE).getString("SafetyStatus","ON");
         Log.d(TAG,safetystatus);
 
         if(safetystatus.equals("OFF")) {
-            btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
+            btnsafetystatus.setBackgroundResource(R.drawable.safe);
+            btnsafetystatus.setText("Safe");
+
+            //btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
         }else if(safetystatus.equals("ON")){
-            btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
+            btnsafetystatus.setBackgroundResource(R.drawable.unsafe);
+            btnsafetystatus.setText("Unsafe");
+            //btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
         }
 
         btnsafetystatus.setOnClickListener(new View.OnClickListener() {
@@ -97,18 +102,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     stopService(sirenIntent);
                     getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
                     str = "ON";
-                    btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.green));
+                    btnsafetystatus.setBackgroundResource(R.drawable.safe);
+                    btnsafetystatus.setText("Safe");
+
+                    //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.green));
                 }else if(str.equals("ON")){
                     Log.d(TAG,"ON to OFF");
                     startService(sirenIntent);
                     getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
                     str = "OFF";
-                    btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.red));
+                    btnsafetystatus.setBackgroundResource(R.drawable.unsafe);
+                    btnsafetystatus.setText("Unsafe");
+                    //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.red));
                 }
             }
         });
 
-       btnportal = findViewById(R.id.btnportal);
+       btnportal = findViewById(R.id.help_requests);
         btnportal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

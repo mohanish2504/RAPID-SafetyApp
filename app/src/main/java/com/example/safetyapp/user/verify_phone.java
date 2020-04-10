@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
+import com.example.safetyapp.SharedPrefs;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -114,7 +115,7 @@ public class verify_phone extends AppCompatActivity {
                             Intent intent = new Intent(verify_phone.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
-                            //finish();
+                            CCSession();
 
                         } else {
 
@@ -137,6 +138,17 @@ public class verify_phone extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    public void CCSession(){
+
+        Boolean Check = Boolean.valueOf(SharedPrefs.readSharedSetting(verify_phone.this, "Safety", "false"));
+
+        Intent introIntent = new Intent(verify_phone.this, MainActivity.class);
+        introIntent.putExtra("Safety", Check);
+        if (Check) {
+            startActivity(introIntent);
+            finish();
+        }
     }
 
 }
