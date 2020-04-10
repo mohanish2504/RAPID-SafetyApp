@@ -6,7 +6,6 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Build;
@@ -17,42 +16,40 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
-import com.example.safetyapp.SharedPrefs;
-
-import static android.app.NotificationManager.*;
 
 public class welcome extends AppCompatActivity {
+
+    private static String TAG = welcome.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
 
-        getPermissions();
-
-        Button btn_signin=(Button)findViewById(R.id.btn_signin);
-        btn_signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPrefs.saveSharedSetting(welcome.this, "Safety", "true");
-                Intent i=new Intent(welcome.this, phoneno.class);
-                startActivity(i);
-            }
-        });
-        CCSession();
-    }
-    public void CCSession(){
-
-        Boolean Check = Boolean.valueOf(SharedPrefs.readSharedSetting(welcome.this, "Safety", "false"));
-
-        Intent introIntent = new Intent(welcome.this, phoneno.class);
-        introIntent.putExtra("Safety", Check);
-        if (Check) {
-            startActivity(introIntent);
+        boolean loginStatus = getSharedPreferences("Info",MODE_PRIVATE).getBoolean("LoginStatus",false);
+        Log.d(TAG,Boolean.toString(loginStatus));
+        if(loginStatus == false){
+            //Verification
+            setContentView(R.layout.activity_welcome);
+            getPermissions();
+            Button btn_signin=(Button)findViewById(R.id.btn_signin);
+            btn_signin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i=new Intent(welcome.this, phoneno.class);
+                    startActivity(i);
+                }
+            });
+        }
+        else {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             finish();
         }
+
     }
+
     public void getPermissions(){
 
 

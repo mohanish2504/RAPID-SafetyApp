@@ -33,6 +33,7 @@ import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
+import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.profile;
 import com.example.safetyapp.user.welcome;
@@ -162,11 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        sharedPref = getApplicationContext().getSharedPreferences("Counter", Context.MODE_PRIVATE);
-        editor = sharedPref.edit();
-
-        sendData = new SendData();
+       // sendData = new SendData();
 
         setToken();
 
@@ -235,8 +232,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if(id == R.id.logout){
             FirebaseAuth.getInstance().signOut();
+
+            //getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",false).apply();
             finish();
-            startActivity(new Intent(this,welcome.class));
+            startActivity(new Intent(this, phoneno.class));
         }
         return false;
     }

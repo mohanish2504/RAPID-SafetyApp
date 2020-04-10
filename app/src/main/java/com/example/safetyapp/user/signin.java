@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
-import com.example.safetyapp.SharedPrefs;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,8 +29,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
-import org.w3c.dom.Text;
 
 public class signin extends AppCompatActivity {
 
@@ -188,17 +185,7 @@ public class signin extends AppCompatActivity {
             }
         });
     }
-    public void CCSession(){
 
-        Boolean Check = Boolean.valueOf(SharedPrefs.readSharedSetting(signin.this, "Safety", "false"));
-
-        Intent introIntent = new Intent(signin.this, MainActivity.class);
-        introIntent.putExtra("Safety", Check);
-        if (Check) {
-            startActivity(introIntent);
-            finish();
-        }
-    }
     private void updateUI(FirebaseUser fUser){
         GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account!=null){
