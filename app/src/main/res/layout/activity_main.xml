@@ -26,7 +26,7 @@
                 android:gravity="center|bottom"
                 android:paddingBottom="30dp"
                 android:text="Tutorial"
-                android:layout_marginLeft="25dp"/>
+                android:layout_marginLeft="25dp" />
 
             <Button
                 android:id="@+id/help_center"
