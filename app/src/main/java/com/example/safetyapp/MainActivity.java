@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -82,12 +84,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(TAG,safetystatus);
 
         if(safetystatus.equals("OFF")) {
-            btnsafetystatus.setBackgroundResource(R.drawable.safe);
+            btnsafetystatus.setBackgroundResource(R.drawable.unsafe);
             btnsafetystatus.setText("Safe");
 
             //btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
         }else if(safetystatus.equals("ON")){
-            btnsafetystatus.setBackgroundResource(R.drawable.unsafe);
+            btnsafetystatus.setBackgroundResource(R.drawable.safe);
             btnsafetystatus.setText("Unsafe");
             //btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
         }
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(str.equals("OFF")) {
                     Log.d(TAG,"OFF to ON");
                     stopService(sirenIntent);
-                    getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
+                    getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","ON").apply();
                     str = "ON";
                     btnsafetystatus.setBackgroundResource(R.drawable.safe);
                     btnsafetystatus.setText("Safe");
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
        btnportal = findViewById(R.id.help_requests);
         btnportal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(i);
             }
         });
+
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){

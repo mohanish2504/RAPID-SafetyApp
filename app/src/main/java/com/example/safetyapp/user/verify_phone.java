@@ -90,7 +90,7 @@ public class verify_phone extends AppCompatActivity {
             }
         };
 
-        //Log.d(TAG,countrycode+mobile);
+        Log.d(TAG,countrycode+mobile);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 countrycode + mobile,
                 60,

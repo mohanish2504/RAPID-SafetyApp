@@ -10,13 +10,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="50dp">
+            android:orientation="horizontal"
+            >
 
             <Button
                 android:id="@+id/tutorial"
@@ -24,63 +26,52 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/tutorial"
                 android:gravity="center|bottom"
-                android:paddingBottom="30dp"
                 android:text="Tutorial"
-                android:layout_marginLeft="25dp"/>
+                android:paddingBottom="25dp"
+                />
 
             <Button
                 android:id="@+id/help_center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_toRightOf="@+id/tutorial"
                 android:background="@drawable/help_center"
                 android:text="Help Center"
                 android:gravity="center|bottom"
-                android:paddingBottom="30dp"/>
+                android:paddingBottom="25dp"
+                />
+        </LinearLayout>
 
             <Button
                 android:id="@+id/safe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/safe"
-                android:layout_below="@id/help_center"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp"
                 android:text="Safe"
                 android:gravity="center|bottom"
                 android:paddingBottom="25dp" />
 
+        <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+              >
             <Button
-                android:id="@+id/help_requests"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/help_request"
-                android:layout_below="@id/safe"
-                android:layout_marginTop="40dp"
-                android:layout_marginLeft="25dp"
-                android:text="Help Requests"
-                android:gravity="center|bottom"
-                android:paddingBottom="30dp"/>
+                   android:id="@+id/help_requests"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/help_request"
+                   android:text="Help Requests"
+                   android:gravity="center|bottom"
+                   android:paddingBottom="30dp"/>
 
             <Button
-                android:id="@+id/info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/info"
-                android:layout_toRightOf="@id/help_requests"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_below="@id/safe"
-                android:layout_marginTop="40dp"
-                android:text="Info"
-                android:gravity="center|bottom"
-                android:paddingBottom="30dp"/>
-
-        </RelativeLayout>
-
-
+                   android:id="@+id/info"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/info"
+                   android:text="Info"
+                   android:gravity="center|bottom"
+                   android:paddingBottom="30dp"/>
+        </LinearLayout>
     </LinearLayout>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
