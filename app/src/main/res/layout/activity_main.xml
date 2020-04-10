@@ -19,51 +19,65 @@
             android:layout_marginTop="50dp">
 
             <Button
-                android:id="@+id/btndemo"
+                android:id="@+id/tutorial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/demo"
-                android:text="@string/demo"
-                android:textSize="25sp"
-                android:textColor="#070707"/>
+                android:background="@drawable/tutorial"
+                android:gravity="center|bottom"
+                android:paddingBottom="30dp"
+                android:text="Tutorial"
+                android:layout_marginLeft="25dp"/>
 
             <Button
-                android:id="@+id/btnsafe"
+                android:id="@+id/help_center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/safe"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_toRightOf="@+id/tutorial"
+                android:background="@drawable/help_center"
+                android:text="Help Center"
+                android:gravity="center|bottom"
+                android:paddingBottom="30dp"/>
+
+            <Button
+                android:id="@+id/safe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/safe"
+                android:layout_below="@id/help_center"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/btndemo"
-                android:layout_marginTop="24dp"
-                android:textSize="25sp"
-                android:textColor="#070707" />
+                android:layout_marginTop="40dp"
+                android:text="Safe"
+                android:gravity="center|bottom"
+                android:paddingBottom="25dp" />
 
             <Button
-                android:id="@+id/btnhelp"
+                android:id="@+id/help_requests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/btnsafe"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/help"
-                android:text="@string/help"
-                android:textColor="#070707"
-                android:textSize="25sp" />
+                android:background="@drawable/help_request"
+                android:layout_below="@id/safe"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="25dp"
+                android:text="Help Requests"
+                android:gravity="center|bottom"
+                android:paddingBottom="30dp"/>
 
             <Button
-                android:id="@+id/btnportal"
+                android:id="@+id/info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/portal"
-                android:background="@drawable/portal"
-                android:layout_marginTop="24dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/btnhelp"
-                android:textSize="25sp"
-                android:textColor="#070707"/>
+                android:background="@drawable/info"
+                android:layout_toRightOf="@id/help_requests"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_below="@id/safe"
+                android:layout_marginTop="40dp"
+                android:text="Info"
+                android:gravity="center|bottom"
+                android:paddingBottom="30dp"/>
+
         </RelativeLayout>
 
 

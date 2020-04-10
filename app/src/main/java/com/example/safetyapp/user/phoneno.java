@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.safetyapp.R;
+import com.example.safetyapp.SharedPrefs;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 public class phoneno extends AppCompatActivity {
@@ -41,7 +42,19 @@ public class phoneno extends AppCompatActivity {
                 intent.putExtra("mobile", mobile);
                 intent.putExtra("countrycode" , countrycode);
                 startActivity(intent);
+                CCSession();
             }
         });
+    }
+    public void CCSession(){
+
+        Boolean Check = Boolean.valueOf(SharedPrefs.readSharedSetting(phoneno.this, "Safety", "false"));
+
+        Intent introIntent = new Intent(phoneno.this, verify_phone.class);
+        introIntent.putExtra("Safety", Check);
+        if (Check) {
+            startActivity(introIntent);
+            finish();
+        }
     }
 }

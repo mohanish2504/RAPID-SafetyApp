@@ -2,10 +2,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_focused="true"
-        android:state_pressed="true"
-        android:color="#008000"  />
+        android:state_pressed="true" >
+        <bitmap android:src="@drawable/safe"/>
+    </item>
+
     <item
         android:state_focused="false"
-        android:state_pressed="true"
-        android:color="#FF0000"  />
+        android:state_pressed="true">
+        <bitmap android:src="@drawable/unsafe"/>
+    </item>
 </selector>
