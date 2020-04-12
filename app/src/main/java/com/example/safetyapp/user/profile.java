@@ -52,8 +52,8 @@ public class profile<CircleImageView> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        editTextPhone=findViewById(R.id.phoneno);
-        editTextCode=findViewById(R.id.otp);
+        //editTextPhone=findViewById(R.id.phoneno);
+        //editTextCode=findViewById(R.id.otp);
         profileImageView=findViewById(R.id.profileImageView);
         mAuth=FirebaseAuth.getInstance();
 
@@ -70,92 +70,8 @@ public class profile<CircleImageView> extends AppCompatActivity {
                         .into((ImageView) profileImageView);
             }
         }
-
-        findViewById(R.id.sendotp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendVerificationCode();
-            }
-        });
-
-        findViewById(R.id.mverifydetails).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifySignInCode();
-            }
-        });
     }
 
-    private void verifySignInCode(){
-        String code=editTextCode.getText().toString();
-        PhoneAuthCredential credential= PhoneAuthProvider.getCredential(codeSend, code);
-        signInWithPhoneAuthCredential(credential);
-
-    }
-
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(profile.this,"You Are Registered",Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                Toast.makeText(profile.this,"Enter Valid Code",Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                    }
-                });
-    }
-
-    private void sendVerificationCode(){
-
-        String phone=editTextPhone.getText().toString();
-
-        if(phone.isEmpty()){
-            editTextCode.setError("Phone Number Is Require");
-            editTextCode.requestFocus();
-            return;
-        }
-
-        if(phone.length()<10){
-            editTextCode.setError("Enter Valid Number");
-            editTextCode.requestFocus();
-            return;
-        }
-
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+91" + phone,        // Phone 0number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks);        // OnVerificationStateChangedCallbacks
-
-    }
-
-    PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-        @Override
-        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-
-        }
-
-        @Override
-        public void onVerificationFailed(FirebaseException e) {
-            Button sendotp = findViewById(R.id.sendotp);
-            Button verify = findViewById(R.id.mverifydetails);
-        }
-
-        @Override
-        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-            super.onCodeSent(s, forceResendingToken);
-            codeSend = s;
-        }
-
-    };
 
     public void handleImageClick(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

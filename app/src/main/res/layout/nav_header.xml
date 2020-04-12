@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="230dp"
+    android:layout_height="200dp"
     android:background="#070707"
     android:gravity="bottom"
     android:padding="16dp">
@@ -10,9 +10,10 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_alignParentTop="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/photo"
+        android:layout_marginTop="0dp"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:src="@drawable/bot"
         android:id="@+id/user_img"/>
 
     <TextView
@@ -21,6 +22,7 @@
         android:text="@string/jone_gmail_com"
         android:textColor="#FFFFFF"
         android:id="@+id/nav_email"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/user_img"/>
 
 

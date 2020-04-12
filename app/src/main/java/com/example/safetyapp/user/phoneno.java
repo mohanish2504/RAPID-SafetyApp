@@ -42,7 +42,7 @@ public class phoneno extends AppCompatActivity {
                 intent.putExtra("countrycode" , countrycode);
                 startActivity(intent);
                 finish();
-                //CCSession();
+                //CCSession(/);
             }
         });
     }
