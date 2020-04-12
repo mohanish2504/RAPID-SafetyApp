@@ -34,12 +34,10 @@
             android:value="@string/map_key" />
 
         <activity android:name=".user.portal" />
-        <activity android:name=".user.forget_password" />
         <activity android:name=".user.profile" />
-        <activity android:name=".user.signup" />
-        <activity android:name=".user.signin" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".user.welcome">
+        <activity android:name=".user.welcome"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

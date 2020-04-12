@@ -2,8 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#070707">
+    android:background="#D14CAF50"
+    android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/temp_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="210dp"
+        android:id="@+id/logo"/>
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="spot`N`save"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
 
     <Button
         android:layout_centerInParent="true"
@@ -12,8 +31,12 @@
         android:layout_height="wrap_content"
         android:text="Welcome"
         android:textColor="@android:color/black"
-        android:background="@drawable/button"
-        android:textAllCaps="true"/>
+        android:background="@drawable/white_button"
+        android:textAllCaps="true"
+        android:layout_below="@id/app_name"
+        android:layout_marginTop="10dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:stateListAnimator="@null"/>
 
     <!--<Button
         android:layout_centerInParent="true"

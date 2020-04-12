@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){
-            String email = user.getEmail();
+            String email = user.getPhoneNumber();
             NavigationView navigationView = findViewById(R.id.nav_view);
             View hView = navigationView.getHeaderView(0);
             ImageView user_img = (ImageView) hView.findViewById(R.id.user_img);
@@ -232,8 +232,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if(id == R.id.logout){
             FirebaseAuth.getInstance().signOut();
-
-            //getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",false).apply();
+            getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",false).apply();
             finish();
             startActivity(new Intent(this, phoneno.class));
         }

@@ -33,7 +33,7 @@ public class portal extends FragmentActivity implements OnMapReadyCallback {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){
-            String email = user.getEmail();
+            String email = user.getPhoneNumber();
             TextView textView = findViewById(R.id.frag_user_email);
             textView.setText(email);
         }

@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".user.phoneno"
-    android:background="@color/colorPrimary">
+    android:background="@color/back_white">
 
     <com.rilixtech.widget.countrycodepicker.CountryCodePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ccp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/mobile"
+        android:background="@drawable/name"
         android:id="@+id/phone_no"
         android:inputType="phone"
         android:maxLength="10"
@@ -25,7 +25,7 @@
         android:layout_below="@id/ccp"
         android:layout_marginTop="20dp"
         android:textAlignment="center"
-        android:textColor="@color/white"/>
+        android:textColor="#000000"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -35,8 +35,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="Verify Number"
-        android:id="@+id/verify"/>
-
-
+        android:id="@+id/verify"
+        android:foreground="?attr/selectableItemBackground"
+        android:stateListAnimator="@null"/>
 
 </RelativeLayout>
