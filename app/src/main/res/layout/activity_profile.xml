@@ -13,15 +13,31 @@
         android:layout_height="250dp"
         android:orientation="vertical"
         android:id="@+id/header">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="wrap_content"
+                android:layout_height="140dp"
+                android:id="@+id/profileImageView"
+                android:src="@drawable/bot"
+                android:onClick="handleImageClick"
+                android:layout_marginTop="35dp"
+                android:layout_gravity="center_horizontal"/>
+            
+            <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/progressbar"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
         
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="wrap_content"
-            android:layout_height="140dp"
-            android:id="@+id/profileImageView"
-            android:src="@drawable/bot"
-            android:onClick="handleImageClick"
-            android:layout_marginTop="35dp"
-            android:layout_gravity="center_horizontal"/>
+
 
         <TextView
             android:id="@+id/user_name"
@@ -43,9 +59,24 @@
         android:background="@color/back_white"
         android:layout_marginTop="0dp">
 
+        <EditText
+            android:id="@+id/editTextDisplayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/user_name"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"/>
 
-
-
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:layout_below="@id/editTextDisplayName"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:text="SAVE"
+            android:foreground="?attr/selectableItemBackground"/>
     </RelativeLayout>
 
 </LinearLayout>
