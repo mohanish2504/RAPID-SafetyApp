@@ -22,12 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.mukesh.OtpView;
 
 import java.util.concurrent.TimeUnit;
 
 public class verify_phone extends AppCompatActivity {
 
-    private EditText editTextcode;
+    private OtpView editTextcode;
     private String mVerificationId;
     private FirebaseAuth mAuth;
     private String codeSend;
@@ -38,7 +39,7 @@ public class verify_phone extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_phone);
 
-        editTextcode = (EditText) findViewById(R.id.otp);
+        editTextcode = (OtpView) findViewById(R.id.otp);
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -114,8 +115,6 @@ public class verify_phone extends AppCompatActivity {
                             startActivity(intent);
 
                             getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",true).apply();
-                            //CCSession();
-
                         } else {
 
                             //verification unsuccessful.. display an error message
