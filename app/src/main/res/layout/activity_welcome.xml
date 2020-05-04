@@ -24,20 +24,6 @@
         android:textSize="30sp"
         android:textStyle="bold"/>
 
-    <Button
-        android:layout_centerInParent="true"
-        android:id="@+id/btn_signin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome"
-        android:textColor="@android:color/black"
-        android:background="@drawable/white_button"
-        android:textAllCaps="true"
-        android:layout_below="@id/app_name"
-        android:layout_marginTop="10dp"
-        android:foreground="?attr/selectableItemBackground"
-        android:stateListAnimator="@null"/>
-
     <!--<Button
         android:layout_centerInParent="true"
         android:id="@+id/btn_signup"

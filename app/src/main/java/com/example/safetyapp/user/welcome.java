@@ -26,21 +26,12 @@ public class welcome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         boolean loginStatus = getSharedPreferences("Info",MODE_PRIVATE).getBoolean("LoginStatus",false);
         Log.d(TAG,Boolean.toString(loginStatus));
         if(loginStatus == false){
             //Verification
             setContentView(R.layout.activity_welcome);
             getPermissions();
-            Button btn_signin=(Button)findViewById(R.id.btn_signin);
-            btn_signin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i=new Intent(welcome.this, phoneno.class);
-                    startActivity(i);
-                }
-            });
         }
         else {
             Intent intent = new Intent(this, MainActivity.class);
