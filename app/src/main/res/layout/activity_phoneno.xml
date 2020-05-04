@@ -17,7 +17,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/name"
+        android:background="@drawable/mobile_input"
         android:id="@+id/phone_no"
         android:inputType="phone"
         android:maxLength="10"
@@ -30,7 +30,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button"
+        android:background="@drawable/button_new"
         android:layout_below="@id/phone_no"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"

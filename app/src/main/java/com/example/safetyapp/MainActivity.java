@@ -10,8 +10,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -28,6 +30,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.asura.library.posters.Poster;
+import com.asura.library.posters.RemoteVideo;
+import com.asura.library.views.PosterSlider;
 import com.bumptech.glide.Glide;
 import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.Services.RingtonePlayingService;
@@ -45,6 +50,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
 
         btnsafetystatus = (Button) findViewById(R.id.safe);
+
 
         final String safetystatus = getSharedPreferences("Info",MODE_PRIVATE).getString("SafetyStatus","ON");
         Log.d(TAG,safetystatus);
@@ -123,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
        btnportal = findViewById(R.id.help_requests);
-        btnportal.setOnClickListener(new View.OnClickListener() {
+       btnportal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, portal.class);

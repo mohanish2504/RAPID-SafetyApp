@@ -8,6 +8,7 @@
     android:id="@+id/drawerlayout"
     android:background="#F0EEEE">
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,8 +84,7 @@
                 android:text="Info"
                 android:gravity="center|bottom"
                 android:paddingBottom="30dp"
-                android:foreground="?attr/selectableItemBackground"
-                android:stateListAnimator="@null"/>
+                android:foreground="?attr/selectableItemBackground"/>
         </LinearLayout>
     </LinearLayout>
     <com.google.android.material.navigation.NavigationView

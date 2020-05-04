@@ -2,6 +2,7 @@ package com.example.safetyapp.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.app.NotificationManager;
@@ -19,29 +20,30 @@ import android.widget.Toast;
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 
+import intro.IntroAdapter;
+
 public class welcome extends AppCompatActivity {
+
+    ViewPager viewPager;
+    private Button button;
 
     private static String TAG = welcome.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean loginStatus = getSharedPreferences("Info",MODE_PRIVATE).getBoolean("LoginStatus",false);
-        Log.d(TAG,Boolean.toString(loginStatus));
-        if(loginStatus == false){
-            //Verification
-            setContentView(R.layout.activity_welcome);
-            getPermissions();
-        }
-        else {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        setContentView(R.layout.activity_welcome);
+
+        viewPager = findViewById(R.id.viewpager);
+
+
+        IntroAdapter adapter = new IntroAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+
 
     }
 
-    public void getPermissions(){
+/*    public void getPermissions(){
 
 
         NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
@@ -70,5 +72,5 @@ public class welcome extends AppCompatActivity {
         }
 
 
-    }
+    }*/
 }

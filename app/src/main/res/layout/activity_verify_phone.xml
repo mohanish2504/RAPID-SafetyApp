@@ -19,26 +19,24 @@
         android:textAllCaps="true"
         android:textSize="25sp"
         android:id="@+id/Textotp" />
-    
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressbar"
-        android:background="@xml/progress"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/Textotp"
-        android:layout_marginTop="10dp" />
-    
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <com.mukesh.OtpView
         android:id="@+id/otp"
-        android:layout_below="@+id/progressbar"
-        android:background="@drawable/otp"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/colorAccent"
-        android:textAlignment="center"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:inputType="number"
+        android:itemBackground="@drawable/bg_otp_item"
+        android:textColor="@android:color/white"
+        app:hideLineWhenFilled="true"
+        app:itemCount="6"
+        app:itemSpacing="6dp"
+        app:lineColor="#0288D1"
+        app:state_filled="true"
+        app:viewType="line"
+        android:layout_below="@id/Textotp"
+        android:layout_centerHorizontal="true"/>
+
 
     <Button
         android:layout_width="wrap_content"
