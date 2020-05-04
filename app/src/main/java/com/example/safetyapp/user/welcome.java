@@ -12,15 +12,12 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 
-import intro.IntroAdapter;
+import com.example.safetyapp.intro.IntroAdapter;
 
 public class welcome extends AppCompatActivity {
 
@@ -43,7 +40,7 @@ public class welcome extends AppCompatActivity {
 
     }
 
-/*    public void getPermissions(){
+    public void getPermissions(){
 
 
         NotificationManager mNotificationManager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
@@ -72,5 +69,5 @@ public class welcome extends AppCompatActivity {
         }
 
 
-    }*/
+    }
 }

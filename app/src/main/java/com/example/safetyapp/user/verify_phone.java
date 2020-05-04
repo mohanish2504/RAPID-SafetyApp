@@ -69,12 +69,13 @@ public class verify_phone extends AppCompatActivity {
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
                 String code = phoneAuthCredential.getSmsCode();
-
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 if(code != null){
                     editTextcode.setText(code);
                     verifyVerificationCode(code);
                 }
 
+                startActivity(intent);
             }
 
             @Override

@@ -1,4 +1,4 @@
-package intro;
+package com.example.safetyapp.intro;
 
 import android.os.Bundle;
 

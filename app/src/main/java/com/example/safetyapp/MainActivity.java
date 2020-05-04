@@ -33,6 +33,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.asura.library.posters.Poster;
 import com.asura.library.posters.RemoteVideo;
 import com.asura.library.views.PosterSlider;
+
 import com.bumptech.glide.Glide;
 import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.Services.RingtonePlayingService;
