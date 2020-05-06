@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.safetyapp" >
+    package="com.example.safetyapp">
 
     <supports-screens
         android:largeScreens="true"
@@ -17,6 +17,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
 
     <application
         android:allowBackup="true"
@@ -25,9 +27,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning" >
-        <activity android:name=".user.signUpActivity" >
-        </activity>
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".user.EmergencyContact"></activity>
+        <activity android:name=".user.signUpActivity"></activity>
         <activity android:name=".user.phoneno" />
         <activity android:name=".user.verify_phone" />
 
@@ -40,7 +42,7 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".user.welcome"
-            android:theme="@style/Theme.AppCompat.NoActionBar" >
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +54,7 @@
             android:name=".restarter.RestartServiceBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
-            android:label="StartMyServiceAtBootReceiver" >
+            android:label="StartMyServiceAtBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -65,7 +67,7 @@
             android:name=".screenreceiver.ScreenOnOffReceiver"
             android:enabled="true"
             android:exported="true"
-            android:label="MyServiceReceiver" >
+            android:label="MyServiceReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.SCREEN_ON" />
                 <action android:name="android.intent.action.SCREEN_OFF" />
@@ -86,7 +88,7 @@
         <service
             android:name=".messageservice.MessageService"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
