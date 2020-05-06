@@ -7,6 +7,27 @@
     tools:context=".user.EmergencyContact">
 
     <TextView
+        android:id="@+id/textContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contacts"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"
+        android:layout_marginLeft="10dp"
+        style="?android:attr/listSeparatorTextViewStyle" />
+
+    <TextView
+        android:id="@+id/line"
+        style="?android:attr/listSeparatorTextViewStyle"
+        android:paddingTop="5dip"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/textContact"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000" />
+
+
+    <TextView
         android:text="Selected Contact Number Display Here "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +36,7 @@
         android:id="@+id/textView"
         android:textSize="22dp"
         android:gravity="center"
-        android:textColor="#000000"
+        android:textColor="#0288D1"
         android:layout_marginTop="270dp"/>
 
     <TextView
@@ -27,27 +48,25 @@
         android:id="@+id/textView2"
         android:textSize="22dp"
         android:gravity="center"
-        android:textColor="#000000"
+        android:textColor="#0288D1"
         android:layout_below="@id/textView"
         android:layout_marginTop="15dp"/>
 
     <Button
         android:id="@+id/button"
-        android:layout_width="250dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView2"
         android:layout_centerHorizontal="true"
-        android:text="Add Emergency Contact"
-        android:background="@drawable/button_new"/>
+        android:background="@drawable/add_contact"/>
 
     <Button
         android:id="@+id/save"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/button"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button_new"
-        android:text="SAVE DETAILS"/>
+        android:background="@drawable/next" />
 
 </RelativeLayout>
