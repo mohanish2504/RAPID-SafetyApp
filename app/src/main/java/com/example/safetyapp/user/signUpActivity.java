@@ -35,8 +35,13 @@ public class signUpActivity extends AppCompatActivity {
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(getApplicationContext(),phoneno.class);
-               startActivity(intent);
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("FirstName","firstName").apply();
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("LastName","lastName").apply();
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Gender","gender").apply();
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("City","city").apply();
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("DOB","dob").apply();
+                Intent intent = new Intent(getApplicationContext(),phoneno.class);
+                startActivity(intent);
             }
         });
 

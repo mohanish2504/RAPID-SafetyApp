@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
+import com.example.safetyapp.ReferalGenerator;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -62,19 +63,23 @@ public class verify_phone extends AppCompatActivity {
             }
         });
     }
-    private void sendVerificationCode(String mobile, String countrycode){
+    private void sendVerificationCode(final String mobile, String countrycode){
 
          PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
                 String code = phoneAuthCredential.getSmsCode();
+
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
+
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 if(code != null){
                     editTextcode.setText(code);
                     verifyVerificationCode(code);
                 }
-
+                //ReferalGenerator.checkForReferal(FirebaseAuth.getInstance().getCurrentUser().toString());
+                Log.d("OnVerify","completed");
                 startActivity(intent);
             }
 
@@ -111,6 +116,9 @@ public class verify_phone extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //verification successful we will start the profile activity
+                            ReferalGenerator.checkForReferal(FirebaseAuth.getInstance().getUid());
+                            Log.d("OnVerify","completed");
+
                             Intent intent = new Intent(verify_phone.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);

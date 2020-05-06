@@ -17,7 +17,9 @@ import android.widget.Toast;
 
 import com.example.safetyapp.R;
 
+import com.example.safetyapp.ReferalGenerator;
 import com.example.safetyapp.intro.IntroAdapter;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class welcome extends AppCompatActivity {
 
@@ -32,6 +34,7 @@ public class welcome extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         viewPager = findViewById(R.id.viewpager);
+
 
 
         IntroAdapter adapter = new IntroAdapter(getSupportFragmentManager());
@@ -70,4 +73,5 @@ public class welcome extends AppCompatActivity {
 
 
     }
+
 }
