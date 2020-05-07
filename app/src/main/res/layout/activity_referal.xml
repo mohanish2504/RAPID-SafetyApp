@@ -27,55 +27,15 @@
         android:layout_height="3dp"
         android:background="#DB5757" />
 
-    <LinearLayout
-        android:id="@+id/liner1"
+    <ListView
+        android:id="@+id/list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/line"
-        android:layout_marginTop="30dp"
-        android:layout_centerInParent="true">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/name1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NAME 1"
-            android:textSize="30sp"/>
-        
-        <EditText
-            android:id="@+id/referal1"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:background="@drawable/referal"
-            android:layout_marginLeft="20dp"/>
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/liner2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/liner1"
-        android:layout_marginTop="20dp"
-        android:layout_centerInParent="true">
+    </ListView>
 
-        <TextView
-            android:id="@+id/name2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NAME 2"
-            android:textSize="30sp"/>
-
-        <EditText
-            android:id="@+id/referal2"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:background="@drawable/referal"
-            android:layout_marginLeft="20dp"/>
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/sendInvitation"
@@ -84,7 +44,7 @@
         android:background="@drawable/button_new"
         android:text="Send Invitation Link"
         android:textColor="#01579B"
-        android:layout_below="@id/liner2"
+        android:layout_below="@id/list"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"/>
 

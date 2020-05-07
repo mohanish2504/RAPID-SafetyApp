@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,12 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.mukesh.OtpView;
 
 import java.util.concurrent.TimeUnit;
 
 public class verify_phone extends AppCompatActivity {
 
-    private EditText editTextcode;
+    private OtpView editTextcode;
     private String mVerificationId;
     private FirebaseAuth mAuth;
     private String codeSend;
@@ -39,7 +39,7 @@ public class verify_phone extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_phone);
 
-        editTextcode = (EditText) findViewById(R.id.otp);
+        editTextcode = (OtpView) findViewById(R.id.otp);
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -70,7 +70,7 @@ public class verify_phone extends AppCompatActivity {
 
                 String code = phoneAuthCredential.getSmsCode();
 
-                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
+
 
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 if(code != null){
@@ -116,7 +116,6 @@ public class verify_phone extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //verification successful we will start the profile activity
                             ReferalGenerator.checkForReferal(FirebaseAuth.getInstance().getUid());
-                            Log.d("OnVerify","completed");
 
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                             if(isNewUser){
@@ -130,6 +129,7 @@ public class verify_phone extends AppCompatActivity {
                                 startActivity(intent);
                             }
                             getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",true).apply();
+                            getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
                         } else {
 
                             //verification unsuccessful.. display an error message

@@ -1,7 +1,5 @@
 package com.example.safetyapp.user;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +10,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 
 import java.util.Calendar;
@@ -40,7 +41,7 @@ public class signUpActivity extends AppCompatActivity {
                 getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Gender","gender").apply();
                 getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("City","city").apply();
                 getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("DOB","dob").apply();
-                Intent intent = new Intent(getApplicationContext(),phoneno.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
