@@ -1,5 +1,7 @@
 package com.example.safetyapp.user;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,9 +12,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 
 import java.util.Calendar;
@@ -20,25 +19,31 @@ import java.util.Calendar;
 public class signUpActivity extends AppCompatActivity {
     TextView dob;
     DatePickerDialog.OnDateSetListener setListener;
-    Button submit;
-
+    Button Submit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
         dob = findViewById(R.id.dob);
-
-        submit = findViewById(R.id.submit);
-
-        Intent intent = new Intent(signUpActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-
+        Submit =  (Button) findViewById(R.id.SubmitButton);
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        Submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("FirstName","firstName").apply();
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("LastName","lastName").apply();
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Gender","gender").apply();
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("City","city").apply();
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("DOB","dob").apply();
+                Intent intent = new Intent(getApplicationContext(),phoneno.class);
+                startActivity(intent);
+            }
+        });
 
         dob.setOnClickListener(new View.OnClickListener() {
             @Override

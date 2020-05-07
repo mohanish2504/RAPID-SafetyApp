@@ -48,12 +48,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -70,7 +75,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle mToggle;
     MenuItem btnlogout;
     private FirebaseAuth mAuth;
+    private String UID;
 
+    private static UserDetails userDetails;
+    FirebaseDatabase firebaseDatabase;
     Intent sirenIntent;
 
     Button btnportal,btnsafetystatus;
@@ -144,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UID = user.getUid().toString();
         if(user != null){
             String email = user.getPhoneNumber();
             NavigationView navigationView = findViewById(R.id.nav_view);
@@ -181,6 +190,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         scheduleJob();
 
+        setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
+
+        uploadUserData();
+
+    }
+
+    private void uploadUserData() {
+        databaseReference = FirebaseDatabase.getInstance().getReference("UserDetails");
+        //Log.d("UID",UID);
+        databaseReference.orderByKey().equalTo(UID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+
+                }else
+                {
+                    databaseReference.child(UID).setValue(userDetails);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    void setUserData(Map userdetails_map){
+        userDetails = new UserDetails(userdetails_map);
     }
 
     @Override

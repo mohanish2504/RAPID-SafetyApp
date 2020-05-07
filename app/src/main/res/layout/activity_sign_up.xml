@@ -102,7 +102,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/submit"
+        android:id="@+id/SubmitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_new"
