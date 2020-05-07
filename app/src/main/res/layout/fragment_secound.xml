@@ -18,41 +18,14 @@
 
     <Button
         android:id="@+id/login"
-        android:layout_marginTop="10dp"
-        android:layout_width="143dp"
-        android:shadowColor="@color/black"
-        android:elevation="10dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/mybutton"
-        android:textAlignment="center"
-        android:text="Login"
-        android:textColor="#01579B" />
-
-    <Button
-        android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_new"
-        android:text="Sign Up"
+        android:text="Get Started"
         android:textColor="#01579B"
-        android:layout_marginTop="20dp"
         android:textAlignment="center"
-        android:layout_gravity="center"/>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
-            android:gravity="bottom|start"
-            android:text="Pervious"
-            android:textSize="20sp"/>
-        
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"/>
+
     
 </LinearLayout>
