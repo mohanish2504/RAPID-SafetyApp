@@ -129,7 +129,7 @@ public class verify_phone extends AppCompatActivity {
                                 startActivity(intent);
                             }
                             getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",true).apply();
-                            getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
+                            //getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
                         } else {
 
                             //verification unsuccessful.. display an error message
