@@ -1,15 +1,18 @@
 package com.example.safetyapp.user;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 
 import java.util.Calendar;
@@ -17,6 +20,7 @@ import java.util.Calendar;
 public class signUpActivity extends AppCompatActivity {
     TextView dob;
     DatePickerDialog.OnDateSetListener setListener;
+    Button submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,12 @@ public class signUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         dob = findViewById(R.id.dob);
+
+        submit = findViewById(R.id.submit);
+
+        Intent intent = new Intent(signUpActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
 
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);

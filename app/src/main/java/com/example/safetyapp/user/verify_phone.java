@@ -1,14 +1,14 @@
 package com.example.safetyapp.user;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
@@ -22,13 +22,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.mukesh.OtpView;
 
 import java.util.concurrent.TimeUnit;
 
 public class verify_phone extends AppCompatActivity {
 
-    private OtpView editTextcode;
+    private EditText editTextcode;
     private String mVerificationId;
     private FirebaseAuth mAuth;
     private String codeSend;
@@ -39,7 +38,7 @@ public class verify_phone extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_phone);
 
-        editTextcode = (OtpView) findViewById(R.id.otp);
+        editTextcode = (EditText) findViewById(R.id.otp);
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -111,16 +110,24 @@ public class verify_phone extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //verification successful we will start the profile activity
-                            Intent intent = new Intent(verify_phone.this, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                           boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
+                           if(isNewUser){
+                               Intent intent = new Intent(verify_phone.this, signUpActivity.class);
+                               intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                               startActivity(intent);
+                           }
+                           else{
+                               Intent intent = new Intent(verify_phone.this, MainActivity.class);
+                               intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                               startActivity(intent);
+                           }
 
                             getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",true).apply();
                         } else {
 
                             //verification unsuccessful.. display an error message
 
-                            String message = "Somthing is wrong, we will fix it soon...";
+                            String message = "Something is wrong, we will fix it soon...";
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 message = "Invalid code entered...";

@@ -2,13 +2,12 @@ package com.example.safetyapp.intro;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.safetyapp.R;
 import com.example.safetyapp.user.phoneno;
@@ -38,15 +37,6 @@ public class SecoundFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        Button SignUp = (Button) view.findViewById(R.id.signup);
-        SignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(SignUpIntent);
-            }
-        });
         return  view;
     }
-
 }

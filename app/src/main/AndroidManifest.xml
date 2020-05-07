@@ -19,7 +19,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -28,8 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".user.EmergencyContact"></activity>
-        <activity android:name=".user.signUpActivity"></activity>
+        <activity android:name=".user.ReferalActivity"></activity>
+        <activity android:name=".user.EmergencyContact" />
+        <activity android:name=".user.signUpActivity" />
         <activity android:name=".user.phoneno" />
         <activity android:name=".user.verify_phone" />
 
