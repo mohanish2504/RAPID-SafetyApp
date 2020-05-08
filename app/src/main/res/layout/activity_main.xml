@@ -15,77 +15,10 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <LinearLayout
-            android:weightSum="3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
 
-            <Button
-                android:layout_weight="1"
-                android:id="@+id/tutorial"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tutorial"
-                android:gravity="center|bottom"
-                android:text="Tutorial"
-                android:paddingBottom="25dp"
-                android:foreground="?attr/selectableItemBackground"
-                android:stateListAnimator="@null"/>
 
-            <Button
-                android:layout_weight="1"
-                android:id="@+id/help_center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/help_center"
-                android:text="Help Center"
-                android:gravity="center|bottom"
-                android:paddingBottom="25dp"
-                android:foreground="?attr/selectableItemBackground"
-                android:stateListAnimator="@null"/>
-        </LinearLayout>
 
-        <Button
-            android:id="@+id/safe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/safe"
-            android:text="Safe"
-            android:gravity="center|bottom"
-            android:paddingBottom="25dp"
-            android:foreground="?attr/selectableItemBackground"
-            android:stateListAnimator="@null"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:weightSum="3"
-            >
-            <Button
-                android:layout_weight="1"
-                android:id="@+id/help_requests"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/help_request"
-                android:text="Help Requests"
-                android:gravity="center|bottom"
-                android:paddingBottom="30dp"
-                android:foreground="?attr/selectableItemBackground"
-                android:stateListAnimator="@null"/>
-
-            <Button
-                android:layout_weight="1"
-                android:id="@+id/info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/info"
-                android:text="Info"
-                android:gravity="center|bottom"
-                android:paddingBottom="30dp"
-                android:foreground="?attr/selectableItemBackground"/>
-        </LinearLayout>
     </LinearLayout>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
