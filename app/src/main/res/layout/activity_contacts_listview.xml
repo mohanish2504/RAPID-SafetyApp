@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/contacts_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/contacts_textview_name"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:text="ContactName"
+            android:layout_weight="1">
+        </TextView>
+        <EditText
+            android:id="@+id/contacts_textview_number"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:hint="referal"
+            android:layout_weight="1"
+            >
+        </EditText>
+    </LinearLayout>
+
+</RelativeLayout>

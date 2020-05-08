@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.example.safetyapp.R;
+import com.example.safetyapp.user.ReferalActivity;
 import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.signUpActivity;
 
@@ -27,7 +28,7 @@ public class SecoundFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_secound, container, false);
 
 
-        final Intent intent = new Intent(getActivity(), phoneno.class );
+        final Intent intent = new Intent(getActivity(), phoneno.class);
         final Intent SignUpIntent =  new Intent(getActivity(), signUpActivity.class);
 
         Button login = (Button) view.findViewById(R.id.login);
