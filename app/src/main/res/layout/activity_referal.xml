@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.ReferalActivity">
+    tools:context=".user.ReferalActivity"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textContact"
@@ -14,7 +15,7 @@
         android:text="Contacts"
         android:layout_marginTop="30dp"
         android:textSize="30sp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         style="?android:attr/listSeparatorTextViewStyle" />
 
     <TextView
@@ -22,7 +23,6 @@
         style="?android:attr/listSeparatorTextViewStyle"
         android:paddingTop="5dip"
         android:gravity="center_horizontal"
-        android:layout_below="@+id/textContact"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="#DB5757" />
@@ -30,14 +30,10 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/line"
-        >
-
-
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     </ListView>
-
 
     <Button
         android:id="@+id/sendInvitation"
@@ -46,9 +42,9 @@
         android:background="@drawable/button_new"
         android:text="Send Invitation Link"
         android:textColor="#01579B"
-        android:layout_below="@id/list"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/verifyContact"
@@ -56,10 +52,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_new"
         android:text="Verify Contact"
-        android:layout_below="@id/sendInvitation"
         android:textColor="#01579B"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/selectContact"
@@ -67,10 +63,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_new"
         android:text="Select Contact"
-        android:layout_below="@id/verifyContact"
         android:textColor="#01579B"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
 
     <TextView
         android:id="@+id/txtDetails"
@@ -79,22 +75,26 @@
         android:maxLines="7"
         android:scrollbars="vertical"
         android:text="TextView"
-        android:layout_below="@+id/selectContact"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"/>
-
-
-    <TextView
-        android:id="@+id/referalcode"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+    
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/box"
-        android:text="REFERAL CODE : XYZ"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:layout_alignParentBottom="true"
-        android:windowSoftInputMode="adjustResize"
-        />
+        android:gravity="center|bottom">
+
+        <TextView
+            android:id="@+id/referalcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box"
+            android:text="REFERAL CODE : XYZ"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:gravity="center|end" />
+
+    </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

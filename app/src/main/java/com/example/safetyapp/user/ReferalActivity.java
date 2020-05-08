@@ -26,11 +26,8 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.safetyapp.R;
 
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.List;
 
-import static android.provider.CalendarContract.CalendarCache.URI;
 import static com.example.safetyapp.user.EmergencyContact.RequestPermissionCode;
 
 public class ReferalActivity extends AppCompatActivity {
@@ -59,10 +56,12 @@ public class ReferalActivity extends AppCompatActivity {
         selectContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(intent, 7);
-                //myAdapter.notifyDataSetChanged();
-                //Log.d(TAG,Integer.toString(emergencyContacts.size()));
+                if (emergencyContacts.size() < 2) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                    startActivityForResult(intent, 7);
+                    //myAdapter.notifyDataSetChanged();
+                    //Log.d(TAG,Integer.toString(emergencyContacts.size()));
+                }
             }
         });
 
