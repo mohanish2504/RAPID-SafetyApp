@@ -37,8 +37,6 @@ public class ReferalActivity extends AppCompatActivity {
         emergencyContacts[0] = new EmergencyContact();
         emergencyContacts[1] = new EmergencyContact();
 
-
-
         MyAdapter myAdapter = new MyAdapter(this,R.layout.activity_emergency_contact,emergencyContacts);
         listView.setAdapter(myAdapter);
 
