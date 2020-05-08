@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,8 +27,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.safetyapp.R;
+import com.example.safetyapp.ReferalGenerator;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.zip.Inflater;
 
 import static com.example.safetyapp.user.EmergencyContact.RequestPermissionCode;
 
@@ -38,19 +50,26 @@ public class ReferalActivity extends AppCompatActivity {
     private String TAG= ReferalActivity.class.getSimpleName();
     ArrayList<EmergencyContact> emergencyContacts;
     MyAdapter myAdapter;
+    Button verifyContacts;
+    Set<String> numberset = new HashSet<String>();
+    TextView textView_userreferalcode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_referal);
 
         EnableRuntimePermission();
+       // ReferalGenerator.checkForReferal(getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","811111111"));
+        textView_userreferalcode = (TextView) findViewById(R.id.referalcode);
+        Log.d(TAG,ReferalGenerator.getReferal());
+        textView_userreferalcode.setText(ReferalGenerator.getReferal());
+
 
         listView = (ListView) findViewById(R.id.list);
         emergencyContacts=new ArrayList<EmergencyContact>();
 
         myAdapter = new MyAdapter(this,R.layout.activity_emergency_contact,emergencyContacts);
         listView.setAdapter(myAdapter);
-
 
         Button selectContact = (Button) findViewById(R.id.selectContact);
         selectContact.setOnClickListener(new View.OnClickListener() {
@@ -65,11 +84,59 @@ public class ReferalActivity extends AppCompatActivity {
             }
         });
 
+        verifyContacts = (Button) findViewById(R.id.verifyContact);
+        verifyContacts.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                checkForAddedContact();
+            }
+        });
+
 
         TextView txtDetails = (TextView) findViewById(R.id.txtDetails);
         txtDetails.setText("Note: Please send link to contacts and install the app in your \n" +
                 "emergency contacts' device to get referral code ");
         txtDetails.setMovementMethod(new ScrollingMovementMethod());
+
+    }
+
+    public void checkForAddedContact(){
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Referals");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               Set<String> codeset = new HashSet<String>();
+               for(int i = 0;i<numberset.size();i++){
+                   View view = listView.getChildAt(i);
+                   EditText editText = view.findViewById(R.id.contacts_textview_number);
+                   //Log.d(TAG,editText.getText().toString());
+                   codeset.add(editText.getText().toString());
+            }
+               //Log.d(TAG,editText.getText().toString());
+
+               for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                   String code = dataSnapshot1.getValue().toString();
+                   Log.d(TAG,code);
+                   if(codeset.contains(code)){
+                       codeset.remove(code);
+                   }
+                   if(codeset.isEmpty())break;
+               }
+               //Log.d(TAG,Boolean.toString(codeset.isEmpty()));
+               if(codeset.isEmpty()){
+                   Toast.makeText(getApplicationContext(),"All Contacts Verified Sucessfully!",Toast.LENGTH_SHORT).show();
+               }else{
+                   Toast.makeText(getApplicationContext(),"Contacts are not verified please check",Toast.LENGTH_SHORT).show();
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -90,11 +157,8 @@ public class ReferalActivity extends AppCompatActivity {
         private String TAG= MyAdapter.class.getSimpleName();
         public MyAdapter(@NonNull Context context, int resource,ArrayList<EmergencyContact> emergencyContacts) {
             super(context, resource);
-            //Log.d(TAG,"new adapter");
             this.context = context;
             this.emergencyContacts = emergencyContacts;
-           // Log.d(TAG,this.emergencyContacts[1].getName());
-            //Log.d(TAG,Integer.toString(this.emergencyContacts.length));
         }
 
         @Override
@@ -115,7 +179,7 @@ public class ReferalActivity extends AppCompatActivity {
             TextView textView_name = (TextView) convertView.findViewById(R.id.contacts_textview_name);
             EditText editText_code = (EditText) convertView.findViewById(R.id.contacts_textview_number);
 
-            Log.d(TAG,this.emergencyContacts.get(position).getName());
+            //Log.d(TAG,this.emergencyContacts.get(position).getName());
 
             textView_name.setText(this.emergencyContacts.get(position).getName());
             editText_code.setHint(this.emergencyContacts.get(position).getReferal());
@@ -195,8 +259,12 @@ public class ReferalActivity extends AppCompatActivity {
                         name = phones.getString(phones.getColumnIndex
                                 (ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)).replaceAll("[-() ]", "");
                         emergencyContact_temp = new EmergencyContact(name,"xyz",number);
-                        emergencyContacts.add(emergencyContact_temp);
-                        myAdapter.notifyDataSetChanged();
+
+                        if(!numberset.contains(number)) {
+                            emergencyContacts.add(emergencyContact_temp);
+                            myAdapter.notifyDataSetChanged();
+                            numberset.add(number);
+                        }
                     }
                     phones.close();
                 } else {

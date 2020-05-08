@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.safetyapp.R;
+import com.example.safetyapp.ReferalGenerator;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 public class phoneno extends AppCompatActivity {
@@ -31,6 +32,8 @@ public class phoneno extends AppCompatActivity {
                 String countrycode = ccp.getSelectedCountryCodeWithPlus();
                 String mobile = editTextMobile.getText().toString();
 
+                ReferalGenerator.checkForReferal(mobile);
+
                 if(mobile.isEmpty() || mobile.length() < 10){
                     editTextMobile.setError("Enter Vaild Number");
                     editTextMobile.requestFocus();
@@ -38,6 +41,7 @@ public class phoneno extends AppCompatActivity {
                 }
 
                 Intent intent = new Intent(phoneno.this, verify_phone.class);
+
                 intent.putExtra("mobile", mobile);
                 intent.putExtra("countrycode" , countrycode);
                 startActivity(intent);

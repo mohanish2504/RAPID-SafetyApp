@@ -18,7 +18,7 @@ public class ReferalGenerator {
     private static void generateReferal(){
         StringBuilder newreferal = new StringBuilder();
         int l = bound.length();
-
+        referal = null;
         for(int i = 0;i<6;i++){
             int random = new Random().nextInt(l);
             char c = bound.charAt(random);
@@ -29,15 +29,15 @@ public class ReferalGenerator {
         Log.d("Referal",referal);
     }
 
-    public static void checkForReferal(final String UID){
+    public static void checkForReferal(final String phone){
        // Log.d("here",referal);
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Referals");
-        databaseReference.orderByKey().equalTo(UID).addValueEventListener(new ValueEventListener() {
+        databaseReference.orderByKey().equalTo(phone).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists()){
-                    if(referal==null)generateReferal();
-                    databaseReference.child(UID).setValue(referal);
+                    generateReferal();
+                    databaseReference.child(phone).setValue(referal);
                 }else{
                     //DataSnapshot dataSnapshot1 = dataSnapshot.getValue();
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
