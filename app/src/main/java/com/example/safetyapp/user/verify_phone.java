@@ -119,7 +119,9 @@ public class verify_phone extends AppCompatActivity {
                             ReferalGenerator.checkForReferal(mobile);
 
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
-                            if(isNewUser){
+                            Intent intent = new Intent(getApplicationContext(),ReferalActivity.class);
+                            startActivity(intent);
+                            /*if(isNewUser){
                                 Intent intent = new Intent(verify_phone.this, signUpActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -128,7 +130,7 @@ public class verify_phone extends AppCompatActivity {
                                 Intent intent = new Intent(verify_phone.this, MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
-                            }
+                            }*/
                             getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",true).apply();
                             //getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
                         } else {
