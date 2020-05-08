@@ -28,9 +28,12 @@
         android:background="#DB5757" />
 
     <ListView
-        android:id="@+id/referal_contacts_list"
+        android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
+
+
     </ListView>
 
 
@@ -41,7 +44,7 @@
         android:background="@drawable/button_new"
         android:text="Send Invitation Link"
         android:textColor="#01579B"
-        android:layout_below="@id/referal_contacts_list"
+        android:layout_below="@id/list"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"/>
 

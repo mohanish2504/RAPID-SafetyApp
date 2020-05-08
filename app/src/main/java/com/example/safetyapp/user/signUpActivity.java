@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,8 @@ public class signUpActivity extends AppCompatActivity {
     TextView dob;
     DatePickerDialog.OnDateSetListener setListener;
     Button Submit;
+    EditText fname;
+    EditText lname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,8 @@ public class signUpActivity extends AppCompatActivity {
 
         dob = findViewById(R.id.dob);
         Submit =  (Button) findViewById(R.id.SubmitButton);
+        fname = (EditText) findViewById(R.id.fname);
+        lname = (EditText) findViewById(R.id.lname);
         Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -36,7 +41,7 @@ public class signUpActivity extends AppCompatActivity {
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("FirstName","firstName").apply();
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("FirstName", String.valueOf(fname)).apply();
                 getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("LastName","lastName").apply();
                 getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Gender","gender").apply();
                 getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("City","city").apply();
