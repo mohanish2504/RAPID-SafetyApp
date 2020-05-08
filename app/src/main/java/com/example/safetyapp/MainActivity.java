@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
 
-        btnsafetystatus = (Button) findViewById(R.id.safe);
+       // btnsafetystatus = (Button) findViewById(R.id.safe);
 
 
         final String safetystatus = getSharedPreferences("Info",MODE_PRIVATE).getString("SafetyStatus","ON");
@@ -140,14 +140,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-       btnportal = findViewById(R.id.help_requests);
+       /*btnportal = findViewById(R.id.help_requests);
        btnportal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, portal.class);
                 startActivity(i);
             }
-        });
+        });*/
 
 
 
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-
+                    databaseReference.child(UID).setValue(userDetails);
                 }else
                 {
                     databaseReference.child(UID).setValue(userDetails);
