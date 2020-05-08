@@ -32,6 +32,7 @@ public class verify_phone extends AppCompatActivity {
     private String mVerificationId;
     private FirebaseAuth mAuth;
     private String codeSend;
+    String mobile;
     private static final String TAG = AppCompatActivity.class.getSimpleName();
 
     @Override
@@ -44,7 +45,7 @@ public class verify_phone extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String mobile = intent.getStringExtra("mobile");
+        mobile = intent.getStringExtra("mobile");
         String countrycode = intent.getStringExtra("countrycode");
 
         sendVerificationCode(mobile,countrycode);
@@ -108,14 +109,14 @@ public class verify_phone extends AppCompatActivity {
         signInWithPhoneAuthCredential(credential);
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+    private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(verify_phone.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //verification successful we will start the profile activity
-                            ReferalGenerator.checkForReferal(FirebaseAuth.getInstance().getUid());
+                            ReferalGenerator.checkForReferal(mobile);
 
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                             if(isNewUser){
