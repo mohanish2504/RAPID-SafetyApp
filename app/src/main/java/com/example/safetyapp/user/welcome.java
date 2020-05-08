@@ -35,12 +35,8 @@ public class welcome extends AppCompatActivity {
 
         viewPager = findViewById(R.id.viewpager);
 
-
-
         IntroAdapter adapter = new IntroAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
-
-
     }
 
     public void getPermissions(){

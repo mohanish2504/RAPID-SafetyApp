@@ -3,6 +3,7 @@ package com.example.safetyapp.user;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,16 +25,19 @@ public class ReferalActivity extends AppCompatActivity {
     ListView listView;
     String Names[] = {"Name 1","Name 2"};
     String Codes[] = {"xyz","xyz"};
-
+    private String TAG= ReferalActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_referal);
 
-        listView = (ListView) findViewById(R.id.referal_contacts_list);
+        listView = (ListView) findViewById(R.id.list);
+        EmergencyContact[] emergencyContacts = new EmergencyContact[2];
+
+        emergencyContacts[0] = new EmergencyContact();
+        emergencyContacts[1] = new EmergencyContact();
 
 
-        EmergencyContact emergencyContacts[] = new EmergencyContact[2];
 
         MyAdapter myAdapter = new MyAdapter(this,R.layout.activity_emergency_contact,emergencyContacts);
         listView.setAdapter(myAdapter);
@@ -47,28 +51,44 @@ public class ReferalActivity extends AppCompatActivity {
 
     class MyAdapter extends ArrayAdapter<EmergencyContact>{
 
-        EmergencyContact emergencyContacts[];
+        EmergencyContact[] emergencyContacts;
         Context context;
-
-        public MyAdapter(@NonNull Context context, int resource,EmergencyContact emergencyContacts[]) {
+        private String TAG= MyAdapter.class.getSimpleName();
+        public MyAdapter(@NonNull Context context, int resource,EmergencyContact[] emergencyContacts) {
             super(context, resource);
+            //Log.d(TAG,"new adapter");
             this.context = context;
             this.emergencyContacts = emergencyContacts;
+           // Log.d(TAG,this.emergencyContacts[1].getName());
+            //Log.d(TAG,Integer.toString(this.emergencyContacts.length));
+        }
+
+        @Override
+        public int getCount() {
+            return emergencyContacts.length;
         }
 
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            View emergencycontactview = layoutInflater.inflate(R.layout.activity_emergency_contact,parent,false);
 
-            TextView textView_name = (TextView) emergencycontactview.findViewById(R.id.contacts_textview_name);
-            EditText editText_code = (EditText) emergencycontactview.findViewById(R.id.contacts_textview_number);
+            if(convertView==null){
+                convertView = getLayoutInflater().inflate(R.layout.activity_contacts_listview, parent, false);
+            }
+
+            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+
+            TextView textView_name = (TextView) convertView.findViewById(R.id.contacts_textview_name);
+            EditText editText_code = (EditText) convertView.findViewById(R.id.contacts_textview_number);
+
+            Log.d(TAG,this.emergencyContacts[position].getName());
 
             textView_name.setText(emergencyContacts[position].getName());
             editText_code.setHint(emergencyContacts[position].getReferal());
 
-            return emergencycontactview;
+            //Log.d("Howdi","here");
+
+            return convertView;
 
         }
     }
@@ -76,6 +96,14 @@ public class ReferalActivity extends AppCompatActivity {
     class EmergencyContact{
         String name;
         String referal;
+
+        public EmergencyContact(String name, String referal) {
+            this.name = name;
+            this.referal = referal;
+        }
+
+        public EmergencyContact() {
+        }
 
         public String getReferal() {
             if(referal==null)referal="xyz123";

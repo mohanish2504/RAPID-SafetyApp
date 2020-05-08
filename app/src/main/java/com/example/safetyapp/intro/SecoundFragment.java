@@ -28,7 +28,7 @@ public class SecoundFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_secound, container, false);
 
 
-        final Intent intent = new Intent(getActivity(), phoneno.class);
+        final Intent intent = new Intent(getActivity(), ReferalActivity.class);
         final Intent SignUpIntent =  new Intent(getActivity(), signUpActivity.class);
 
         Button login = (Button) view.findViewById(R.id.login);
