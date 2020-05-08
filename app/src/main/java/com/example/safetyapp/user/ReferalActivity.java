@@ -63,7 +63,6 @@ public class ReferalActivity extends AppCompatActivity {
         textView_userreferalcode = (TextView) findViewById(R.id.referalcode);
         Log.d(TAG,ReferalGenerator.getReferal());
         textView_userreferalcode.setText(ReferalGenerator.getReferal());
-        textView_userreferalcode.setTextColor(Color.parseColor("#000000"));
 
 
         listView = (ListView) findViewById(R.id.list);
