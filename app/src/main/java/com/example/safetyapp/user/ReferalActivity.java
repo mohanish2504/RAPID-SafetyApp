@@ -59,8 +59,9 @@ public class ReferalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_referal);
 
         EnableRuntimePermission();
+       // ReferalGenerator.checkForReferal(getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","811111111"));
         textView_userreferalcode = (TextView) findViewById(R.id.referalcode);
-        //Log.d(TAG,ReferalGenerator.getReferal());
+        Log.d(TAG,ReferalGenerator.getReferal());
         textView_userreferalcode.setText(ReferalGenerator.getReferal());
         textView_userreferalcode.setTextColor(Color.parseColor("#000000"));
 

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.example.safetyapp.ReferalGenerator;
+import com.example.safetyapp.UserDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -46,6 +47,7 @@ public class verify_phone extends AppCompatActivity {
 
         Intent intent = getIntent();
         mobile = intent.getStringExtra("mobile");
+        getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
         String countrycode = intent.getStringExtra("countrycode");
 
         sendVerificationCode(mobile,countrycode);
@@ -116,7 +118,7 @@ public class verify_phone extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //verification successful we will start the profile activity
-                            ReferalGenerator.checkForReferal(mobile);
+                           // ReferalGenerator.checkForReferal(mobile);
 
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                             Intent intent = new Intent(getApplicationContext(),ReferalActivity.class);
