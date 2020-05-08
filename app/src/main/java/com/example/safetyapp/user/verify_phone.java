@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
-import com.example.safetyapp.Referals.ReferalGenerator;
+import com.example.safetyapp.ReferalGenerator;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;

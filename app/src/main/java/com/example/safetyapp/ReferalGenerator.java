@@ -1,4 +1,4 @@
-package com.example.safetyapp.Referals;
+package com.example.safetyapp;
 
 import android.util.Log;
 
