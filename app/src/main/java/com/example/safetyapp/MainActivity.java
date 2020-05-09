@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         // New Modifications Comment this
-        UID = FirebaseAuth.getInstance().getUid();
+        UID = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
         setToken();
         createMethod();
         scheduleJob();
@@ -219,9 +219,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                         String token = task.getResult().getToken();
                         getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Token",token).apply();
-                        databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+                        DatabaseReference mdatabaseReference;
+                        mdatabaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
                         String mobile = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
-                        databaseReference.child(mobile).setValue(token);
+                        mdatabaseReference.child(mobile).setValue(token);
 
                     }
                 });

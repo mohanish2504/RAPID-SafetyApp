@@ -3,6 +3,7 @@ package com.example.safetyapp.intro;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.signUpActivity;
 
 public class SecoundFragment extends Fragment {
-
+    private static final String TAG = SecoundFragment.class.getSimpleName();
     public SecoundFragment() {
         // Required empty public constructor
     }
@@ -47,6 +48,7 @@ public class SecoundFragment extends Fragment {
         boolean loginstatus = getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("Status",false);
         boolean contactsVerified = getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("ContactsVerification",false);
         Intent intent;
+        Log.d(TAG,Boolean.toString(loginstatus));
         if(loginstatus && contactsVerified){
             intent = new Intent(getContext(), MainActivity.class);
         }else if(!loginstatus){
