@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.example.safetyapp.ReferalGenerator;
 import com.google.firebase.auth.FirebaseAuth;
@@ -146,13 +147,22 @@ public class ReferalActivity extends AppCompatActivity {
                    String code = dataSnapshot1.getValue().toString();
                    Log.d(TAG,code);
                    if(codeset.contains(code)){
+
                        codeset.remove(code);
                    }
                    if(codeset.isEmpty())break;
                }
                //Log.d(TAG,Boolean.toString(codeset.isEmpty()));
                if(codeset.isEmpty()){
+                   int i = 0;
+                   String title = "EmergencyContact";
+                   for(String n : numberset){
+                       getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString(title+String.valueOf(++i),n).apply();
+                   }
+                   getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putInt("EC_SIZE",i).apply();
                    Toast.makeText(getApplicationContext(),"All Contacts Verified Sucessfully!",Toast.LENGTH_SHORT).show();
+                   getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("ContactsVerification",true).apply();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                }else{
                    Toast.makeText(getApplicationContext(),"Contacts are not verified please check",Toast.LENGTH_SHORT).show();
                }

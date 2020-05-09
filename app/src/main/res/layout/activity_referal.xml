@@ -53,7 +53,7 @@
         android:background="@drawable/button_new"
         android:text="Verify Contact"
         android:textColor="#01579B"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_gravity="center"
         android:gravity="center"/>
 
@@ -64,7 +64,7 @@
         android:background="@drawable/button_new"
         android:text="Select Contact"
         android:textColor="#01579B"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_gravity="center"
         android:gravity="center"/>
 
@@ -75,7 +75,7 @@
         android:maxLines="7"
         android:scrollbars="vertical"
         android:text="TextView"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:layout_gravity="center"/>
 

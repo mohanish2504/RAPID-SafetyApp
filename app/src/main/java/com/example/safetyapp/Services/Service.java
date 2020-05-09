@@ -170,7 +170,7 @@ public class Service extends android.app.Service {
                     if(location!=null){
                         locationUser = location;
                         Log.d(TAG,"Got location");
-                        android_id =  getSharedPreferences("Info",MODE_PRIVATE).getString("Token",null);
+                       android_id =  getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number",null);
                         geoFireLoc.setLocation(android_id, new GeoLocation(location.getLatitude(), location.getLongitude()), new GeoFire.CompletionListener() {
                             @Override
                             public void onComplete(String key, DatabaseError error) {
@@ -203,7 +203,7 @@ public class Service extends android.app.Service {
             geoFireLoc = new GeoFire(locationRef);
             geoFireTrigger = new GeoFire(locationRef);
         }
-        if(android_id==null) android_id = getSharedPreferences("Info",MODE_PRIVATE).getString("Token",null);
+        if(android_id==null) android_id = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number",null);
     }
 
 

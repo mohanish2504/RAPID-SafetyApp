@@ -74,9 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
        // overridePendingTransition(0, 0);
 
-        sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
-
-        //btnsafetystatus = (Button) findViewById(R.id.safe);
+        /*sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
+        btnsafetystatus = (Button) findViewById(R.id.safe);
 
 
         final String safetystatus = getSharedPreferences("Info",MODE_PRIVATE).getString("SafetyStatus","ON");
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent i = new Intent(MainActivity.this, portal.class);
                 startActivity(i);
             }
-        });*/
+        });
 
 
 
@@ -164,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
        // sendData = new SendData();
 
-        setToken();
+
 
         createMethod();
 
@@ -172,6 +171,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
 
+        uploadUserData();*/
+
+
+        // New Modifications Comment this
+        UID = FirebaseAuth.getInstance().getUid();
+        setToken();
+        createMethod();
+        scheduleJob();
+        setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
         uploadUserData();
 
     }
@@ -195,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
 
     }
 
@@ -220,7 +229,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             return;
                         }
                         String token = task.getResult().getToken();
-                        getSharedPreferences("Info",MODE_PRIVATE).edit().putString("Token",token).apply();
+                        getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Token",token).apply();
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+                        String mobile = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+                        databaseReference.child(mobile).setValue(token);
 
                     }
                 });
