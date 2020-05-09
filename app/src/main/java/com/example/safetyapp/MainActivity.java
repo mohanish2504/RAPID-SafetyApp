@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -17,16 +16,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.safetyapp.Firebase.SendData;
-import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
+import com.example.safetyapp.user.ReferalActivity;
 import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.profile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -258,6 +256,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
         if (id == R.id.editprofile) {
             Intent i = new Intent(MainActivity.this,profile.class);
+            startActivity(i);
+        }
+        else if(id == R.id.emergencies_contacts){
+            Log.d("You are here","hello");
+            Intent i = new Intent(MainActivity.this, ReferalActivity.class);
             startActivity(i);
         }
         else if(id == R.id.logout){
