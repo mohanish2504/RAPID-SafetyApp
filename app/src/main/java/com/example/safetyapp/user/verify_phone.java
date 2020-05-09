@@ -34,7 +34,7 @@ public class verify_phone extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String codeSend;
     String mobile;
-    private static String TAG =  verify_phone.class.getSimpleName();
+    private static final String TAG = AppCompatActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class verify_phone extends AppCompatActivity {
 
         editTextcode = (OtpView) findViewById(R.id.otp);
         mAuth = FirebaseAuth.getInstance();
+
 
         Intent intent = getIntent();
         mobile = intent.getStringExtra("mobile");
@@ -56,7 +57,6 @@ public class verify_phone extends AppCompatActivity {
             public void onClick(View v) {
                 String code =  editTextcode.getText().toString().trim();
                 if(code.isEmpty() || code.length() < 6){
-                  //  Log.d()
                     editTextcode.setError("Enter valid code");
                     editTextcode.requestFocus();
                     return;
@@ -73,13 +73,15 @@ public class verify_phone extends AppCompatActivity {
 
                 String code = phoneAuthCredential.getSmsCode();
 
+
+
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 if(code != null){
                     editTextcode.setText(code);
                     verifyVerificationCode(code);
                 }
                 //ReferalGenerator.checkForReferal(FirebaseAuth.getInstance().getCurrentUser().toString());
-                //Log.d("OnVerify","completed");
+                Log.d("OnVerify","completed");
                 startActivity(intent);
             }
 
@@ -119,18 +121,19 @@ public class verify_phone extends AppCompatActivity {
                            // ReferalGenerator.checkForReferal(mobile);
 
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
-                            getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("Status",true).apply();
-                            if(isNewUser){
+                            Intent intent = new Intent(getApplicationContext(),ReferalActivity.class);
+                            startActivity(intent);
+                            /*if(isNewUser){
                                 Intent intent = new Intent(verify_phone.this, signUpActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }
                             else{
-                                Intent intent = new Intent(verify_phone.this, ReferalActivity.class);
+                                Intent intent = new Intent(verify_phone.this, MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
-                            }
-                            //getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",true).apply();
+                            }*/
+                            getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",true).apply();
                             //getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
                         } else {
 
