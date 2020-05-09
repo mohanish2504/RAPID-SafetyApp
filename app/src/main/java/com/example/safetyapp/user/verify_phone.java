@@ -34,7 +34,7 @@ public class verify_phone extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String codeSend;
     String mobile;
-    private static final String TAG = AppCompatActivity.class.getSimpleName();
+    private static String TAG =  verify_phone.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,6 @@ public class verify_phone extends AppCompatActivity {
 
         editTextcode = (OtpView) findViewById(R.id.otp);
         mAuth = FirebaseAuth.getInstance();
-
 
         Intent intent = getIntent();
         mobile = intent.getStringExtra("mobile");
@@ -57,6 +56,7 @@ public class verify_phone extends AppCompatActivity {
             public void onClick(View v) {
                 String code =  editTextcode.getText().toString().trim();
                 if(code.isEmpty() || code.length() < 6){
+                  //  Log.d()
                     editTextcode.setError("Enter valid code");
                     editTextcode.requestFocus();
                     return;
@@ -72,8 +72,6 @@ public class verify_phone extends AppCompatActivity {
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
                 String code = phoneAuthCredential.getSmsCode();
-
-
 
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 if(code != null){
