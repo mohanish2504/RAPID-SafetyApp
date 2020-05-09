@@ -10,15 +10,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.bumptech.glide.Glide;
 import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
@@ -137,15 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String email = user.getPhoneNumber();
             NavigationView navigationView = findViewById(R.id.nav_view);
             View hView = navigationView.getHeaderView(0);
-            ImageView user_img = (ImageView) hView.findViewById(R.id.user_img);
-            TextView textView = (TextView) hView.findViewById(R.id.nav_email);
-            textView.setText(email);
 
-            if(user.getPhotoUrl() != null){
-                Glide.with(this)
-                        .load(user.getPhotoUrl())
-                        .into((ImageView)user_img );
-            }
         }
 
         mAuth=FirebaseAuth.getInstance();

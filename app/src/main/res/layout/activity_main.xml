@@ -8,17 +8,69 @@
     android:id="@+id/drawerlayout"
     android:background="#F0EEEE">
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="vertical">
 
+        <Button
+            android:id="@+id/mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mode"
+            android:gravity="center|bottom"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:text="Mode | Private"
+            android:paddingBottom="20dp" />
 
+        <Button
+            android:id="@+id/tutorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tutorial"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center|bottom"
+            android:text="Tutorial"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="20dp"/>
 
+        <Button
+            android:id="@+id/safe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/safe"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center|bottom"
+            android:text="Safe"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="20dp"/>
+
+        <Button
+            android:id="@+id/portal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/help_req"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center|bottom"
+            android:text="Help Requests"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="20dp"/>
+
+        <Button
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/info"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center|bottom"
+            android:text="Info"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="20dp"/>
 
     </LinearLayout>
+
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
