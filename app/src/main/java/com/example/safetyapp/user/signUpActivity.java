@@ -41,12 +41,13 @@ public class signUpActivity extends AppCompatActivity {
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("FirstName", String.valueOf(fname)).apply();
+
+                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("FirstName", String.valueOf(fname.getText())).apply();
                 getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("LastName","lastName").apply();
                 getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Gender","gender").apply();
                 getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("City","city").apply();
                 getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("DOB","dob").apply();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ReferalActivity.class);
                 startActivity(intent);
             }
         });

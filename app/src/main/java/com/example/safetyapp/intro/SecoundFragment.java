@@ -1,5 +1,6 @@
 package com.example.safetyapp.intro;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.example.safetyapp.user.ReferalActivity;
 import com.example.safetyapp.user.phoneno;
@@ -35,9 +37,23 @@ public class SecoundFragment extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intent);
+                checkRequiredValidations();
             }
         });
         return  view;
+    }
+
+    public void checkRequiredValidations(){
+        boolean loginstatus = getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("Status",false);
+        boolean contactsVerified = getActivity().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("ContactsVerification",false);
+        Intent intent;
+        if(loginstatus && contactsVerified){
+            intent = new Intent(getContext(), MainActivity.class);
+        }else if(!loginstatus){
+            intent = new Intent(getContext(), phoneno.class);
+        }else{
+            intent = new Intent(getContext(), ReferalActivity.class);
+        }
+        startActivity(intent);
     }
 }
