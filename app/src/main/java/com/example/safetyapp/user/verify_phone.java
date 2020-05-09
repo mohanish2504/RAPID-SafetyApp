@@ -116,7 +116,7 @@ public class verify_phone extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //verification successful we will start the profile activity
-                            ReferalGenerator.checkForReferal(mobile);
+                           // ReferalGenerator.checkForReferal(mobile);
 
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                             getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("Status",true).apply();
