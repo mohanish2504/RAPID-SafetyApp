@@ -12,8 +12,11 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.R;
+import com.example.safetyapp.UserDetails;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Map;
 
 public class MessageService extends FirebaseMessagingService {
     private static String channelID = "Notification Channel";
@@ -45,6 +48,7 @@ public class MessageService extends FirebaseMessagingService {
         Log.d("message","received");
         super.onMessageReceived(remoteMessage);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
             showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
         }
         else{

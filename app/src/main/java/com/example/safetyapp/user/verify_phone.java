@@ -123,7 +123,7 @@ public class verify_phone extends AppCompatActivity {
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                            // Intent intent = new Intent(getApplicationContext(),ReferalActivity.class);
                             //startActivity(intent);
-                            getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putBoolean("Status",true).apply();
+                            getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("Status",true).apply();
                             if(isNewUser){
                                 Intent intent = new Intent(verify_phone.this, signUpActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
