@@ -44,15 +44,20 @@ public class MessageService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-
-        Log.d("message","received");
         super.onMessageReceived(remoteMessage);
+        Log.d(TAG,"Message Received");
+        Map<String,String> map = remoteMessage.getData();
+        for(String m : map.keySet()){
+            Log.d(TAG,m);
+        }
+        String title = map.get("title");
+        Log.d(TAG,title);
+        String body = map.get("firstName")+" is facing issues ";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
+            showNotification(map.get("title"),body);
         }
         else{
-            notifyFunc(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
+            notifyFunc(map.get("title"),body);
         }
     }
 
