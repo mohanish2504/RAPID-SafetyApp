@@ -16,15 +16,20 @@ public class IntroAdapter extends FragmentPagerAdapter {
             case 0:
                 return new FirstFragment();
             case 1:
+                return new ThirdFragment();
+            case 2:
+                return new FourthFragment();
+            case 3:
+                return new FifthFragment();
+            case 4:
                 return new SecoundFragment();
             default:
                 return null;
-
         }
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 5;
     }
 }

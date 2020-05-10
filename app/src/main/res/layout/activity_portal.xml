@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
@@ -11,7 +11,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,18 +86,17 @@
                     android:id="@+id/frag_map_navi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/locate"
+                    android:background="@drawable/button_new"
                     android:text="Locate Me"
-                    android:paddingLeft="55dp"
+                    android:textAlignment="center"
                     android:paddingBottom="5dp" />
 
                 <Button
                     android:id="@+id/share_contact"
-                    android:layout_width="220dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/share_contact"
+                    android:background="@drawable/button_new"
                     android:text="Share Contact"
-                    android:paddingLeft="70dp"
                     android:paddingBottom="5dp"/>
 
             </LinearLayout>

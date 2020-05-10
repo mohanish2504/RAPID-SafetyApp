@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".intro.ThirdFragment"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/rect_c"
+            android:layout_marginTop="-20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/phone"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:layout_width="254dp"
+                android:layout_height="79dp"
+                android:layout_margin="60dp"
+                android:text="Press Power/Lock\nbutton 5 Times"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eme_text"
+            android:layout_marginTop="50dp"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="#000000"/>
+
+        <LinearLayout
+            android:layout_width="380dp"
+            android:layout_height="200dp"
+            android:background="@drawable/rect_c"
+            android:layout_marginTop="75dp"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:id="@+id/icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_location"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="100dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_mic"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_contacts_white"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_message"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_storage"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="20dp"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/allow_permission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_new"
+                android:text="Allow Permission"
+                android:layout_gravity="center"
+                android:textColor="#000000"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
