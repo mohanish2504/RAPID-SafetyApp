@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -17,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +28,6 @@ import androidx.core.app.ActivityCompat;
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.example.safetyapp.ReferalGenerator;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,9 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
-import java.util.zip.Inflater;
 
 import static com.example.safetyapp.user.EmergencyContact.RequestPermissionCode;
 
@@ -65,7 +60,7 @@ public class ReferalActivity extends AppCompatActivity {
         EnableRuntimePermission();
        // ReferalGenerator.checkForReferal(getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","811111111"));
         textView_userreferalcode = (TextView) findViewById(R.id.referalcode);
-        Log.d(TAG,ReferalGenerator.getReferal());
+        //Log.d(TAG,ReferalGenerator.getReferal());
         textView_userreferalcode.setText(ReferalGenerator.getReferal());
 
         msg="Hi I am inviting you to be my emergency contact please download the app share referal code";

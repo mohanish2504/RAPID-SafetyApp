@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,9 @@ import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
+import com.example.safetyapp.user.ReferalActivity;
 import com.example.safetyapp.user.phoneno;
+import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.profile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -66,12 +69,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         final Intent intent = getIntent();
-        //overridePendingTransition(0, 0);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
-       // overridePendingTransition(0, 0);
+        overridePendingTransition(0, 0);
 
-        /*sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
+        sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
         btnsafetystatus = (Button) findViewById(R.id.safe);
 
 
@@ -82,11 +85,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             btnsafetystatus.setBackgroundResource(R.drawable.unsafe);
             btnsafetystatus.setText("Safe");
 
-            //btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
+            btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
         }else if(safetystatus.equals("ON")){
             btnsafetystatus.setBackgroundResource(R.drawable.safe);
             btnsafetystatus.setText("Unsafe");
-            //btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
+            btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
         }
 
         btnsafetystatus.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-       /*btnportal = findViewById(R.id.help_requests);
+       btnportal = findViewById(R.id.portal);
        btnportal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,9 +153,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       // sendData = new SendData();
+       /*sendData = new SendData();
 
-
+       ReferalGenerator.checkForReferal(UID);
 
         createMethod();
 
@@ -165,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // New Modifications Comment this
         UID = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+        ReferalGenerator.checkForReferal(UID);
         setToken();
         createMethod();
         scheduleJob();
@@ -259,6 +263,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
         if (id == R.id.editprofile) {
             Intent i = new Intent(MainActivity.this,profile.class);
+            startActivity(i);
+        }
+        else if(id == R.id.emergencies_contacts){
+            Log.d("You are here","hello");
+            Intent i = new Intent(MainActivity.this, ReferalActivity.class);
             startActivity(i);
         }
         else if(id == R.id.logout){
