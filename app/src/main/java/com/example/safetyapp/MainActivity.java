@@ -153,9 +153,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       sendData = new SendData();
+       /*sendData = new SendData();
 
-
+       ReferalGenerator.checkForReferal(UID);
 
         createMethod();
 
@@ -163,11 +163,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
 
-        uploadUserData();
+        uploadUserData();*/
 
 
         // New Modifications Comment this
         UID = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+        ReferalGenerator.checkForReferal(UID);
         setToken();
         createMethod();
         scheduleJob();
