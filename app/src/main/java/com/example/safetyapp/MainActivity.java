@@ -4,10 +4,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -16,15 +18,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.safetyapp.Firebase.SendData;
+import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
 import com.example.safetyapp.user.ReferalActivity;
 import com.example.safetyapp.user.phoneno;
+import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.profile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,12 +69,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         final Intent intent = getIntent();
-        //overridePendingTransition(0, 0);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
-       // overridePendingTransition(0, 0);
+        overridePendingTransition(0, 0);
 
-        /*sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
+        sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
         btnsafetystatus = (Button) findViewById(R.id.safe);
 
 
@@ -80,11 +85,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             btnsafetystatus.setBackgroundResource(R.drawable.unsafe);
             btnsafetystatus.setText("Safe");
 
-            //btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
+            btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
         }else if(safetystatus.equals("ON")){
             btnsafetystatus.setBackgroundResource(R.drawable.safe);
             btnsafetystatus.setText("Unsafe");
-            //btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
+            btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
         }
 
         btnsafetystatus.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-       /*btnportal = findViewById(R.id.help_requests);
+       btnportal = findViewById(R.id.portal);
        btnportal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       // sendData = new SendData();
+       sendData = new SendData();
 
 
 
@@ -158,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
 
-        uploadUserData();*/
+        uploadUserData();
 
 
         // New Modifications Comment this
