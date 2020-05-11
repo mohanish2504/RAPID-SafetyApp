@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.safetyapp.Firebase.SendData;
+import com.example.safetyapp.HelpRequests;
 import com.example.safetyapp.R;
 import com.example.safetyapp.UserDetails;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -44,15 +45,21 @@ public class MessageService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-
-        Log.d("message","received");
         super.onMessageReceived(remoteMessage);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        Log.d(TAG,"Message Received");
+        Map<String,String> map;
+        map = remoteMessage.getData();
 
-            showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
+        HelpRequests.UserInNeed userInNeed = new HelpRequests.UserInNeed(map);
+        HelpRequests.addUser(userInNeed);
+
+        Log.d(TAG, String.valueOf(HelpRequests.currentRequests()));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+          //  showNotification(map.get("title"),body);
         }
         else{
-            notifyFunc(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
+            //notifyFunc(map.get("title"),body);
         }
     }
 

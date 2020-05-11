@@ -40,6 +40,8 @@ import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Map;
 
+import static java.lang.reflect.Array.getInt;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -60,13 +62,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static UserDetails userDetails;
     FirebaseDatabase firebaseDatabase;
     Intent sirenIntent;
-
+    int helprequests;
     Button btnportal,btnsafetystatus;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //helprequests = getSharedPreferences("HelpRequests",MODE_PRIVATE).getInt("current_help_requests",HelpRequests.currentRequests());
+
 
         final Intent intent = getIntent();
         overridePendingTransition(0, 0);
