@@ -11,8 +11,8 @@ public class HelpRequests {
     private static ArrayList<UserInNeed> usersinneed = new ArrayList<>() ;
 
     public static void addUser(UserInNeed userinneed){
-       usersinneed.add(userinneed);
-       Log.d("Size", String.valueOf(usersinneed.size()));
+       usersinneed.add(0,userinneed);
+       //Log.d("Size", String.valueOf(usersinneed.size()));
     }
 
     public static ArrayList<UserInNeed> getUsers(){return usersinneed;}

@@ -163,23 +163,28 @@ public class portal extends AppCompatActivity {
             }
 
             currposition = position;
+            TextView textView = convertView.findViewById(R.id.user_name);
+            textView.setText(userInNeedArrayAdapter.get(position).getFirstName());
+
             MapView mapView = convertView.findViewById(frag_map);
+
             if(mapView!=null){
                 mapView.onCreate(null);
-                mapView.getMapAsync(this);
+                mapView.onResume();
+                mapView.getMapAsync(getNewOnReadyCallBack(position));
             }
 
             return convertView;
         }
 
+
+
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            MapsInitializer.initialize(getApplicationContext());
-            gmap = googleMap;
-            setMap();
+
         }
 
-        public void setMap(){
+       /* public void setMap(){
 
             Double lat,lon;
             lat = Double.parseDouble(userInNeedArrayAdapter.get(currposition).getLat());
@@ -190,9 +195,29 @@ public class portal extends AppCompatActivity {
             gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
             gmap.addMarker(new MarkerOptions().position(location));
 
-            // Set the map type back to normal.
             gmap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        }*/
+
+        OnMapReadyCallback getNewOnReadyCallBack(final int position){
+            return new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    MapsInitializer.initialize(getApplicationContext());
+                    Double lat,lon;
+                    lat = Double.parseDouble(userInNeedArrayAdapter.get(position).getLat());
+                    lon = Double.parseDouble(userInNeedArrayAdapter.get(position).getLon());
+                    LatLng location = new LatLng(lat,lon);
+
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
+                    googleMap.addMarker(new MarkerOptions().position(location));
+
+                    googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                    //setMap();
+                }
+            };
         }
+
 
     }
 

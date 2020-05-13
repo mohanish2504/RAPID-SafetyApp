@@ -25,6 +25,7 @@
                 android:layout_height="130dp"
                 android:id="@+id/frag_map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
+                map:mapType="normal"
                 map:liteMode="true"
                 />
 
