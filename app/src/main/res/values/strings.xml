@@ -31,4 +31,6 @@
     <string name="gender">Gender</string>
     <string name="eme_text">This will activate alert from\n from your device and your\n location will be shared with\n nearby users and your\n emergency contacts</string>
     <string name="warning">This Service shall \n only be used \n by needy at a \ntime of emergency</string>
+    <string name="allow_permission">Allow Permission</string>
+    <string name="press_power_lock_nbutton_5_times">Press Power/Lock\nbutton 5 Times</string>
 </resources>
