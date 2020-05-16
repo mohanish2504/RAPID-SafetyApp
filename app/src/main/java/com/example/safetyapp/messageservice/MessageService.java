@@ -54,16 +54,15 @@ public class MessageService extends FirebaseMessagingService {
 
         HelpRequests.UserInNeed userInNeed = new HelpRequests.UserInNeed(map);
         Long time = Long.valueOf(map.get("time"));
-        HelpRequests.addUser(time,userInNeed);
 
-
-        Log.d(TAG, String.valueOf(HelpRequests.currentRequests()));
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-          //  showNotification(map.get("title"),body);
-        }
-        else{
-            //notifyFunc(map.get("title"),body);
+        if(HelpRequests.addUser(time,userInNeed)){
+            Log.d(TAG, String.valueOf(HelpRequests.currentRequests()));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                showNotification(map.get("title"),map.get("body"));
+            }
+            else{
+                notifyFunc(map.get("title"),map.get("body"));
+            }
         }
     }
 

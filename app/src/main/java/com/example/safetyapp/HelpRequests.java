@@ -6,11 +6,13 @@ import java.util.Map;
 public class HelpRequests {
     private static Map< Long ,UserInNeed> usersinneed = new HashMap< Long , UserInNeed>();
 
-    public static void addUser(Long time,UserInNeed userinneed){
+    public static boolean addUser(Long time,UserInNeed userinneed){
 
        if(!usersinneed.containsKey(time)){
            usersinneed.put(time,userinneed);
+           return true;
        }
+       return false;
        //Log.d("Size", String.valueOf(usersinneed.size()));
     }
 

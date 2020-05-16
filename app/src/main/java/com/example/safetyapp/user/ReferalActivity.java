@@ -283,9 +283,10 @@ public class ReferalActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==7){
+        if(requestCode==7) {
 
-                EmergencyContact emergencyContact_temp;
+            EmergencyContact emergencyContact_temp;
+            try {
                 Uri contactData = data.getData();
                 String number = "";
                 String name = "";
@@ -304,22 +305,22 @@ public class ReferalActivity extends AppCompatActivity {
                         name = phones.getString(phones.getColumnIndex
                                 (ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)).replaceAll("[-() ]", "");
 
-                        Log.d(TAG,number);
-                        if(number.length()>10){
+                        Log.d(TAG, number);
+                        if (number.length() > 10) {
                             StringBuilder num = new StringBuilder();
-                            for(int i = number.length()-1;i>=number.length()-10;i--){
-                                num.insert(0,number.charAt(i));
+                            for (int i = number.length() - 1; i >= number.length() - 10; i--) {
+                                num.insert(0, number.charAt(i));
                             }
                             number = num.toString();
                         }
 
-                        if(number.equals( getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number",""))){
-                            Toast.makeText(getApplicationContext(),"Your number cannot be used as emergency contact",Toast.LENGTH_SHORT).show();
+                        if (number.equals(getSharedPreferences("UserDetails", MODE_PRIVATE).getString("Number", ""))) {
+                            Toast.makeText(getApplicationContext(), "Your number cannot be used as emergency contact", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        EmergencyContact emergencyContact = new EmergencyContact(name,null,number);
-                        if(!numberset.contains(number)) {
+                        EmergencyContact emergencyContact = new EmergencyContact(name, null, number);
+                        if (!numberset.contains(number)) {
                             emergencyContacts.add(emergencyContact);
                             myAdapter.notifyDataSetChanged();
                             numberset.add(number);
@@ -330,9 +331,11 @@ public class ReferalActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "This contact has no phone number", Toast.LENGTH_LONG).show();
                 }
                 cursor.close();
-            //}
-        }else{
-            return;
+                //}
+
+            } catch (Exception e) {
+
+            }
         }
     }
 }
