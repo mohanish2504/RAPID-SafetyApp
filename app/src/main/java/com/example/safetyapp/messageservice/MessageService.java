@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -14,6 +15,7 @@ import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.HelpRequests;
 import com.example.safetyapp.R;
 import com.example.safetyapp.UserDetails;
+import com.example.safetyapp.user.portal;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -51,7 +53,9 @@ public class MessageService extends FirebaseMessagingService {
         map = remoteMessage.getData();
 
         HelpRequests.UserInNeed userInNeed = new HelpRequests.UserInNeed(map);
-        HelpRequests.addUser(userInNeed);
+        Long time = Long.valueOf(map.get("time"));
+        HelpRequests.addUser(time,userInNeed);
+
 
         Log.d(TAG, String.valueOf(HelpRequests.currentRequests()));
 

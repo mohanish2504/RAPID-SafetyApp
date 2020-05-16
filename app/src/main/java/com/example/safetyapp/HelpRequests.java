@@ -1,21 +1,20 @@
 package com.example.safetyapp;
 
-import android.util.ArraySet;
-import android.util.Log;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
 
 public class HelpRequests {
-    private static ArrayList<UserInNeed> usersinneed = new ArrayList<>() ;
+    private static Map< Long ,UserInNeed> usersinneed = new HashMap< Long , UserInNeed>();
 
-    public static void addUser(UserInNeed userinneed){
-       usersinneed.add(0,userinneed);
+    public static void addUser(Long time,UserInNeed userinneed){
+
+       if(!usersinneed.containsKey(time)){
+           usersinneed.put(time,userinneed);
+       }
        //Log.d("Size", String.valueOf(usersinneed.size()));
     }
 
-    public static ArrayList<UserInNeed> getUsers(){return usersinneed;}
+    public static Map<Long, UserInNeed> getUsers(){return usersinneed;}
 
     public static int currentRequests(){
         return usersinneed.size();
