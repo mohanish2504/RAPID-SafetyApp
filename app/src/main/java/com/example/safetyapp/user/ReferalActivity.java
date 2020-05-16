@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -35,21 +36,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+
+import io.michaelrocks.libphonenumber.android.Phonenumber;
 
 import static com.example.safetyapp.user.EmergencyContact.RequestPermissionCode;
 
 public class ReferalActivity extends AppCompatActivity {
 
     ListView listView;
-    String Names[] = {"Name 1","Name 2"};
-    String Codes[] = {"xyz","xyz"};
+
     private String TAG= ReferalActivity.class.getSimpleName();
-    ArrayList<EmergencyContact> emergencyContacts;
+    private static ArrayList<EmergencyContact> emergencyContacts;
     MyAdapter myAdapter;
     Button verifyContacts,sendInvitation;
-    Set<String> numberset = new HashSet<String>();
+    private static Set<String> numberset = new HashSet<String>();
     TextView textView_userreferalcode;
     String msg;
     @Override
@@ -124,31 +128,35 @@ public class ReferalActivity extends AppCompatActivity {
 
     public void checkForAddedContact(){
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Referals");
+        if(numberset.size()<1){
+            Toast.makeText(getApplicationContext(),"Please select atleast one emergency contact!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Referals");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               Set<String> codeset = new HashSet<String>();
-               for(int i = 0;i<numberset.size();i++){
-                   View view = listView.getChildAt(i);
-                   EditText editText = view.findViewById(R.id.contacts_textview_number);
-                   //Log.d(TAG,editText.getText().toString());
-                   codeset.add(editText.getText().toString());
-            }
-               //Log.d(TAG,editText.getText().toString());
+                //hjgjhhjb
+                Map<String,String> selectedContacts = new HashMap<>();
+                for(int i = 0 ; i<emergencyContacts.size();i++){
+                    View view  = listView.getChildAt(i);
+                    EditText code = view.findViewById(R.id.contacts_textview_number);
+                    selectedContacts.put(emergencyContacts.get(i).getNumber(),code.toString());
+                }
 
-               for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                   String code = dataSnapshot1.getValue().toString();
-                   Log.d(TAG,code);
-                   if(codeset.contains(code)){
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                   String number = dataSnapshot1.getKey();
+                   String code = String.valueOf(dataSnapshot1.getValue());
+                   Log.d(TAG,number+" "+code);
 
-                       codeset.remove(code);
+                   if(selectedContacts.containsKey(number) && code == selectedContacts.get(number)){
+                        selectedContacts.remove(number);
                    }
-                   if(codeset.isEmpty())break;
                }
                //Log.d(TAG,Boolean.toString(codeset.isEmpty()));
-               if(codeset.isEmpty()){
+               if(selectedContacts.isEmpty()){
                    int i = 0;
                    String title = "EmergencyContact";
                    for(String n : numberset){
@@ -266,11 +274,9 @@ public class ReferalActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Log.d(TAG,Integer.toString(requestCode));
+
         if(requestCode==7){
-            //if(requestCode==RESULT_OK){
-                //Log.d()
-               // Log.d(TAG,"here");
+
                 EmergencyContact emergencyContact_temp;
                 Uri contactData = data.getData();
                 String number = "";
@@ -289,10 +295,19 @@ public class ReferalActivity extends AppCompatActivity {
                                 (ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[-() ]", "");
                         name = phones.getString(phones.getColumnIndex
                                 (ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)).replaceAll("[-() ]", "");
-                        emergencyContact_temp = new EmergencyContact(name,"xyz",number);
 
+
+                        if(number.length()>10){
+                            StringBuilder num = new StringBuilder();
+                            for(int i = number.length()-1;i>=number.length()-10;i--){
+                                num.insert(0,number.charAt(i));
+                            }
+                            number = num.toString();
+                        }
+
+                        EmergencyContact emergencyContact = new EmergencyContact(name,null,number);
                         if(!numberset.contains(number)) {
-                            emergencyContacts.add(emergencyContact_temp);
+                            emergencyContacts.add(emergencyContact);
                             myAdapter.notifyDataSetChanged();
                             numberset.add(number);
                         }
