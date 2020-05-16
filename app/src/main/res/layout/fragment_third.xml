@@ -20,7 +20,7 @@
             android:text="Don't Wait \n To be a Victam"
             android:layout_gravity="center"
             android:textSize="40sp"
-            android:textAlignment="center"/>
+            android:textAlignment="center" />
 
     </LinearLayout>
 
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="250dp">
+        android:layout_marginTop="210dp">
 
         <LinearLayout
             android:layout_width="wrap_content"

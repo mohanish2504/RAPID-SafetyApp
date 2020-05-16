@@ -222,7 +222,7 @@ public class ReferalActivity extends AppCompatActivity {
         }
     }
 
-    class EmergencyContact{
+    public class EmergencyContact{
         String name;
         String referal;
         String number;

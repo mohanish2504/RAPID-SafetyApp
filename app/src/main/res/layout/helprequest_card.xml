@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_more"
-                    android:layout_marginLeft="70dp"
+                    android:layout_marginLeft="90dp"
                     android:clickable="true"/>
 
             </LinearLayout>
@@ -84,23 +84,17 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp">
 
-                <Button
-                    android:id="@+id/frag_map_navi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/locate"
-                    android:text="Locate Me"
-                    android:paddingLeft="55dp"
-                    android:paddingBottom="5dp" />
 
                 <Button
                     android:id="@+id/share_contact"
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/share_contact"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_new"
                     android:text="Share Contact"
-                    android:paddingLeft="70dp"
-                    android:paddingBottom="5dp"/>
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="85dp"/>
 
             </LinearLayout>
 
