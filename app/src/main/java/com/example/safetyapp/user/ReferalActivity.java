@@ -138,6 +138,7 @@ public class ReferalActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //hjgjhhjb
                 Map<String,String> selectedContacts = new HashMap<>();
                 for(int i = 0 ; i<emergencyContacts.size();i++){
                     View view  = listView.getChildAt(i);
