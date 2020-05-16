@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
+import com.example.safetyapp.Globals;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -55,10 +56,10 @@ public class TriggerData {
 
                 String title = "EmergencyContact";
                 for(int j = 0;j<ec_sz;j++){
-                    emergencyContacts.add(context.getSharedPreferences("UserDetails",Context.MODE_PRIVATE).getString(title+String.valueOf(j+1),""));
+                    emergencyContacts.add(Globals.emergencyContactslist.get(j).getNumber());
                 }
 
-                CurrentUserInfo currentInfo = new CurrentUserInfo(mobile,location,emergencyContacts);
+                CurrentUserInfo currentInfo = new CurrentUserInfo(mobile,location,emergencyContacts,currentTime);
 
                 dbref.child(String.valueOf(System.nanoTime())).setValue(currentInfo);
             }
@@ -71,11 +72,21 @@ public class TriggerData {
         String Mobile;
         Location location;
         ArrayList<String> emergencyContacts ;
+        Date triggertime ;
 
-        public CurrentUserInfo(String mobile, Location location, ArrayList<String> emergencyContacts) {
+        public CurrentUserInfo(String mobile, Location location, ArrayList<String> emergencyContacts, Date triggertime) {
             Mobile = mobile;
             this.location = location;
             this.emergencyContacts = emergencyContacts;
+            this.triggertime = triggertime;
+        }
+
+        public Date getTriggertime() {
+            return triggertime;
+        }
+
+        public void setTriggertime(Date triggertime) {
+            this.triggertime = triggertime;
         }
 
         public CurrentUserInfo() {
