@@ -55,11 +55,11 @@ public class TriggerData {
                 ArrayList<String> emergencyContacts= new ArrayList<>();
 
                 String title = "EmergencyContact";
-                for(int j = 0;j<ec_sz;j++){
+                for(int j = 0;j<Globals.emergencyContactslist.size();j++){
                     emergencyContacts.add(Globals.emergencyContactslist.get(j).getNumber());
                 }
 
-                CurrentUserInfo currentInfo = new CurrentUserInfo(mobile,location,emergencyContacts,currentTime);
+                CurrentUserInfo currentInfo = new CurrentUserInfo(mobile,location,emergencyContacts,currentTime.toString());
 
                 dbref.child(String.valueOf(System.nanoTime())).setValue(currentInfo);
             }
@@ -72,20 +72,20 @@ public class TriggerData {
         String Mobile;
         Location location;
         ArrayList<String> emergencyContacts ;
-        Date triggertime ;
+        String triggertime ;
 
-        public CurrentUserInfo(String mobile, Location location, ArrayList<String> emergencyContacts, Date triggertime) {
+        public CurrentUserInfo(String mobile, Location location, ArrayList<String> emergencyContacts, String triggertime) {
             Mobile = mobile;
             this.location = location;
             this.emergencyContacts = emergencyContacts;
             this.triggertime = triggertime;
         }
 
-        public Date getTriggertime() {
+        public String getTriggertime() {
             return triggertime;
         }
 
-        public void setTriggertime(Date triggertime) {
+        public void setTriggertime(String triggertime) {
             this.triggertime = triggertime;
         }
 
