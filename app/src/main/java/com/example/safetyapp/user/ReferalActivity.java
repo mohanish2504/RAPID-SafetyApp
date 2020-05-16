@@ -10,7 +10,6 @@ import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.example.safetyapp.R.drawable.referal;
 import static com.example.safetyapp.user.EmergencyContact.RequestPermissionCode;
 
 public class ReferalActivity extends AppCompatActivity {
@@ -210,11 +208,7 @@ public class ReferalActivity extends AppCompatActivity {
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 
             TextView textView_name = (TextView) convertView.findViewById(R.id.contacts_textview_name);
-            textView_name.setGravity(Gravity.CENTER);
-
             EditText editText_code = (EditText) convertView.findViewById(R.id.contacts_textview_number);
-            editText_code.setBackgroundResource(referal);
-            editText_code.setGravity(Gravity.CENTER);
 
             //Log.d(TAG,this.emergencyContacts.get(position).getName());
 

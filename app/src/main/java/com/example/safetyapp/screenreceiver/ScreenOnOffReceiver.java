@@ -99,8 +99,6 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

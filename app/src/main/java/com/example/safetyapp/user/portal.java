@@ -1,5 +1,6 @@
 package com.example.safetyapp.user;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -48,6 +49,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -57,78 +59,29 @@ import static java.util.Objects.*;
 public class portal extends AppCompatActivity {
 
     private static String TAG = portal.class.getSimpleName();
-    ListView listView;
-    ListViewAdapter listViewAdapter;
+    public static ListView listView ;
+    public static ListViewAdapter listViewAdapter;
+
+    public void init(){
+        listView = findViewById(R.id.listview_helps);
+        listViewAdapter = new ListViewAdapter(this,R.layout.helprequest_card);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portal);
 
-        listView = findViewById(R.id.listview_helps);
-        listViewAdapter = new ListViewAdapter(this,R.layout.helprequest_card);
-
+        init();
         listView.setAdapter(listViewAdapter);
+        //listViewAdapter.notifyDataSetChanged();
 
-        /*TextView txtDetails = (TextView) findViewById(R.id.txtDetails);
-        txtDetails.setText("Anjitha has requested you for help!\n" +
-                "Please share your contact details and\n" +
-                "use location to reach out before any \n" +
-                "incident happens ");
-        txtDetails.setMovementMethod(new ScrollingMovementMethod());
+    }
 
-        TextView datetime = (TextView) findViewById(R.id.dandt);
-        String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
-        datetime.setText(currentDateTimeString);
-
-        imageView = findViewById(R.id.more);
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(getApplicationContext(), v);
-                MenuInflater menuInflater = popupMenu.getMenuInflater();
-                menuInflater.inflate(R.menu.report_menu, popupMenu.getMenu());
-
-                popupMenu.show();
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.report:
-                                Toast.makeText(portal.this, "Report Selected" , Toast.LENGTH_SHORT).show();
-                                return true;
-
-                            default:
-                                return false;
-                        }
-                    }
-                });
-            }
-        });
-
-
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.frag_map);
-        mapFragment.getMapAsync(this);
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null){
-            String email = user.getPhoneNumber();
-            TextView textView = findViewById(R.id.user_name);
-            textView.setText(email);
-        }
-
-
-        Button btn_navigate = findViewById(R.id.frag_map_navi);
-        btn_navigate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("geo:23.0225, 72.5714"));
-                startActivity(i);
-            }
-        });*/
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public class ListViewAdapter extends ArrayAdapter<EmergencyContact> implements OnMapReadyCallback {
@@ -139,13 +92,11 @@ public class portal extends AppCompatActivity {
 
         public ListViewAdapter(@NonNull Context context, int resource) {
             super(context, resource);
-            ArrayList<HelpRequests.UserInNeed> helprequests = HelpRequests.getUsers();
+            Map<Long, HelpRequests.UserInNeed> helprequests = HelpRequests.getUsers();
 
             userInNeedArrayAdapter = new ArrayList<>();
             Log.d(TAG, String.valueOf(helprequests.size()) +" " + String.valueOf(HelpRequests.currentRequests()));
-            for(int i = 0 ; i<helprequests.size();i++){
-                userInNeedArrayAdapter.add(helprequests.get(i));
-            }
+            userInNeedArrayAdapter.addAll(helprequests.values());
         }
 
         @Override
@@ -163,36 +114,46 @@ public class portal extends AppCompatActivity {
             }
 
             currposition = position;
+            TextView textView = convertView.findViewById(R.id.user_name);
+            textView.setText(userInNeedArrayAdapter.get(position).getFirstName());
+
             MapView mapView = convertView.findViewById(frag_map);
+
             if(mapView!=null){
                 mapView.onCreate(null);
-                mapView.getMapAsync(this);
+                mapView.onResume();
+                mapView.getMapAsync(getNewOnReadyCallBack(position));
             }
 
             return convertView;
         }
 
+
+
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            MapsInitializer.initialize(getApplicationContext());
-            gmap = googleMap;
-            setMap();
+
         }
 
-        public void setMap(){
+        OnMapReadyCallback getNewOnReadyCallBack(final int position){
+            return new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    MapsInitializer.initialize(getApplicationContext());
+                    Double lat,lon;
+                    lat = Double.parseDouble(userInNeedArrayAdapter.get(position).getLat());
+                    lon = Double.parseDouble(userInNeedArrayAdapter.get(position).getLon());
+                    LatLng location = new LatLng(lat,lon);
 
-            Double lat,lon;
-            lat = Double.parseDouble(userInNeedArrayAdapter.get(currposition).getLat());
-            lon = Double.parseDouble(userInNeedArrayAdapter.get(currposition).getLon());
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
+                    googleMap.addMarker(new MarkerOptions().position(location));
 
-            LatLng location = new LatLng(lat,lon);
-
-            gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
-            gmap.addMarker(new MarkerOptions().position(location));
-
-            // Set the map type back to normal.
-            gmap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                    googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                    //setMap();
+                }
+            };
         }
+
 
     }
 
