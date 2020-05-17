@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.safetyapp.Globals;
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.example.safetyapp.ReferalGenerator;
@@ -50,8 +51,8 @@ public class ReferalActivity extends AppCompatActivity {
     ListView listView;
 
     private String TAG= ReferalActivity.class.getSimpleName();
-    private static ArrayList<EmergencyContact> emergencyContacts;
-    MyAdapter myAdapter;
+    private static ArrayList<EmergencyContact> emergencyContacts=new ArrayList<EmergencyContact>();;
+    private static MyAdapter myAdapter;
     Button verifyContacts,sendInvitation;
     private static Set<String> numberset = new HashSet<String>();
     TextView textView_userreferalcode;
@@ -70,9 +71,9 @@ public class ReferalActivity extends AppCompatActivity {
         msg="Hi I am inviting you to be my emergency contact please download the app share referal code";
 
         listView = (ListView) findViewById(R.id.list);
-        emergencyContacts=new ArrayList<EmergencyContact>();
 
-        myAdapter = new MyAdapter(this,R.layout.activity_emergency_contact,emergencyContacts);
+
+        myAdapter = new MyAdapter(this,R.layout.activity_emergency_contact);
         listView.setAdapter(myAdapter);
 
         Button selectContact = (Button) findViewById(R.id.selectContact);
@@ -138,37 +139,34 @@ public class ReferalActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //hjgjhhjb
-                Map<String,String> selectedContacts = new HashMap<>();
+                int numberstoVerify = emergencyContacts.size();
                 for(int i = 0 ; i<emergencyContacts.size();i++){
                     View view  = listView.getChildAt(i);
-                    EditText code = view.findViewById(R.id.contacts_textview_number);
-                    selectedContacts.put(emergencyContacts.get(i).getNumber(),code.toString());
+                    String number = emergencyContacts.get(i).getNumber();
+                    EditText editTextcode = (EditText) view.findViewById(R.id.contacts_textview_number);
+
+                    if(dataSnapshot.hasChild(number)){
+                        String databasecode = (String) dataSnapshot.child(number).getValue();
+                        String code = editTextcode.getText().toString();
+                        if(!databasecode.equals(code)) {
+                            Toast.makeText(getApplicationContext(),"One of the entered code is wrong",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        emergencyContacts.get(i).setReferal(databasecode);
+                        numberstoVerify--;
+                    }
                 }
 
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                   String number = dataSnapshot1.getKey();
-                   String code = String.valueOf(dataSnapshot1.getValue());
-                   Log.d(TAG,number+" "+code);
-
-                   if(selectedContacts.containsKey(number) && code == selectedContacts.get(number)){
-                        selectedContacts.remove(number);
-                   }
-               }
-               //Log.d(TAG,Boolean.toString(codeset.isEmpty()));
-               if(selectedContacts.isEmpty()){
-                   int i = 0;
-                   String title = "EmergencyContact";
-                   for(String n : numberset){
-                       getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString(title+String.valueOf(++i),n).apply();
-                   }
-                   getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putInt("EC_SIZE",i).apply();
-                   Toast.makeText(getApplicationContext(),"All Contacts Verified Sucessfully!",Toast.LENGTH_SHORT).show();
-                   getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("ContactsVerification",true).apply();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-               }else{
+               if(numberstoVerify>0){
                    Toast.makeText(getApplicationContext(),"Contacts are not verified please check",Toast.LENGTH_SHORT).show();
+                    return;
                }
+
+                Globals.emergencyContactslist.addAll(emergencyContacts);
+
+                getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("ContactsVerification",true).apply();
+                Toast.makeText(getApplicationContext(),"All Contacts Verified Sucessfully!",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
 
             @Override
@@ -191,13 +189,13 @@ public class ReferalActivity extends AppCompatActivity {
 
     class MyAdapter extends ArrayAdapter<EmergencyContact>{
 
-        ArrayList<EmergencyContact> emergencyContacts;
+        //ArrayList<EmergencyContact> emergencyContacts;
         Context context;
         private String TAG= MyAdapter.class.getSimpleName();
-        public MyAdapter(@NonNull Context context, int resource,ArrayList<EmergencyContact> emergencyContacts) {
+        public MyAdapter(@NonNull Context context, int resource) {
             super(context, resource);
             this.context = context;
-            this.emergencyContacts = emergencyContacts;
+            //this.emergencyContacts = emergencyContacts;
         }
 
         @Override
@@ -220,8 +218,10 @@ public class ReferalActivity extends AppCompatActivity {
 
             //Log.d(TAG,this.emergencyContacts.get(position).getName());
 
-            textView_name.setText(this.emergencyContacts.get(position).getName());
-            editText_code.setHint(this.emergencyContacts.get(position).getReferal());
+            textView_name.setText(emergencyContacts.get(position).getName());
+            String referal = emergencyContacts.get(position).getReferal();
+            if(referal==null) editText_code.setHint("xyz123");
+            else editText_code.setText(emergencyContacts.get(position).getReferal());
 
             //Log.d("Howdi","here");
 
@@ -234,6 +234,15 @@ public class ReferalActivity extends AppCompatActivity {
         String name;
         String referal;
         String number;
+        int index;
+
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
 
         public String getNumber() {
             return number;
@@ -253,7 +262,6 @@ public class ReferalActivity extends AppCompatActivity {
         }
 
         public String getReferal() {
-            if(referal==null)referal="xyz123";
             return referal;
         }
 
@@ -275,9 +283,10 @@ public class ReferalActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==7){
+        if(requestCode==7) {
 
-                EmergencyContact emergencyContact_temp;
+            EmergencyContact emergencyContact_temp;
+            try {
                 Uri contactData = data.getData();
                 String number = "";
                 String name = "";
@@ -296,17 +305,22 @@ public class ReferalActivity extends AppCompatActivity {
                         name = phones.getString(phones.getColumnIndex
                                 (ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)).replaceAll("[-() ]", "");
 
-
-                        if(number.length()>10){
+                        Log.d(TAG, number);
+                        if (number.length() > 10) {
                             StringBuilder num = new StringBuilder();
-                            for(int i = number.length()-1;i>=number.length()-10;i--){
-                                num.insert(0,number.charAt(i));
+                            for (int i = number.length() - 1; i >= number.length() - 10; i--) {
+                                num.insert(0, number.charAt(i));
                             }
                             number = num.toString();
                         }
 
-                        EmergencyContact emergencyContact = new EmergencyContact(name,null,number);
-                        if(!numberset.contains(number)) {
+                        if (number.equals(getSharedPreferences("UserDetails", MODE_PRIVATE).getString("Number", ""))) {
+                            Toast.makeText(getApplicationContext(), "Your number cannot be used as emergency contact", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        EmergencyContact emergencyContact = new EmergencyContact(name, null, number);
+                        if (!numberset.contains(number)) {
                             emergencyContacts.add(emergencyContact);
                             myAdapter.notifyDataSetChanged();
                             numberset.add(number);
@@ -317,7 +331,11 @@ public class ReferalActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "This contact has no phone number", Toast.LENGTH_LONG).show();
                 }
                 cursor.close();
-            //}
+                //}
+
+            } catch (Exception e) {
+
+            }
         }
     }
 }
