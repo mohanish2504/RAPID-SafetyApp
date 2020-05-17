@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".user.phoneno"
-    android:background="@color/back_white">
+    android:background="@color/back_white"
+    android:layout_centerHorizontal="true">
 
     <com.rilixtech.widget.countrycodepicker.CountryCodePicker
         android:layout_width="wrap_content"

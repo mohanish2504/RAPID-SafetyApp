@@ -11,62 +11,115 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:layout_marginEnd="10dp">
 
-        <Button
-            android:id="@+id/mode"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/mode"
-            android:gravity="center|bottom"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
-            android:text="Mode | Private"
-            android:paddingBottom="20dp" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/tutorial"
+            <Button
+                android:id="@+id/mode"
+                android:layout_width="wrap_content"
+                android:layout_height="165dp"
+                android:background="@drawable/mode_new"
+                android:gravity="center|bottom"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="Mode | Private"
+                android:paddingBottom="20dp" />
+
+            <Button
+                android:id="@+id/tutorial"
+                android:layout_width="wrap_content"
+                android:layout_height="165dp"
+                android:background="@drawable/tutorial_new"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center|bottom"
+                android:text="Tutorial"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="20dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/safe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/safe_new"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center|bottom"
+                android:text="Safe"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/tutorial"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center|bottom"
-            android:text="Tutorial"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="20dp" />
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-        <Button
-            android:id="@+id/safe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/safe"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center|bottom"
-            android:text="Safe"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="20dp"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-        <Button
-            android:id="@+id/portal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/help_req"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center|bottom"
-            android:text="Help Requests"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="20dp"/>
+                <Button
+                    android:id="@+id/portal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="165dp"
+                    android:background="@drawable/help_new"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center|bottom"
+                    android:text="Help Requests"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="20dp"/>
 
-        <Button
-            android:id="@+id/info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/info"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center|bottom"
-            android:text="Info"
-            android:layout_marginTop="20dp"
-            android:paddingBottom="20dp"/>
+                <TextView
+                    android:id="@+id/item_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_count"
+                    android:text="16"
+                    android:textColor="#FFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:elevation="100dp"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="20dp"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="165dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/info_new"
+                    android:gravity="center|bottom"
+                    android:paddingBottom="20dp"
+                    android:text="Info" />
+
+            </FrameLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

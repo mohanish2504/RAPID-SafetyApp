@@ -4,7 +4,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,8 +38,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Map;
-
-import static java.lang.reflect.Array.getInt;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -87,14 +84,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(TAG,safetystatus);
 
         if(safetystatus.equals("OFF")) {
-            btnsafetystatus.setBackgroundResource(R.drawable.unsafe);
+            btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
             btnsafetystatus.setText("Safe");
-
-            btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
+            //btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
         }else if(safetystatus.equals("ON")){
-            btnsafetystatus.setBackgroundResource(R.drawable.safe);
+            btnsafetystatus.setBackgroundResource(R.drawable.unsafe_new);
             btnsafetystatus.setText("Unsafe");
-            btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
+            //btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
         }
 
         btnsafetystatus.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     stopService(sirenIntent);
                     getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","ON").apply();
                     str = "ON";
-                    btnsafetystatus.setBackgroundResource(R.drawable.safe);
+                    btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
                     btnsafetystatus.setText("Safe");
 
                     //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.green));
@@ -116,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startService(sirenIntent);
                     getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
                     str = "OFF";
-                    btnsafetystatus.setBackgroundResource(R.drawable.unsafe);
+                    btnsafetystatus.setBackgroundResource(R.drawable.unsafe_new);
                     btnsafetystatus.setText("Unsafe");
                     //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.red));
                 }

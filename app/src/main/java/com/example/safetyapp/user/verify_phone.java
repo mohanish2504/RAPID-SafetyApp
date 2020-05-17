@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
-import com.example.safetyapp.ReferalGenerator;
-import com.example.safetyapp.UserDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -130,7 +128,7 @@ public class verify_phone extends AppCompatActivity {
                                 startActivity(intent);
                             }
                             else{
-                                Intent intent = new Intent(verify_phone.this, ReferalActivity.class);
+                                Intent intent = new Intent(verify_phone.this, MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }
@@ -140,7 +138,7 @@ public class verify_phone extends AppCompatActivity {
 
                             //verification unsuccessful.. display an error message
 
-                            String message = "Somthing is wrong, we will fix it soon...";
+                            String message = "Something is wrong, we will fix it soon...";
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 message = "Invalid code entered...";
