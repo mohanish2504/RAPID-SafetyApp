@@ -28,9 +28,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".user.ReferalActivity"
-                  android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.example.safetyapp.user.EmergencyContact" />
+        <activity android:name=".intro.FirstIntro"></activity>
+        <activity
+            android:name=".user.ReferalActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".user.EmergencyContact" />
         <activity android:name=".user.signUpActivity" />
         <activity android:name=".user.phoneno" />
         <activity android:name=".user.verify_phone" />
