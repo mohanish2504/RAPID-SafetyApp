@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.safetyapp.Globals;
 import com.example.safetyapp.HelpRequests;
 import com.example.safetyapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -73,6 +74,7 @@ public class portal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portal);
 
+        Globals.pendingrequests = 0;
         init();
         listView.setAdapter(listViewAdapter);
         //listViewAdapter.notifyDataSetChanged();

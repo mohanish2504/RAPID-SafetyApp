@@ -12,4 +12,5 @@ public class Globals {
     public static ArrayList<ReferalActivity.EmergencyContact> emergencyContactslist = new ArrayList<>();
     public static final String RESTART_INTENT = "com.example.project.restarter";
     public static final String RESTART_SCREEN_ONOFF_INTENT = "com.example.project.restarter";
+    public static int pendingrequests;
 }

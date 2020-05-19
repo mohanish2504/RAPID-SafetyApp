@@ -3,6 +3,7 @@ package com.example.safetyapp.messageservice;
 import android.app.Notification;
 import android.content.Intent;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 
@@ -12,6 +13,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.safetyapp.Firebase.SendData;
+import com.example.safetyapp.Globals;
 import com.example.safetyapp.HelpRequests;
 import com.example.safetyapp.R;
 import com.example.safetyapp.UserDetails;
@@ -63,6 +65,7 @@ public class MessageService extends FirebaseMessagingService {
             else{
                 notifyFunc(map.get("title"),map.get("body"));
             }
+            Globals.pendingrequests++;
         }
     }
 
