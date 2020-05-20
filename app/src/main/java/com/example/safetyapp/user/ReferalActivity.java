@@ -52,7 +52,7 @@ public class ReferalActivity extends AppCompatActivity {
 
     private String TAG= ReferalActivity.class.getSimpleName();
     private static ArrayList<EmergencyContact> emergencyContacts=new ArrayList<EmergencyContact>();;
-    private static MyAdapter myAdapter;
+    private MyAdapter myAdapter;
     Button verifyContacts,sendInvitation;
     private static Set<String> numberset = new HashSet<String>();
     TextView textView_userreferalcode;

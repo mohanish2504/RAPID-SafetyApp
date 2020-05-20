@@ -41,8 +41,6 @@ public class TriggerData {
 
         final Date currentTime = Calendar.getInstance().getTime();
         final DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Triggers");
-        //dbref.removeValue();
-        Location location;
 
 
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
@@ -50,11 +48,8 @@ public class TriggerData {
             @Override
             public void onSuccess(Location location) {
                 String mobile = context.getSharedPreferences("UserDetails",Context.MODE_PRIVATE).getString("Number","");
-
-                int ec_sz = context.getSharedPreferences("UserDetails",Context.MODE_PRIVATE).getInt("EC_SIZE",0);
                 ArrayList<String> emergencyContacts= new ArrayList<>();
 
-                String title = "EmergencyContact";
                 for(int j = 0;j<Globals.emergencyContactslist.size();j++){
                     emergencyContacts.add(Globals.emergencyContactslist.get(j).getNumber());
                 }
@@ -65,7 +60,6 @@ public class TriggerData {
             }
         });
 
-        //return Tokens;
     }
 
     public class CurrentUserInfo {
