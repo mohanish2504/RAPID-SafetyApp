@@ -46,8 +46,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_more"
-                    android:layout_marginLeft="90dp"
-                    android:clickable="true"/>
+                    android:layout_marginStart="90dp"
+                    android:clickable="true"
+                    android:focusable="true" />
 
             </LinearLayout>
 
@@ -84,7 +85,6 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp">
 
-
                 <Button
                     android:id="@+id/share_contact"
                     android:layout_width="220dp"
@@ -101,7 +101,5 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-
 
 </LinearLayout>

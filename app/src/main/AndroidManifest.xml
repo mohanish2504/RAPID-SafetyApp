@@ -28,7 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".intro.FirstIntro"></activity>
+        <activity android:name=".user.TutorialActivity" />
+        <activity android:name=".intro.FirstIntro" />
         <activity
             android:name=".user.ReferalActivity"
             android:windowSoftInputMode="adjustPan" />

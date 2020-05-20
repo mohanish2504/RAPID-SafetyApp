@@ -1,38 +1,21 @@
 package com.example.safetyapp.user;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
-import android.location.LocationProvider;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.safetyapp.HelpRequests;
 import com.example.safetyapp.R;
@@ -41,26 +24,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Stack;
 
 import static com.example.safetyapp.R.id.frag_map;
-import static java.util.Objects.*;
 
 public class portal extends AppCompatActivity {
 
     private static String TAG = portal.class.getSimpleName();
     public static ListView listView ;
     public static ListViewAdapter listViewAdapter;
+
 
     public void init(){
         listView = findViewById(R.id.listview_helps);
@@ -72,6 +49,7 @@ public class portal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portal);
+
 
         init();
         listView.setAdapter(listViewAdapter);
@@ -90,6 +68,8 @@ public class portal extends AppCompatActivity {
         GoogleMap gmap;
         int currposition;
 
+
+
         public ListViewAdapter(@NonNull Context context, int resource) {
             super(context, resource);
             Map<Long, HelpRequests.UserInNeed> helprequests = HelpRequests.getUsers();
@@ -98,6 +78,7 @@ public class portal extends AppCompatActivity {
             Log.d(TAG, String.valueOf(helprequests.size()) +" " + String.valueOf(HelpRequests.currentRequests()));
             userInNeedArrayAdapter.addAll(helprequests.values());
         }
+
 
         @Override
         public int getCount() {
@@ -124,6 +105,36 @@ public class portal extends AppCompatActivity {
                 mapView.onResume();
                 mapView.getMapAsync(getNewOnReadyCallBack(position));
             }
+
+            ImageView more;
+            more = (ImageView) convertView.findViewById(R.id.more);
+            more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu popupMenu = new PopupMenu(getApplicationContext(), v);
+                    MenuInflater menuInflater = popupMenu.getMenuInflater();
+                    menuInflater.inflate(R.menu.report_menu, popupMenu.getMenu());
+
+                    popupMenu.show();
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()){
+                                case R.id.report:
+                                    openDialog();
+                                    return true;
+                            }
+                            return false;
+                        }
+
+                        private void openDialog() {
+                            report_dialog report_dialog = new report_dialog();
+                            report_dialog.show(getSupportFragmentManager(), "report dialog");
+                        }
+                    });
+                }
+            });
+
 
             return convertView;
         }
@@ -156,7 +167,5 @@ public class portal extends AppCompatActivity {
 
 
     }
-
-
 
 }

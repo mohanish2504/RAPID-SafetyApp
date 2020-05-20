@@ -14,14 +14,18 @@
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:text="ContactName"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
         </TextView>
+
+
         <EditText
             android:id="@+id/contacts_textview_number"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:hint="referal"
             android:layout_weight="1"
+            android:gravity="center"
             >
         </EditText>
     </LinearLayout>
