@@ -35,12 +35,10 @@
     <string name="press_power_lock_nbutton_5_times">Press Power/Lock\nbutton 5 Times</string>
 
     <string-array name="report_reason">
-
         <item>Duplicate or Fake Account</item>
         <item>Misleading Information</item>
         <item>Constant Fake Alarms</item>
         <item>Misbehaviour</item>
-
     </string-array>
 
 </resources>

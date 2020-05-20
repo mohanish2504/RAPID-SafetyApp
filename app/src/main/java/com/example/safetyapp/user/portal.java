@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.safetyapp.HelpRequests;
 import com.example.safetyapp.R;
@@ -124,8 +125,9 @@ public class portal extends AppCompatActivity {
                         }
 
                         private void openDialog() {
-                            report_dialog report_dialog = new report_dialog();
-                            report_dialog.show(getSupportFragmentManager(), "report dialog");
+                            DialogFragment multiChoiceDialog = new report_dialog();
+                            multiChoiceDialog.setCancelable(false);
+                            multiChoiceDialog.show(getSupportFragmentManager(), "Multichoice Dialog");
                         }
                     });
                 }
@@ -163,6 +165,12 @@ public class portal extends AppCompatActivity {
 
         @Override
         public void onPositiveButtonClicked(String[] list, ArrayList<String> selectedItemList) {
+             StringBuilder stringBuilder = new StringBuilder();
+             stringBuilder.append("Selected Choice = ");
+             for(String str:selectedItemList){
+                 stringBuilder.append(str+"");
+                 Log.d(TAG,str);
+             }
 
         }
 
