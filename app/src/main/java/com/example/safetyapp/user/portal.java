@@ -93,6 +93,7 @@ public class portal extends AppCompatActivity {
             TextView textView = convertView.findViewById(R.id.user_name);
             textView.setText(userInNeedArrayAdapter.get(position).getFirstName());
 
+            //lkjlnom
             MapView mapView = convertView.findViewById(frag_map);
 
             if(mapView!=null){
