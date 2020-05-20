@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -63,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Intent sirenIntent;
     int helprequests;
     Button btnportal,btnsafetystatus;
-    TextView pendingrequest;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -71,9 +68,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         //helprequests = getSharedPreferences("HelpRequests",MODE_PRIVATE).getInt("current_help_requests",HelpRequests.currentRequests());
-
-        pendingrequest = (TextView) findViewById(R.id.item_count);
-        setPendingRequest();
 
 
         final Intent intent = getIntent();
@@ -160,6 +154,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+       /*sendData = new SendData();
+
+       ReferalGenerator.checkForReferal(UID);
+
+        createMethod();
+
+        scheduleJob();
+
+        setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
+
+        uploadUserData();*/
+
+
+        // New Modifications Comment this
         UID = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
         ReferalGenerator.checkForReferal(UID);
         setToken();
@@ -168,17 +176,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
         uploadUserData();
 
-    }
-
-    private void setPendingRequest(){
-        if(pendingrequest==null)pendingrequest=(TextView) findViewById(R.id.item_count);
-        if(Globals.pendingrequests > 0 ) {
-            pendingrequest.setVisibility(View.VISIBLE);
-            pendingrequest.setText(String.valueOf(Globals.pendingrequests));
-        }
-        else{
-            pendingrequest.setVisibility(View.INVISIBLE);
-        }
     }
 
     private void uploadUserData() {
@@ -283,9 +280,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        setPendingRequest();
-    }
 }
