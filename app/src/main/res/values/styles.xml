@@ -24,6 +24,11 @@
         <item name="android:maxLines">1</item>
     </style>
 
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">#0288D1</item>
+    </style>
+
+
 
 
 </resources>

@@ -2,11 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/reason_selection"
-        android:layout_width="fill_parent"
+    <CheckBox
+        android:id="@+id/checkbox_duplicate_or_fake_account"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:text="Duplicate of Fake Account"
+        android:layout_marginTop="10dp"
+        android:buttonTint="#0288D1"/>
+
+    <CheckBox
+        android:id="@+id/checkbox_misleading_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Misleading Information"
+        android:buttonTint="#0288D1"
+        android:layout_below="@id/checkbox_duplicate_or_fake_account"/>
+
+    <CheckBox
+        android:id="@+id/checkbox_constant_fake_alarms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Constant Fake Alarms"
+        android:buttonTint="#0288D1"
+        android:layout_below="@id/checkbox_misleading_information"/>
+
+    <CheckBox
+        android:id="@+id/checkbox_misbehaviour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Misbehaviour"
+        android:buttonTint="#0288D1"
+        android:layout_below="@id/checkbox_constant_fake_alarms"/>
 
 </RelativeLayout>
