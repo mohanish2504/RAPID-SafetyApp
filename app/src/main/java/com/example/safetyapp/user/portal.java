@@ -1,7 +1,5 @@
 package com.example.safetyapp.user;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -19,10 +17,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
+
 
 import com.example.safetyapp.Globals;
 import com.example.safetyapp.HelpRequests;
@@ -39,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static com.example.safetyapp.R.id.frag_map;
-import static com.example.safetyapp.R.id.report;
+
 
 public class portal extends AppCompatActivity {
 
@@ -141,7 +138,7 @@ public class portal extends AppCompatActivity {
             return convertView;
         }
         private void openDialog() {
-            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(portal.this, R.style.MyDialogTheme));
+            AlertDialog.Builder builder = new AlertDialog.Builder(portal.this, R.style.MyDialogTheme);
             builder.setTitle("Issues");
             builder.setMultiChoiceItems(list, result, new DialogInterface.OnMultiChoiceClickListener() {
                 @Override

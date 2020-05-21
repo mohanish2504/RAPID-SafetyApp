@@ -25,7 +25,7 @@
     </style>
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorPrimary">#0288D1</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
 
