@@ -4,12 +4,14 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -44,36 +46,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private ScreenOnOffReceiver screenOnOffReceiver = null;
     private static String TAG = MainActivity.class.getSimpleName();
-    SharedPreferences sharedPref;
-    SharedPreferences.Editor editor;
-    private static String channelID = "Notification Channel";
-    private static String Token;
+
     DatabaseReference databaseReference;
-    SendData sendData;
-    private DrawerLayout mDrawerLayout;
+
     private ActionBarDrawerToggle mToggle;
     MenuItem btnlogout;
     private FirebaseAuth mAuth;
     private String UID;
 
     private static UserDetails userDetails;
-    FirebaseDatabase firebaseDatabase;
     Intent sirenIntent;
-    int helprequests;
     Button btnportal,btnsafetystatus;
+    TextView pendingrequests;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //helprequests = getSharedPreferences("HelpRequests",MODE_PRIVATE).getInt("current_help_requests",HelpRequests.currentRequests());
+        pendingrequests = findViewById(R.id.mainActivity_textview_pendingrequests);
 
-        final Intent intent = getIntent();
+        setPendingRequests();
+
+        /*final Intent intent = getIntent();
         overridePendingTransition(0, 0);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
-        overridePendingTransition(0, 0);
+        overridePendingTransition(0, 0);*/
 
         sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
         btnsafetystatus = (Button) findViewById(R.id.safe);
@@ -132,16 +131,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         UID = user.getUid().toString();
-        if(user != null){
-            String email = user.getPhoneNumber();
-            NavigationView navigationView = findViewById(R.id.nav_view);
-            View hView = navigationView.getHeaderView(0);
-
-        }
 
         mAuth=FirebaseAuth.getInstance();
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         btnlogout =(MenuItem) findViewById(R.id.logout);
 
@@ -153,19 +146,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       /*sendData = new SendData();
-
-       ReferalGenerator.checkForReferal(UID);
-
-        createMethod();
-
-        scheduleJob();
-
-        setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
-
-        uploadUserData();*/
-
-
         // New Modifications Comment this
         UID = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
         ReferalGenerator.checkForReferal(UID);
@@ -174,6 +154,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         scheduleJob();
         setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
         uploadUserData();
+
+    }
+
+    private void setPendingRequests(){
+        int helprequests = Globals.pendingrequests;
+
+        if(helprequests<1)pendingrequests.setVisibility(View.INVISIBLE);
+        else {
+            pendingrequests.setText(String.valueOf(helprequests));
+            pendingrequests.setBackground(Drawable.createFromPath(String.valueOf(R.drawable.item_count)));
+            pendingrequests.setVisibility(View.VISIBLE);
+        }
+
+
 
     }
 
@@ -237,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             CharSequence name = "Project";
             String description = "new message";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            String channelID = "Notification Channel";
             NotificationChannel channel = new NotificationChannel(channelID, name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
@@ -279,4 +274,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        setPendingRequests();
+    }
 }

@@ -102,8 +102,11 @@ public class portal extends AppCompatActivity {
             }
 
             currposition = position;
-            TextView textView = convertView.findViewById(R.id.user_name);
-            textView.setText(userInNeedArrayAdapter.get(position).getFirstName());
+            TextView name = convertView.findViewById(R.id.user_name);
+            name.setText(userInNeedArrayAdapter.get(position).getFirstName());
+
+            TextView age = convertView.findViewById(R.id.user_age);
+
 
             MapView mapView = convertView.findViewById(frag_map);
             if(mapView!=null){

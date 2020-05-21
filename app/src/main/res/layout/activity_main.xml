@@ -87,7 +87,7 @@
                     android:paddingBottom="20dp"/>
 
                 <TextView
-                    android:id="@+id/item_count"
+                    android:id="@+id/mainActivity_textview_pendingrequests"
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/item_count"
