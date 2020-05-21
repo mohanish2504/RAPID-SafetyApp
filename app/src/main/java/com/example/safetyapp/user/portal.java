@@ -1,8 +1,12 @@
 package com.example.safetyapp.user;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +20,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.safetyapp.HelpRequests;
 import com.example.safetyapp.R;
@@ -32,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static com.example.safetyapp.R.id.frag_map;
+import static com.example.safetyapp.R.id.report;
 
 public class portal extends AppCompatActivity {
 
@@ -61,11 +68,15 @@ public class portal extends AppCompatActivity {
         super.onResume();
     }
 
-    public class ListViewAdapter extends ArrayAdapter<EmergencyContact> implements OnMapReadyCallback, report_dialog.onMultiChoiceListener {
+    public class ListViewAdapter extends ArrayAdapter<EmergencyContact> implements OnMapReadyCallback{
 
         ArrayList<HelpRequests.UserInNeed> userInNeedArrayAdapter;
         GoogleMap gmap;
         int currposition;
+
+        final String[] list = getContext().getResources().getStringArray(R.array.report_reason);
+        final boolean[] result = new boolean[list.length];
+        ArrayList<String> reports = new ArrayList<>();
 
         public ListViewAdapter(@NonNull Context context, int resource) {
             super(context, resource);
@@ -94,9 +105,7 @@ public class portal extends AppCompatActivity {
             TextView textView = convertView.findViewById(R.id.user_name);
             textView.setText(userInNeedArrayAdapter.get(position).getFirstName());
 
-            //lkjlnom
             MapView mapView = convertView.findViewById(frag_map);
-
             if(mapView!=null){
                 mapView.onCreate(null);
                 mapView.onResume();
@@ -108,7 +117,7 @@ public class portal extends AppCompatActivity {
             more.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PopupMenu popupMenu = new PopupMenu(getApplicationContext(), v);
+                    PopupMenu popupMenu = new PopupMenu(getContext(), v);
                     MenuInflater menuInflater = popupMenu.getMenuInflater();
                     menuInflater.inflate(R.menu.report_menu, popupMenu.getMenu());
 
@@ -124,19 +133,42 @@ public class portal extends AppCompatActivity {
                             return false;
                         }
 
-                        private void openDialog() {
-                            DialogFragment multiChoiceDialog = new report_dialog();
-                            multiChoiceDialog.setCancelable(false);
-                            multiChoiceDialog.show(getSupportFragmentManager(), "Multichoice Dialog");
-                        }
                     });
                 }
             });
 
             return convertView;
         }
+        private void openDialog() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(portal.this, R.style.MyDialogTheme));
+            builder.setTitle("Issues");
+            builder.setMultiChoiceItems(list, result, new DialogInterface.OnMultiChoiceClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    if(!reports.contains(list[which])){
+                        reports.add(list[which]);
+                    }else{
+                        reports.remove(list[which]);
+                    }
+                }
+            });
 
+            builder.setCancelable(false);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String item = "";
+                    for(int i = 0;i<reports.size();i++){
+                        item = item + " " + reports.get(i);
+                    }
+                    Log.d(TAG,item);
+                }
+            });
 
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        }
 
         @Override
         public void onMapReady(GoogleMap googleMap) {
@@ -162,21 +194,5 @@ public class portal extends AppCompatActivity {
             };
         }
 
-
-        @Override
-        public void onPositiveButtonClicked(String[] list, ArrayList<String> selectedItemList) {
-             StringBuilder stringBuilder = new StringBuilder();
-             stringBuilder.append("Selected Choice = ");
-             for(String str:selectedItemList){
-                 stringBuilder.append(str+"");
-                 Log.d(TAG,str);
-             }
-
-        }
-
-        @Override
-        public void onNegativeButtonClicked() {
-
-        }
     }
 }

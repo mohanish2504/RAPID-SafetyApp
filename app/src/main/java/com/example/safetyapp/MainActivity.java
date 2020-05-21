@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //helprequests = getSharedPreferences("HelpRequests",MODE_PRIVATE).getInt("current_help_requests",HelpRequests.currentRequests());
 
-
         final Intent intent = getIntent();
         overridePendingTransition(0, 0);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -84,11 +83,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(TAG,safetystatus);
 
         if(safetystatus.equals("OFF")) {
-            btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
+            btnsafetystatus.setBackgroundResource(R.drawable.unsafe_new);
             btnsafetystatus.setText("Safe");
             //btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
         }else if(safetystatus.equals("ON")){
-            btnsafetystatus.setBackgroundResource(R.drawable.unsafe_new);
+            btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
             btnsafetystatus.setText("Unsafe");
             //btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
         }
