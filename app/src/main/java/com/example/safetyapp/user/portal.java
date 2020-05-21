@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.safetyapp.Globals;
 import com.example.safetyapp.HelpRequests;
 import com.example.safetyapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -59,13 +60,10 @@ public class portal extends AppCompatActivity {
 
         init();
         listView.setAdapter(listViewAdapter);
+
+        Globals.pendingrequests=0;
         //listViewAdapter.notifyDataSetChanged();
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     public class ListViewAdapter extends ArrayAdapter<EmergencyContact> implements OnMapReadyCallback{

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.safetyapp.Firebase.SendData;
@@ -162,13 +163,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(helprequests<1)pendingrequests.setVisibility(View.INVISIBLE);
         else {
-            pendingrequests.setText(String.valueOf(helprequests));
-            pendingrequests.setBackground(Drawable.createFromPath(String.valueOf(R.drawable.item_count)));
             pendingrequests.setVisibility(View.VISIBLE);
+            pendingrequests.setText(String.valueOf(helprequests));
+            pendingrequests.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.item_count));
+            Log.d(TAG,"Setting Pending Requests");
         }
-
-
-
     }
 
     private void uploadUserData() {
