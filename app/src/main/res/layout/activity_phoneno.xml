@@ -36,8 +36,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="Verify Number"
-        android:id="@+id/verify"
-        android:foreground="?attr/selectableItemBackground"
-        android:stateListAnimator="@null"/>
+        android:id="@+id/verify" />
 
 </RelativeLayout>

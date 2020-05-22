@@ -5,31 +5,28 @@
     android:orientation="vertical"
     android:padding="20dp" >
 
-    <LinearLayout
+
+    <EditText
+        android:id="@+id/fname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@drawable/fname_new"
+        android:layout_gravity="center"
+        android:inputType="text" />
 
-        <EditText
-            android:id="@+id/fname"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/fname" />
+    <EditText
+        android:id="@+id/lname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/lname_new_n"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
 
-        <EditText
-            android:id="@+id/lname"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/lanme"
-            android:layout_marginRight="5dp"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="150dp"
+        android:gravity="center">
 
         <RadioGroup
             android:id="@+id/radgen"
@@ -37,7 +34,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/gen_back"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp">
 
@@ -78,7 +74,6 @@
            android:layout_width="wrap_content"
            android:layout_height="50dp"
            android:background="@drawable/dob"
-           android:text="Select Date"
            android:textAlignment="center"
            android:textSize="25sp"
            android:layout_margin="10dp"
@@ -103,9 +98,9 @@
 
     <Button
         android:id="@+id/SubmitButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_new"
+        android:background="@drawable/mybutton"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:gravity="center"
