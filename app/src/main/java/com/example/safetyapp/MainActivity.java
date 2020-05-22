@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,15 +58,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private static UserDetails userDetails;
     Intent sirenIntent;
-    Button btnportal,btnsafetystatus;
+    Button btnsafetystatus;
     TextView pendingrequests;
+    LinearLayout btnportal;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        pendingrequests = findViewById(R.id.mainActivity_textview_pendingrequests);
+        pendingrequests = findViewById(R.id.info_text);
 
         setPendingRequests();
 
@@ -128,10 +130,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        UID = user.getUid().toString();
 
         mAuth=FirebaseAuth.getInstance();
 
