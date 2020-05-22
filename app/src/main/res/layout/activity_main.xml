@@ -11,120 +11,156 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:layout_marginEnd="10dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/mode"
-                android:layout_width="wrap_content"
-                android:layout_height="165dp"
-                android:background="@drawable/mode_new"
-                android:gravity="center|bottom"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:text="Mode | Private"
-                android:paddingBottom="20dp" />
-
-            <Button
-                android:id="@+id/tutorial"
-                android:layout_width="wrap_content"
-                android:layout_height="165dp"
-                android:background="@drawable/tutorial_new"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center|bottom"
-                android:text="Tutorial"
-                android:layout_marginTop="10dp"
-                android:paddingBottom="20dp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-
-            <Button
-                android:id="@+id/safe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/safe_new"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center|bottom"
-                android:text="Safe"
-                android:layout_marginTop="10dp"
-                android:paddingBottom="20dp"/>
-
-        </LinearLayout>
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/mode"
+                android:layout_width="150dp"
+                android:layout_height="160dp"
+                android:background="@drawable/home_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="center">
 
-                <Button
-                    android:id="@+id/portal"
+                <ImageView
+                    android:id="@+id/mode_icon"
                     android:layout_width="wrap_content"
-                    android:layout_height="165dp"
-                    android:background="@drawable/help_new"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center|bottom"
-                    android:text="Help Requests"
-                    android:layout_marginTop="10dp"
-                    android:paddingBottom="20dp"/>
-
-                <TextView
-                    android:id="@+id/item_count"
-                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/item_count"
-                    android:textColor="#FFF"
-                    android:textSize="16sp"
-                    android:visibility="invisible"
-                    android:textStyle="bold"
-                    android:elevation="100dp"
-                    android:gravity="center"
-                    android:layout_marginStart="125dp"
+                    android:src="@drawable/mode_icon"
+                    android:layout_marginStart="35dp"
                     android:layout_marginTop="20dp"/>
 
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <Button
-                    android:id="@+id/info"
+                <TextView
+                    android:id="@+id/mode_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="165dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/info_new"
-                    android:gravity="center|bottom"
-                    android:paddingBottom="20dp"
-                    android:text="Info" />
+                    android:layout_height="wrap_content"
+                    android:text="MODE|PRIVATE"
+                    android:layout_marginTop="45dp"
+                    android:layout_gravity="center"
+                    android:maxLines="1"
+                    android:layout_marginStart="-85dp"
+                    android:textSize="15sp"/>
 
-            </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tutorial"
+                android:layout_width="150dp"
+                android:layout_height="160dp"
+                android:background="@drawable/home_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp">
+
+                <ImageView
+                    android:id="@+id/tutorial_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/tutorial_icon" />
+
+                <TextView
+                    android:id="@+id/tutorial_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"
+                    android:maxLines="1"
+                    android:text="TUTORIAL"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/safe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/safe_new"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:text="Safe"
+            android:paddingTop="40dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/portal"
+                android:layout_width="150dp"
+                android:layout_height="160dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/home_button"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/portal_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/portal_icon"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/portal_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HELP REQUEST"
+                    android:textSize="15sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/info"
+                android:layout_width="150dp"
+                android:layout_height="160dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:background="@drawable/home_button"
+                android:layout_marginStart="30dp">
+
+                <ImageView
+                    android:id="@+id/info_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/info_icon"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="INFO"
+                    android:textSize="15sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="25dp"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
     </LinearLayout>
-
-
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"

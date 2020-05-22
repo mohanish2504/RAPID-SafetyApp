@@ -14,7 +14,7 @@
         android:layout_marginBottom="30dp"
         android:layout_gravity="center_horizontal"
         app:cardElevation="5dp"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_more"
-                    android:layout_marginStart="90dp"
+                    android:layout_marginStart="110dp"
                     android:clickable="true"
                     android:focusable="true" />
 
@@ -61,14 +61,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="20"
-                android:paddingLeft="180dp"/>
+                android:paddingStart="180dp"/>
 
             <TextView
                 android:id="@+id/dandt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Current Date And Time"
-                android:paddingLeft="120dp"
+                android:paddingStart="120dp"
                 android:textStyle="bold"
                 android:textColor="#80000000"/>
 
@@ -94,7 +94,7 @@
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/button_new"
+                    android:background="@drawable/mybutton"
                     android:text="Share Contact"
                     android:textAlignment="center"
                     android:gravity="center"
