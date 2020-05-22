@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
     </style>
+
+        <!-- Customize your theme here. -->
     
     <style name="Divider">
         <item name="android:background">?android:attr/listDivider</item>

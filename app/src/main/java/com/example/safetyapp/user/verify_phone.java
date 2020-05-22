@@ -45,7 +45,7 @@ public class verify_phone extends AppCompatActivity {
 
         Intent intent = getIntent();
         mobile = intent.getStringExtra("mobile");
-        getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
+
         String countrycode = intent.getStringExtra("countrycode");
 
         sendVerificationCode(mobile,countrycode);
@@ -71,21 +71,18 @@ public class verify_phone extends AppCompatActivity {
 
                 String code = phoneAuthCredential.getSmsCode();
 
-
-
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 if(code != null){
                     editTextcode.setText(code);
                     verifyVerificationCode(code);
                 }
-                //ReferalGenerator.checkForReferal(FirebaseAuth.getInstance().getCurrentUser().toString());
                 Log.d("OnVerify","completed");
                 startActivity(intent);
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
-                Toast.makeText(verify_phone.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(verify_phone.this, "Error!", Toast.LENGTH_LONG).show();
             }
 
             public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken){
@@ -94,7 +91,7 @@ public class verify_phone extends AppCompatActivity {
             }
         };
 
-        Log.d(TAG,countrycode+mobile);
+        //Log.d(TAG,countrycode+mobile);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 countrycode + mobile,
                 60,
@@ -115,12 +112,8 @@ public class verify_phone extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //verification successful we will start the profile activity
-                           // ReferalGenerator.checkForReferal(mobile);
-
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
-                           // Intent intent = new Intent(getApplicationContext(),ReferalActivity.class);
-                            //startActivity(intent);
+                            getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
                             getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("Status",true).apply();
                             if(isNewUser){
                                 Intent intent = new Intent(verify_phone.this, signUpActivity.class);

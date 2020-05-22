@@ -16,9 +16,11 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +31,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".user.TutorialActivity" />
-        <activity android:name=".intro.FirstIntro" />
+        <activity android:name=".intro.FirstIntro">
+        </activity>
         <activity
             android:name=".user.ReferalActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -48,12 +51,19 @@
         <activity
             android:name=".user.welcome"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        </activity>
+        <activity android:name=".intro.FrontActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
+        <activity android:name=".intro.HighlightsIntro"
+            android:theme="@style/Theme.Design.NoActionBar"/>
+        <activity android:name=".intro.AlertAndPermissions" android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <receiver
             android:name=".restarter.RestartServiceBroadcastReceiver"

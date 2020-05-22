@@ -159,7 +159,7 @@ public class ReferalActivity extends AppCompatActivity {
 
                if(numberstoVerify>0){
                    Toast.makeText(getApplicationContext(),"Contacts are not verified please check",Toast.LENGTH_SHORT).show();
-                    return;
+                   return;
                }
 
                 Globals.emergencyContactslist.addAll(emergencyContacts);
@@ -334,6 +334,7 @@ public class ReferalActivity extends AppCompatActivity {
                 //}
 
             } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"Error Please Try Again!",Toast.LENGTH_SHORT).show();
 
             }
         }
