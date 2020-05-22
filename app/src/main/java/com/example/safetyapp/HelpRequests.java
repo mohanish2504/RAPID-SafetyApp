@@ -24,12 +24,14 @@ public class HelpRequests {
 
     public static class UserInNeed extends UserDetails{
         String lat,lon;
+        Long time;
 
 
         public UserInNeed(Map<String,String> map){
             super(map.get("firstName"),map.get("lastName"),map.get("DOB"),map.get("gender"),map.get("city"));
             this.lat = map.get("lat");
             this.lon = map.get("lon");
+            this.time = Long.valueOf(map.get("time"));
         }
 
         public String getLat() {
@@ -46,6 +48,14 @@ public class HelpRequests {
 
         public void setLon(String lon) {
             this.lon = lon;
+        }
+
+        public Long getTime() {
+            return time;
+        }
+
+        public void setTime(Long time) {
+            this.time = time;
         }
     }
 

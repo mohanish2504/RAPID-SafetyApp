@@ -65,7 +65,7 @@ public class portal extends AppCompatActivity {
 
     public class ListViewAdapter extends ArrayAdapter<EmergencyContact> implements OnMapReadyCallback{
 
-        ArrayList<HelpRequests.UserInNeed> userInNeedArrayAdapter;
+        ArrayList<HelpRequests.UserInNeed> userInNeedArrayList;
         GoogleMap gmap;
         int currposition;
 
@@ -77,20 +77,20 @@ public class portal extends AppCompatActivity {
             super(context, resource);
             Map<Long, HelpRequests.UserInNeed> helprequests = HelpRequests.getUsers();
 
-            userInNeedArrayAdapter = new ArrayList<>();
+            userInNeedArrayList = new ArrayList<>();
             Log.d(TAG, String.valueOf(helprequests.size()) +" " + String.valueOf(HelpRequests.currentRequests()));
-            userInNeedArrayAdapter.addAll(helprequests.values());
+            userInNeedArrayList.addAll(helprequests.values());
         }
 
         @Override
         public int getCount() {
            // Log.d(TAG, String.valueOf(userInNeedArrayAdapter.size()));
-            return userInNeedArrayAdapter.size();
+            return userInNeedArrayList.size();
         }
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
             if(convertView==null){
                 convertView = getLayoutInflater().inflate(R.layout.helprequest_card, parent, false);
@@ -98,11 +98,9 @@ public class portal extends AppCompatActivity {
 
             currposition = position;
             TextView name = convertView.findViewById(R.id.user_name);
-            name.setText(userInNeedArrayAdapter.get(position).getFirstName());
+            name.setText(userInNeedArrayList.get(position).getFirstName());
 
             TextView age = convertView.findViewById(R.id.user_age);
-
-
             MapView mapView = convertView.findViewById(frag_map);
             if(mapView!=null){
                 mapView.onCreate(null);
@@ -125,7 +123,7 @@ public class portal extends AppCompatActivity {
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()){
                                 case R.id.report:
-                                    openDialog();
+                                    openDialog(position);
                                     return true;
                             }
                             return false;
@@ -137,7 +135,7 @@ public class portal extends AppCompatActivity {
 
             return convertView;
         }
-        private void openDialog() {
+        private void openDialog(final int pos) {
             AlertDialog.Builder builder = new AlertDialog.Builder(portal.this, R.style.MyDialogTheme);
             builder.setTitle("Issues");
             builder.setMultiChoiceItems(list, result, new DialogInterface.OnMultiChoiceClickListener() {
@@ -159,7 +157,9 @@ public class portal extends AppCompatActivity {
                     for(int i = 0;i<reports.size();i++){
                         item = item + " " + reports.get(i);
                     }
-                    Log.d(TAG,item);
+                    //Log.d(TAG,item);
+                    String from = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+                    ReportUser.report(from,String.valueOf(userInNeedArrayList.get(pos).getTime()),item);
                 }
             });
 
@@ -179,8 +179,8 @@ public class portal extends AppCompatActivity {
                 public void onMapReady(GoogleMap googleMap) {
                     MapsInitializer.initialize(getApplicationContext());
                     Double lat,lon;
-                    lat = Double.parseDouble(userInNeedArrayAdapter.get(position).getLat());
-                    lon = Double.parseDouble(userInNeedArrayAdapter.get(position).getLon());
+                    lat = Double.parseDouble(userInNeedArrayList.get(position).getLat());
+                    lon = Double.parseDouble(userInNeedArrayList.get(position).getLon());
                     LatLng location = new LatLng(lat,lon);
 
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 13f));
