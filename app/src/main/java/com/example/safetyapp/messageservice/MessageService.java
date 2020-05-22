@@ -18,6 +18,8 @@ import com.example.safetyapp.HelpRequests;
 import com.example.safetyapp.R;
 import com.example.safetyapp.UserDetails;
 import com.example.safetyapp.user.portal;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -37,7 +39,12 @@ public class MessageService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
-        getSharedPreferences("Info",MODE_PRIVATE).edit().putString("Token",s).apply();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+        String number = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+
+        if(number!=null){
+            databaseReference.child(number).setValue(s);
+        }
 
     }
 

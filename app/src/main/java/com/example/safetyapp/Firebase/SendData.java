@@ -12,7 +12,6 @@ public class SendData {
     public void sendToken(String url , String token){
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("Tokens/"+token).setValue(true);
-
     }
 
 }

@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -47,8 +50,16 @@ public class ThirdFragment extends Fragment {
         highlights = (ListView) currentView.findViewById(R.id.listview_highlights);
 
         highlightsadapter = new Highlightsadapter(getContext(),R.layout.layout_highlights);
-
         highlights.setAdapter(highlightsadapter);
+
+        /*for(int i = 0;i<3;i++){
+            Highlights highlight = new Highlights(IDs[i],TEXTs[i]);
+            highlightsadapter.add(highlight);
+            highlightsadapter.notifyDataSetChanged();
+        }*/
+
+       // LayoutAnimationController layoutAnimationController = new LayoutAnimationController(AnimationUtils.loadAnimation(getActivity(),R.anim.left_in),2000);
+       // highlights.startAnimation(layoutAnimationController.getAnimation());
 
         return currentView;
     }
@@ -58,7 +69,7 @@ public class ThirdFragment extends Fragment {
         public Highlightsadapter(@NonNull Context context, int resource) {
             super(context, resource);
             highlights = new ArrayList<>();
-            for(int i = 0 ; i<IDs.length;i++){
+            for(int i = 0;i<3;i++){
                 Highlights highlight = new Highlights(IDs[i],TEXTs[i]);
                 highlights.add(highlight);
             }
@@ -69,6 +80,7 @@ public class ThirdFragment extends Fragment {
             return highlights.size();
         }
 
+
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -76,12 +88,21 @@ public class ThirdFragment extends Fragment {
                 convertView = getLayoutInflater().inflate(R.layout.layout_highlights, parent, false);
             }
 
+
             ImageView imageView = convertView.findViewById(R.id.highlights_imgview);
             TextView textView = convertView.findViewById(R.id.highlights_textview);
             Resources res = getResources();
 
             imageView.setImageDrawable(res.getDrawable(highlights.get(position).getImg()));
             textView.setText(highlights.get(position).getText());
+
+
+            Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.push_left_in);
+            animation.setStartOffset((position+1)*1500);
+            animation.setDuration(1500);
+            convertView.startAnimation(animation);
+
+            Log.d(TAG,"doneANimation");
 
             return convertView;
         }

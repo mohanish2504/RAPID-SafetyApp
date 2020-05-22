@@ -5,16 +5,26 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.safetyapp.R;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 
 public class report_dialog extends AppCompatDialogFragment {
+
+    private static String TAG = report_dialog.class.getSimpleName();
+
+
+    public FragmentManager newInstance() {
+        return getChildFragmentManager();
+    }
 
     public interface onMultiChoiceListener{
         void onPositiveButtonClicked(String[] list, ArrayList<String> selectedItemList);
@@ -22,14 +32,23 @@ public class report_dialog extends AppCompatDialogFragment {
     }
 
     onMultiChoiceListener mListener;
-
+    Context context;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        try {
-            mListener= (onMultiChoiceListener) context;
-        } catch (Exception e) {
-            //throw new ClassCastException(getActivity().toString()+"onMultiChoiceListener must implemented");
+        this.context = context;
+        setlistener(context);
+    }
+    private void setlistener(Context context){
+        if(mListener==null) {
+            Log.d(TAG,String.valueOf(context));
+            try {
+                mListener = (onMultiChoiceListener) context;
+                //setlistener(context);
+            } catch (Exception e) {
+                //throw new ClassCastException(getActivity().toString()+"onMultiChoiceListener must implemented");
+                Log.d(TAG,e.getMessage());
+            }
         }
     }
 
@@ -37,6 +56,7 @@ public class report_dialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
+        setlistener(context);
         final ArrayList<String> selectedItemList = new ArrayList<>();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyDialogTheme);
@@ -71,5 +91,11 @@ public class report_dialog extends AppCompatDialogFragment {
                     }
                 });
         return  builder.create();
+    }
+
+    @Nullable
+    @Override
+    public Dialog getDialog() {
+        return super.getDialog();
     }
 }
