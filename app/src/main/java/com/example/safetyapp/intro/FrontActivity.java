@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.example.safetyapp.user.ReferalActivity;
-import com.example.safetyapp.user.signUpActivity;
 
 public class FrontActivity extends AppCompatActivity {
     private static String TAG = FrontActivity.class.getSimpleName();
@@ -67,7 +66,7 @@ public class FrontActivity extends AppCompatActivity {
         if(loginstatus && contactsVerified){
             intent = new Intent(getApplicationContext(), MainActivity.class);
         }else if(!loginstatus){
-            intent = new Intent(getApplicationContext(), signUpActivity.class);
+            intent = new Intent(getApplicationContext(), HighlightsIntro.class);
         }else{
             Toast.makeText(this,"PLease Add atleast 1 contact",Toast.LENGTH_SHORT).show();
             intent = new Intent(getApplicationContext(), ReferalActivity.class);
