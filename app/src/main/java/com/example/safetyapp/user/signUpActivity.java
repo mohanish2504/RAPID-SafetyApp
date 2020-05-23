@@ -7,7 +7,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import com.example.safetyapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,12 +38,12 @@ public class signUpActivity extends AppCompatActivity {
     private static String TAG = signUpActivity.class.getSimpleName();
     DatePickerDialog.OnDateSetListener setListener;
     Button Submit;
-    EditText fname;
-    EditText lname;
-    Spinner city;
+    EditText fname,lname;
     RadioGroup radioGroup;
     int year,month,day;
     Calendar calendar;
+    String selectedcity;
+    ArrayList<String> listAll=new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,27 +55,17 @@ public class signUpActivity extends AppCompatActivity {
         Submit =  (Button) findViewById(R.id.SubmitButton);
         fname = (EditText) findViewById(R.id.fname);
         lname = (EditText) findViewById(R.id.lname);
-        city = (Spinner) findViewById(R.id.city);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        Spinner city = (Spinner) findViewById(R.id.city);
-        ArrayList<String> items = getCities("city.json");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this ,R.layout.spinner_layout, R.id.city);
-        city.setAdapter(adapter);
 
 
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAllValidations();
-                //getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("FirstName", String.valueOf(fname.getText())).apply();
-               // getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("LastName","lastName").apply();
-               // getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Gender","gender").apply();
-               // getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("City","city").apply();
-                //getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("DOB","dob").apply();
                 Intent intent = new Intent(getApplicationContext(), ReferalActivity.class);
                 //startActivity(intent);
             }
@@ -97,38 +90,80 @@ public class signUpActivity extends AppCompatActivity {
                 dob.setText(date);
             }
         };
+
+        init();
     }
 
-    public ArrayList<String> getCities(String fileName){
-        JSONArray jsonArray  = null;
-        ArrayList<String> cList = new ArrayList<String>();
-        try {
-            InputStream inputStream = getResources().getAssets().open(fileName);
-            int size = inputStream.available();
-            byte[]  data = new byte[size];
-            inputStream.read(data);
-            String json = new String(data, "UTF-8");
-            jsonArray = new JSONArray(json);
-            if(jsonArray!=null){
-                for(int i=0; i<json.length(); i++){
-                    cList.add(jsonArray.getJSONObject(i).getString("cname"));
-                }
+    public void init(){
+        obj_list();
+        addToATC();
+    }
+
+    public String getJson() {
+        String json=null;
+        try
+        {
+            // Opening cities.json file
+            InputStream is = getAssets().open("city.json");
+            // is there any content in the file
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            // read values in the byte array
+            is.read(buffer);
+            // close the stream --- very important
+            is.close();
+            // convert byte to string
+            json = new String(buffer, "UTF-8");
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            return json;
+        }
+        return json;
+    }
+
+    public void obj_list() {
+        try
+        {
+            JSONObject jsonObject=new JSONObject(getJson());
+            JSONArray array=jsonObject.getJSONArray("array");
+            for(int i=0;i<array.length();i++)
+            {
+                JSONObject object=array.getJSONObject(i);
+                String city=object.getString("name");
+                String state=object.getString("state");
+
+                listAll.add(city+" , "+state);
             }
         }
-        catch (IOException e){
+        catch (JSONException e)
+        {
             e.printStackTrace();
         }
-        catch (JSONException je){
-            je.printStackTrace();
-        }
-        return cList;
     }
+
+    public void addToATC() {
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.city);
+        // Adapter for spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listAll);
+        // adapter.setDropDownViewResource(android.R.layout.);
+        autoCompleteTextView.setAdapter(adapter);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedcity = listAll.get(position);
+            }
+        });
+    }
+
+
 
     private boolean checkAllValidations(){
         return checkFNameValidations(fname.getText().toString()) &&
         checkLNameValidations(lname.getText().toString()) &&
         checkGenderValidations() &&
-        //checkCityValidations(city.getText().toString()) &&
+        checkCityValidations() &&
         checkAgeValidations(year);
 
     }
@@ -151,8 +186,9 @@ public class signUpActivity extends AppCompatActivity {
         if(id==-1)return false;
         return true;
     }
-    private boolean checkCityValidations(String city){
-        return true;
+    private boolean checkCityValidations(){
+        if(selectedcity!=null)return true;
+        return false;
     }
     private boolean checkAgeValidations(int year){
         Date date = calendar.getTime();
