@@ -33,6 +33,8 @@
     <string name="warning">This Service shall only be used by needy at a time of emergency</string>
     <string name="allow_permission">Allow Permission</string>
     <string name="press_power_lock_nbutton_5_times">Press Power/Lock\nbutton 5 Times</string>
+    <string name="highlightitle">Don\'t Wait to be a Victim</string>
+    <string name="ALERTANDPERMISSION_TOAST_DNDPERMISSION">Select Rapid and allow app to access DND permissions</string>
 
     <string-array name="report_reason">
         <item>Duplicate or Fake Account</item>

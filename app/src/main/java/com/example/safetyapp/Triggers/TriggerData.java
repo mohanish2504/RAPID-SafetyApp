@@ -56,7 +56,7 @@ public class TriggerData {
 
                 CurrentUserInfo currentInfo = new CurrentUserInfo(mobile,location,emergencyContacts,currentTime.toString());
 
-                dbref.child(String.valueOf(System.nanoTime())).setValue(currentInfo);
+                dbref.child(String.valueOf(System.currentTimeMillis())).setValue(currentInfo);
             }
         });
 

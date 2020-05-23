@@ -28,7 +28,7 @@ public class HelpRequests {
 
 
         public UserInNeed(Map<String,String> map){
-            super(map.get("firstName"),map.get("lastName"),map.get("DOB"),map.get("gender"),map.get("city"));
+            super(map.get("firstName"),map.get("lastName"),map.get("dob"),map.get("gender"),map.get("city"));
             this.lat = map.get("lat");
             this.lon = map.get("lon");
             this.time = Long.valueOf(map.get("time"));
