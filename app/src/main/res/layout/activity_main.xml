@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/mode"
                 android:layout_width="150dp"
                 android:layout_height="160dp"
@@ -42,15 +42,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MODE|PRIVATE"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginTop="20dp"
                     android:layout_gravity="center"
                     android:maxLines="1"
-                    android:layout_marginStart="-85dp"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp"
+                    android:layout_below="@id/mode_icon"
+                    android:layout_centerHorizontal="true"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/tutorial"
                 android:layout_width="150dp"
                 android:layout_height="160dp"
@@ -74,12 +75,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="20dp"
                     android:maxLines="1"
                     android:text="TUTORIAL"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:layout_below="@id/tutorial_icon"
+                    android:layout_centerHorizontal="true"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -100,7 +103,7 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/portal"
                 android:layout_width="150dp"
                 android:layout_height="160dp"
@@ -109,13 +112,24 @@
                 android:background="@drawable/home_button"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/help_request_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_count"
+                    android:text="16"
+                    android:textColor="#FFFFFF"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"/>
+
+
                 <ImageView
                     android:id="@+id/portal_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/portal_icon"
                     android:layout_marginLeft="35dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_below="@id/help_request_count"/>
 
                 <TextView
                     android:id="@+id/portal_text"
@@ -123,12 +137,12 @@
                     android:layout_height="wrap_content"
                     android:text="HELP REQUEST"
                     android:textSize="15sp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="25dp"/>
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/portal_icon"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/info"
                 android:layout_width="150dp"
                 android:layout_height="160dp"
@@ -144,7 +158,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/info_icon"
                     android:layout_marginLeft="35dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="40dp"/>
 
                 <TextView
                     android:id="@+id/info_text"
@@ -152,10 +166,10 @@
                     android:layout_height="wrap_content"
                     android:text="INFO"
                     android:textSize="15sp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="25dp"/>
+                    android:layout_below="@id/info_icon"
+                    android:layout_centerHorizontal="true"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </LinearLayout>

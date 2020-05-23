@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.example.safetyapp.user.ReferalActivity;
-import com.example.safetyapp.user.signUpActivity;
 
 public class FrontActivity extends AppCompatActivity {
     private static String TAG = FrontActivity.class.getSimpleName();
