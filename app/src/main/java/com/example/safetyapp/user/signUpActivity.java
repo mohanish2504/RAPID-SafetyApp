@@ -7,19 +7,25 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.time.Period;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -30,10 +36,12 @@ public class signUpActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener setListener;
     Button Submit;
     EditText fname;
-    EditText lname,city;
+    EditText lname;
+    Spinner city;
     RadioGroup radioGroup;
     int year,month,day;
     Calendar calendar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +52,17 @@ public class signUpActivity extends AppCompatActivity {
         Submit =  (Button) findViewById(R.id.SubmitButton);
         fname = (EditText) findViewById(R.id.fname);
         lname = (EditText) findViewById(R.id.lname);
-        city = (EditText) findViewById(R.id.city);
+        city = (Spinner) findViewById(R.id.city);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        Spinner city = (Spinner) findViewById(R.id.city);
+        ArrayList<String> items = getCities("city.json");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this ,R.layout.spinner_layout, R.id.city);
+        city.setAdapter(adapter);
+
 
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,11 +99,36 @@ public class signUpActivity extends AppCompatActivity {
         };
     }
 
+    public ArrayList<String> getCities(String fileName){
+        JSONArray jsonArray  = null;
+        ArrayList<String> cList = new ArrayList<String>();
+        try {
+            InputStream inputStream = getResources().getAssets().open(fileName);
+            int size = inputStream.available();
+            byte[]  data = new byte[size];
+            inputStream.read(data);
+            String json = new String(data, "UTF-8");
+            jsonArray = new JSONArray(json);
+            if(jsonArray!=null){
+                for(int i=0; i<json.length(); i++){
+                    cList.add(jsonArray.getJSONObject(i).getString("cname"));
+                }
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        catch (JSONException je){
+            je.printStackTrace();
+        }
+        return cList;
+    }
+
     private boolean checkAllValidations(){
         return checkFNameValidations(fname.getText().toString()) &&
         checkLNameValidations(lname.getText().toString()) &&
         checkGenderValidations() &&
-        checkCityValidations(city.getText().toString()) &&
+        //checkCityValidations(city.getText().toString()) &&
         checkAgeValidations(year);
 
     }

@@ -1,48 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:padding="20dp" >
 
-
-    <EditText
-        android:id="@+id/fname"
+    <LinearLayout
+        android:id="@+id/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/fname_new"
-        android:layout_gravity="center"
-        android:inputType="text" />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/lname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/lname_new_n"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
 
+        <LinearLayout
+            android:id="@+id/fname_layout"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fname_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Name"
+                android:textColor="#0288D1"
+                android:padding="5dp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/fname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_margin="5dp"
+                android:hint="Enter Your First Name"
+                android:textCursorDrawable="@color/primary_red"
+                android:layout_marginBottom="10dp"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/lname_layout"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/lname_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Name"
+                android:textColor="#0288D1"
+                android:padding="5dp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/lname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_margin="5dp"
+                android:hint="Enter Your Last Name"
+                android:textCursorDrawable="@color/primary_red"
+                android:layout_marginBottom="10dp"/>
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/dob_layout"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dob_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of Birth"
+                android:textColor="#0288D1"
+                android:padding="5dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Select Your BirthDate"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:gravity="center">
+        android:id="@+id/city_layout"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/city_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City"
+            android:textColor="#0288D1"
+            android:padding="5dp"
+            android:textStyle="bold"/>
+
+
+        <Spinner
+            android:id="@+id/city"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gender_layout"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/gender_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:textColor="#0288D1"
+            android:padding="5dp"
+            android:textStyle="bold"/>
 
         <RadioGroup
             android:id="@+id/radgen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/gen_back"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <RadioButton
                 android:id="@+id/radmale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Male"
-                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
                 android:buttonTint="#0288D1"
                 android:checked="false"/>
 
@@ -53,45 +168,9 @@
                 android:text="Female"
                 android:buttonTint="#0288D1"/>
 
-            <RadioButton
-                android:id="@+id/radother"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Other"
-                android:buttonTint="#0288D1"/>
-
         </RadioGroup>
 
-
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-       <TextView
-           android:id="@+id/dob"
-           android:layout_width="wrap_content"
-           android:layout_height="50dp"
-           android:background="@drawable/dob"
-           android:textAlignment="center"
-           android:textSize="25sp"
-           android:layout_margin="10dp"
-           android:layout_marginLeft="5dp"
-           android:layout_marginRight="5dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp">
-
-        <EditText
-            android:id="@+id/city"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/city"/>
 
 
     </LinearLayout>
@@ -101,10 +180,12 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:background="@drawable/mybutton"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:text="Submit"
-        android:textColor="#0288D1"/>
+        android:textColor="#0288D1"
+        android:layout_below="@id/sign_up"
+        android:layout_marginTop="20dp"/>
 
-</LinearLayout>
+
+
+</RelativeLayout>

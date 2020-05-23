@@ -67,7 +67,7 @@ public class FrontActivity extends AppCompatActivity {
         if(loginstatus && contactsVerified){
             intent = new Intent(getApplicationContext(), MainActivity.class);
         }else if(!loginstatus){
-            intent = new Intent(getApplicationContext(), HighlightsIntro.class);
+            intent = new Intent(getApplicationContext(), signUpActivity.class);
         }else{
             Toast.makeText(this,"PLease Add atleast 1 contact",Toast.LENGTH_SHORT).show();
             intent = new Intent(getApplicationContext(), ReferalActivity.class);
