@@ -86,11 +86,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(safetystatus.equals("OFF")) {
             btnsafetystatus.setBackgroundResource(R.drawable.unsafe_new);
-            btnsafetystatus.setText("Safe");
+            btnsafetystatus.setText("Unsafe");
             //btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
         }else if(safetystatus.equals("ON")){
             btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
-            btnsafetystatus.setText("Unsafe");
+            btnsafetystatus.setText("Safe");
             //btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
         }
 
