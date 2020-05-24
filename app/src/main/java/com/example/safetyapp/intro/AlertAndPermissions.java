@@ -85,7 +85,7 @@ public class AlertAndPermissions extends AppCompatActivity {
         NotificationManager mNotificationManager = (NotificationManager)  this.getSystemService(NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
-                Toast.makeText(this,R.string.ALERTANDPERMISSION_TOAST_DNDPERMISSION,Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Please Give DND",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                 startActivity(intent);
                 requestDND = 1;
