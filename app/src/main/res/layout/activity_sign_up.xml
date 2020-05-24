@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="20dp" >
+    android:padding="10dp" >
 
     <LinearLayout
         android:id="@+id/sign_up"
@@ -26,7 +26,6 @@
                 android:layout_height="wrap_content"
                 android:text="First Name"
                 android:textColor="#0288D1"
-                android:padding="5dp"
                 android:textStyle="bold"/>
 
             <EditText
@@ -34,13 +33,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:layout_margin="5dp"
-                android:hint="Enter Your First Name"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:hint="Enter Your First Name" />
 
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/fname_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fnameError"
+            android:layout_marginStart="5dp"
+            android:textColor="#E31D12"
+            android:visibility="invisible"
+            />
 
         <LinearLayout
             android:id="@+id/lname_layout"
@@ -48,7 +57,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text"
             android:orientation="vertical"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
 
             <TextView
                 android:id="@+id/lname_title"
@@ -56,7 +65,6 @@
                 android:layout_height="wrap_content"
                 android:text="Last Name"
                 android:textColor="#0288D1"
-                android:padding="5dp"
                 android:textStyle="bold"/>
 
             <EditText
@@ -64,21 +72,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
                 android:hint="Enter Your Last Name"
-                android:layout_marginBottom="10dp"/>
+                />
 
 
         </LinearLayout>
 
-
+        <TextView
+            android:id="@+id/lname_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fnameError"
+            android:layout_marginStart="5dp"
+            android:textColor="#E31D12"
+            android:visibility="invisible"
+            />
 
         <LinearLayout
             android:id="@+id/dob_layout"
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:orientation="vertical">
 
             <TextView
@@ -87,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:text="Date of Birth"
                 android:textColor="#0288D1"
-                android:padding="5dp"
+
                 android:textStyle="bold"/>
 
             <TextView
@@ -95,18 +113,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="dd/mm/yyyy"
-                android:layout_margin="5dp"
                 android:textSize="18sp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"/>
 
         </LinearLayout>
 
-    <LinearLayout
+        <TextView
+            android:id="@+id/dob_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lnameError"
+            android:layout_marginStart="5dp"
+            android:textColor="#E31D12"
+            android:visibility="invisible"
+            />
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
         android:id="@+id/city_layout"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text"
-        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <TextView
@@ -115,7 +144,6 @@
             android:layout_height="wrap_content"
             android:text="City"
             android:textColor="#0288D1"
-            android:padding="5dp"
             android:textStyle="bold"/>
 
 
@@ -123,18 +151,30 @@
             android:id="@+id/city"
             android:layout_width="270dp"
             android:layout_height="30dp"
-            android:layout_margin="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp"
             android:hint="Enter city name"
             android:background="@android:color/transparent"/>
 
     </LinearLayout>
 
-    <LinearLayout
+        <TextView
+            android:id="@+id/city_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fnameError"
+            android:layout_marginLeft="5dp"
+            android:textColor="#E31D12"
+            android:visibility="invisible"
+            />
+
+        <LinearLayout
         android:id="@+id/gender_layout"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
         <TextView
@@ -143,7 +183,6 @@
             android:layout_height="wrap_content"
             android:text="Gender"
             android:textColor="#0288D1"
-            android:padding="5dp"
             android:textStyle="bold"/>
 
         <RadioGroup
@@ -151,7 +190,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp">
 
             <RadioButton
                 android:id="@+id/radmale"
@@ -173,6 +213,16 @@
 
     </LinearLayout>
 
+        <TextView
+            android:id="@+id/gender_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fnameError"
+            android:layout_marginLeft="5dp"
+            android:textColor="#E31D12"
+            android:visibility="invisible"
+            />
+
 
     </LinearLayout>
 
@@ -185,7 +235,7 @@
         android:text="Submit"
         android:textColor="#0288D1"
         android:layout_below="@id/sign_up"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="10dp"/>
 
 
 </RelativeLayout>

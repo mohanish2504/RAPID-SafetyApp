@@ -32,9 +32,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import static com.example.safetyapp.R.id.design_bottom_sheet;
 import static com.example.safetyapp.R.id.frag_map;
 
 
@@ -101,6 +106,17 @@ public class portal extends AppCompatActivity {
             name.setText(userInNeedArrayList.get(position).getFirstName());
 
             TextView age = convertView.findViewById(R.id.user_age);
+            TextView DateTime = convertView.findViewById(R.id.dandt);
+            TextView decription = convertView.findViewById(R.id.txtDetails);
+
+            age.setText(getAge(userInNeedArrayList.get(position).getDOB()));
+            DateTime.setText(getTime(userInNeedArrayList.get(position).getTime()));
+
+            String desc = userInNeedArrayList.get(position).getFirstName() + " has requested for your help!\n" +
+                    "It would be ideal if you share your \n" +
+                    "contact details and use location to \n" +
+                    "get across before any incident occurs.";
+            decription.setText(desc);
             MapView mapView = convertView.findViewById(frag_map);
             if(mapView!=null){
                 mapView.onCreate(null);
@@ -190,6 +206,35 @@ public class portal extends AppCompatActivity {
                     //setMap();
                 }
             };
+        }
+
+        private String getAge(String dt){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+           // Log.d(TAG,dt);
+            try{
+                sdf.parse(dt);
+                Calendar cal = sdf.getCalendar();
+                Date bdate = cal.getTime();
+                Date currentdate = Calendar.getInstance().getTime();
+
+                long diff  = currentdate.getTime() - bdate.getTime();
+                long years = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/365;
+
+
+
+                return String.valueOf(years);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return "";
+            //Log.d(TAG,String.valueOf(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/365));
+        }
+        private String getTime(Long lngtime){
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
+            Date resultdate = new Date(lngtime);
+            System.out.println(sdf.format(resultdate));
+            return sdf.format(resultdate);
         }
 
     }

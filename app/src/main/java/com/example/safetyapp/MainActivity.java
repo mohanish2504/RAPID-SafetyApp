@@ -1,6 +1,5 @@
 package com.example.safetyapp;
 
-import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
@@ -10,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,11 +23,9 @@ import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
 import com.example.safetyapp.user.ReferalActivity;
-import com.example.safetyapp.user.infoActivity;
 import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.profile;
-import com.example.safetyapp.user.termsAndConditionActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -43,7 +41,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import java.util.Map;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ScreenOnOffReceiver screenOnOffReceiver = null;
     private static String TAG = MainActivity.class.getSimpleName();
@@ -59,27 +57,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Intent sirenIntent;
     Button btnsafetystatus;
     TextView pendingrequests;
-    RelativeLayout btnportal, info;
+    RelativeLayout btnportal;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        Dialog dialog = new Dialog(this, R.style.MyDialogTheme);
-        dialog.setContentView(R.layout.terms_condition_dialog);
-        dialog.show();
-
-        TextView textView = dialog.findViewById(R.id.terms_condition_link);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), termsAndConditionActivity.class);
-                startActivity(i);
-            }
-        });
-
 
         pendingrequests = findViewById(R.id.help_request_count);
 
@@ -134,14 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        info = (RelativeLayout) findViewById(R.id.info);
-        info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, infoActivity.class);
-                startActivity(i);
-            }
-        });
 
        btnportal = findViewById(R.id.portal);
        btnportal.setOnClickListener(new View.OnClickListener() {
@@ -210,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
     }
 
     void setUserData(Map userdetails_map){
@@ -274,21 +250,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
-        if(id == R.id.home){
-            Intent i = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(i);
-        }
-        else if(id == R.id.editprofile) {
+        if (id == R.id.editprofile) {
             Intent i = new Intent(MainActivity.this,profile.class);
             startActivity(i);
         }
         else if(id == R.id.emergencies_contacts){
             Log.d("You are here","hello");
             Intent i = new Intent(MainActivity.this, ReferalActivity.class);
-            startActivity(i);
-        }
-        else if(id == R.id.terms){
-            Intent i = new Intent(MainActivity.this, termsAndConditionActivity.class);
             startActivity(i);
         }
         else if(id == R.id.logout){
