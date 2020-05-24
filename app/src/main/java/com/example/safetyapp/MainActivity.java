@@ -1,5 +1,6 @@
 package com.example.safetyapp;
 
+import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import com.example.safetyapp.user.ReferalActivity;
 import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.profile;
+import com.example.safetyapp.user.termsAndConditionActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -56,12 +58,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Intent sirenIntent;
     Button btnsafetystatus;
     TextView pendingrequests;
-    RelativeLayout btnportal;
+    RelativeLayout btnportal, info;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
+
+        Dialog dialog = new Dialog(this, R.style.MyDialogTheme);
+        dialog.setContentView(R.layout.terms_condition_dialog);
+        dialog.show();
+
+        TextView textView = dialog.findViewById(R.id.terms_condition_link);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), termsAndConditionActivity.class);
+                startActivity(i);
+            }
+        });
+
 
         pendingrequests = findViewById(R.id.help_request_count);
 
