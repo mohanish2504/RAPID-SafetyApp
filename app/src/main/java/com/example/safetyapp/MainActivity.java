@@ -65,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
+
         Dialog dialog = new Dialog(this, R.style.MyDialogTheme);
         dialog.setContentView(R.layout.terms_condition_dialog);
         dialog.show();
@@ -77,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(i);
             }
         });
+
 
         pendingrequests = findViewById(R.id.help_request_count);
 
