@@ -23,6 +23,7 @@ import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
 import com.example.safetyapp.user.ReferalActivity;
+import com.example.safetyapp.user.TutorialActivity;
 import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.profile;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Intent sirenIntent;
     Button btnsafetystatus;
     TextView pendingrequests;
-    RelativeLayout btnportal;
+    RelativeLayout btnportal,btntutorial;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -80,6 +81,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
         btnsafetystatus = (Button) findViewById(R.id.safe);
 
+        btntutorial = (RelativeLayout)findViewById(R.id.tutorial);
+        btntutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
+                startActivity(intent);
+            }
+        });
 
         final String safetystatus = getSharedPreferences("Info",MODE_PRIVATE).getString("SafetyStatus","ON");
         Log.d(TAG,safetystatus);
