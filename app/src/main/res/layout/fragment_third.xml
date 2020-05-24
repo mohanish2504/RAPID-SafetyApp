@@ -6,15 +6,15 @@
     tools:context=".intro.HighlightsIntro"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-    >
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
     <LinearLayout
         android:layout_marginTop="-25dp"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:background="@drawable/rect_c">
+        android:background="@drawable/rect_c"
+        android:elevation="10dp">
 
         <TextView
             android:id="@+id/highlights_message"

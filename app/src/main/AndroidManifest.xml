@@ -30,16 +30,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".user.termsAndConditionActivity"></activity>
+        <activity android:name=".user.infoActivity" />
         <activity android:name=".user.TutorialActivity" />
-        <activity android:name=".intro.FirstIntro">
-        </activity>
+        <activity android:name=".intro.FirstIntro" />
         <activity
             android:name=".user.ReferalActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".user.EmergencyContact" />
-        <activity android:name=".user.signUpActivity"
-            android:windowSoftInputMode="adjustResize"
-            />
+        <activity
+            android:name=".user.signUpActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".user.phoneno" />
         <activity android:name=".user.verify_phone" />
 
@@ -52,20 +53,22 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".user.welcome"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        </activity>
-        <activity android:name=".intro.FrontActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".intro.FrontActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".intro.HighlightsIntro"
-            android:theme="@style/Theme.Design.NoActionBar"/>
-        <activity android:name=".intro.AlertAndPermissions" android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".intro.HighlightsIntro"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
+            android:name=".intro.AlertAndPermissions"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <receiver
             android:name=".restarter.RestartServiceBroadcastReceiver"

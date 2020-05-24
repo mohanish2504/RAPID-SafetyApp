@@ -8,24 +8,19 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.safetyapp.R;
 import com.example.safetyapp.user.phoneno;
 
 import java.security.AllPermission;
-
-import static com.example.safetyapp.user.EmergencyContact.RequestPermissionCode;
 public class AlertAndPermissions extends AppCompatActivity {
 
     private static String TAG = AllPermission.class.getSimpleName();
@@ -120,5 +115,7 @@ public class AlertAndPermissions extends AppCompatActivity {
         //handleForeground Location Updates
         //Toast.makeText(getApplicationContext(),"Start foreground location updates",Toast.LENGTH_SHORT).show();
     }
+
+
 }
 

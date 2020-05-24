@@ -14,9 +14,6 @@
             android:title="Emergencies Contacts"
             android:icon="@drawable/ic_em_contacts"/>
 
-        <item android:id="@+id/faqs"
-            android:title="FAQs"
-            android:icon="@drawable/ic_faqs"/>
 
         <item android:id="@+id/terms"
             android:title="Terms Of Conditions"

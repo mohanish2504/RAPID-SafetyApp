@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    tools:context=".user.infoActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rapid : The Safety App"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Try not to hold back to be a Casualty!"
+                android:layout_below="@id/title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/para_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subTitle"
+                android:text="@string/info_para_1"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/para_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/para_1"
+                android:text="@string/info_para_2"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/subTitle_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/para_2"
+                android:layout_margin="10dp"
+                android:text="With Rapid you can:"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/subTitle_1.1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subTitle_1"
+                android:layout_margin="10dp"
+                android:text="@string/sub_para_2"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/subTitle_1.2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subTitle_1.1"
+                android:layout_margin="10dp"
+                android:text="@string/sub_para2_1"/>
+
+            <TextView
+                android:id="@+id/subTitle_1.3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subTitle_1.2"
+                android:layout_margin="10dp"
+                android:text="- The routes which are displayed to reach to the triggered User, it is redirected to Google Maps providing the easiest and shortest route."
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/subTitle_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How does Rapid work?"
+                android:layout_below="@id/subTitle_1.3"
+                android:textStyle="bold"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/subTitle_2.1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subTitle_2"
+                android:text="- Victim will click the Power Button of their mobile devices 5 times, letting the screen on and off frequently, till the alarm goes on. "
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/subTitle_2.2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subTitle_2.1"
+                android:text="- System will receive the alert and broadcast the victim’s information and location to the group nearby within a range of 3km. "
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/subTitle_2.3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subTitle_2.2"
+                android:text="- The nearby groups will receive the alert and the location of the victim which will allow them to volunteer to help the targeted victim. "
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/subTitle_2.4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subTitle_2.3"
+                android:text="- After the victim is rescued, the groups are notified by the victim themselves, through the Safe/Unsafe button provided."
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/subTitle_2.5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subTitle_2.4"
+                android:text="- For additional safety measures, the alert will be sent to Government bodies like, Police, Ambulance, Fire Brigade. "
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"/>
+            
+            <TextView
+                android:id="@+id/dev_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subTitle_2.5"
+                android:text="Developer Details:"
+                android:textStyle="bold"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/MPatel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Mohanish Patel"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="-5dp"
+                android:layout_below="@id/dev_details"/>
+
+            <TextView
+                android:id="@+id/MPatel_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mohanishp1@gmail.com"
+                android:layout_below="@id/MPatel"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/HDarji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. Hitesh Darji"
+                android:layout_margin="10dp"
+                android:layout_below="@id/MPatel_email"/>
+
+            <TextView
+                android:id="@+id/HDarji_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hitesh@globeweb.in"
+                android:layout_below="@id/HDarji"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/ARaj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. Anjitha T Raj"
+                android:layout_margin="10dp"
+                android:layout_below="@id/HDarji_email"/>
+
+            <TextView
+                android:id="@+id/ARaj_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="anjitha3021@gmail.com"
+                android:layout_below="@id/ARaj"
+                android:layout_marginLeft="10dp"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>
