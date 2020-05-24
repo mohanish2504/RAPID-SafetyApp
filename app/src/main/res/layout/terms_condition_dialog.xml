@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+
+    <TextView
+        android:id="@+id/t_m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Terms And Condition"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:textSize="20dp"/>
+
+
+    <TextView
+        android:id="@+id/terms_condition_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t_m"
+        android:text="Terms And Condition"
+        android:layout_margin="10dp"
+        android:onClick="onClick"
+        android:textColor="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true" />
+
+
+
+    <CheckBox
+        android:id="@+id/accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I Accept All The Terms And Condition"
+        android:layout_below="@id/terms_condition_link"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/accept_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accept"
+        android:background="@drawable/mybutton"
+        android:text="Accept"
+        android:layout_margin="10dp"/>
+
+
+
+
+</RelativeLayout>

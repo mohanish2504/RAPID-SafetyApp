@@ -27,7 +27,6 @@ import com.example.safetyapp.user.TutorialActivity;
 import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.profile;
-import com.example.safetyapp.user.signUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -41,8 +40,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Map;
-
-import static com.example.safetyapp.Globals.userDetails;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -178,22 +175,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void uploadUserData() {
-        final String UID = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
-        final DatabaseReference databaseReference;
         databaseReference = FirebaseDatabase.getInstance().getReference("UserDetails");
+        //Log.d("UID",UID);
         databaseReference.orderByKey().equalTo(UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                   // Log.d(TAG,String.valueOf(dataSnapshot.child(UID).getValue()));
-                    Globals.userDetails = dataSnapshot.child(UID).getValue(UserDetails.class);
-                    //Log.d(TAG,userDetails.getCity());
+
                 }else
                 {
-                    databaseReference.child(UID).setValue(Globals.userDetails);
+                    databaseReference.child(UID).setValue(userDetails);
                 }
-                getSharedPreferences("SignUpDetails",MODE_PRIVATE).edit().putBoolean("status",true).apply();
-                Log.d(TAG,"Details saved");
             }
 
             @Override
@@ -268,11 +260,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         if (id == R.id.editprofile) {
-            Intent i = new Intent(MainActivity.this, signUpActivity.class);
+            Intent i = new Intent(MainActivity.this,profile.class);
             startActivity(i);
         }
         else if(id == R.id.emergencies_contacts){
-            //Log.d("You are here","hello");
+            Log.d("You are here","hello");
             Intent i = new Intent(MainActivity.this, ReferalActivity.class);
             startActivity(i);
         }

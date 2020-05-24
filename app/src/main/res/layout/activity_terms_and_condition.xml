@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".user.termsAndConditionActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="TERMS AND CONDITIONS"
+                android:textStyle="bold"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to Rapid!"
+                android:layout_margin="10dp"
+                android:layout_below="@id/title"/>
+
+            <TextView
+                android:id="@+id/para_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please read the Terms of Services, for the complete picture of your legal requirements. By using Rapid or any of our services, you are agreeing to these terms. Be sure to occasionally check back for updates."
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/welcome"/>
+
+            <TextView
+                android:id="@+id/line"
+                style="?android:attr/listSeparatorTextViewStyle"
+                android:paddingTop="5dip"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/para_1"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#DB5757" />
+
+            <TextView
+                android:id="@+id/your_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Account"
+                android:layout_below="@id/line"
+                android:layout_margin="10dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/your_account_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/your_account"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="If you use the Application, you are responsible for maintaining the confidentiality of your Account and Password and for restricting access to your mobile phone to prevent unauthorised access to your Account."/>
+
+            <TextView
+                android:id="@+id/your_account_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/your_account_1"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="You agree to accept responsibility for all Activities that occur under your Account or Password. You should take all necessary steps to ensure that the Password is kept confidential and secure and should inform us immediately if you have any reason to believe that your Password has become known to anyone else, or if the password is being, or is likely to be used in an unauthorised manner."/>
+
+            <TextView
+                android:id="@+id/your_account_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/your_account_2"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="Your mobile phone number is treated as your Primary Identifier on the Platform. It is your responsibility to ensure that the mobile phone number and is up to date on the Platform all the time."/>
+
+            <TextView
+                android:id="@+id/your_account_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/your_account_3"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="You agree to notify us promptly if your mobile phone number changes by updating the same on the Platform. Please ensure that the details you provide us with are correct and complete."/>
+
+            <TextView
+                android:id="@+id/your_account_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/your_account_4"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="When agreed to our terms, every user is considered as a volunteer as he/she would be notified during any nearby Incident."/>
+
+            <TextView
+                android:id="@+id/your_account_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/your_account_5"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="If you share or allow others to have access to your account on the Platform, by creating separate profiles under your Account, or otherwise, they will be able to view and access your Account information. You shall be solely liable and responsible for all the activities undertaken under your Account, and any consequences thereafter."/>
+            
+            <TextView
+                android:id="@+id/access_to_rapid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Access To Rapid"
+                android:layout_below="@id/your_account_6"
+                android:textStyle="bold"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/access_to_rapid_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/access_to_rapid"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="We will do our utmost to ensure that availability of the application will be uninterrupted and that transmissions will be error-free. However, due to the nature of the Internet, this cannot be guaranteed. "/>
+
+            <TextView
+                android:id="@+id/access_to_rapid_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/access_to_rapid_1"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="Also, your access to the application may also be occasionally suspended or restricted to allow for repairs, maintenance, or the introduction of new facilities or services at any time without prior notice. We will attempt to limit the frequency and duration of any such suspension or restriction."/>
+
+            <TextView
+                android:id="@+id/prohibited_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prohibited Users"
+                android:textStyle="bold"
+                android:layout_below="@id/access_to_rapid_2"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/prohibited_user_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/prohibited_user"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"
+                android:text="Rapid is to help those in need, but not at the expense of safety and well-being of others or their integrity."/>
+
+            <TextView
+                android:id="@+id/prohibited_user_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/prohibited_user_1"
+                android:layout_margin="10dp"
+                android:text="•	You cannot impersonate or provide incorrect information."
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/prohibited_user_2.1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You cannot impersonate someone you aren’t neither can you create an account for someone else without their consent or is misleading in any way. You cannot create accounts or collect information in an unauthorised way."
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:layout_below="@id/prohibited_user_2"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/prohibited_user_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="•	You cannot cause annoyance, inconvenience or needless anxiety."
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:layout_below="@id/prohibited_user_2.1" />
+
+            <TextView
+                android:id="@+id/prohibited_user_3.1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="While demonstrating the Application /or otherwise you cannot trigger unless it is an emergency. Causing unwanted emergency situation can cause trouble to the other user groups."
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_below="@id/prohibited_user_3"/>
+
+            <TextView
+                android:id="@+id/prohibited_user_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="•	You may not tamper or try to access data you do not have permission to access."
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                android:layout_below="@id/prohibited_user_3.1"/>
+
+            <TextView
+                android:id="@+id/prohibited_user_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="•	The locations being shared by the victims should not be misused and must not cause any harm to the users because of that."
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_below="@id/prohibited_user_4"/>
+
+            <TextView
+                android:id="@+id/prohibited_user_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="•	You may not upload viruses or any malicious code or do anything that could disable, overburden or impair the proper working or appearance of our Application."
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_below="@id/prohibited_user_5"/>
+
+            <TextView
+                android:id="@+id/prohibited_user_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="•	You shall not attempt to gain unauthorized access to any portion or feature of the Platform, or any other systems or networks connected to the Platform or to any server, computer, network, or to any of the services offered on or through the Platform, by hacking, password mining or any other illegitimate means."
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_below="@id/prohibited_user_6"/>
+
+            <TextView
+                android:id="@+id/prohibited_user_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="•	A breach or violation of any terms in the Terms of Services, may result in an immediate Termination of your Services/Account."
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_below="@id/prohibited_user_7"/>
+
+            <TextView
+                android:id="@+id/disclaimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disclaimer"
+                android:textStyle="bold"
+                android:layout_below="@id/prohibited_user_8"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/disclaimer_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="By downloading, accessing or using Rapid Mobile App or any page of this app, you signify your asset to this disclaimer. The contents of this app, including without limitations, all data, information, text, graphics, links and other material are provided as a convenience to our app users and are meant to be used for informational purposes only. We do not take responsibility for decisions taken by the reader based solely on the information provided in this app."
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/disclaimer"/>
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
