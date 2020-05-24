@@ -34,6 +34,11 @@
     <string name="allow_permission">Allow Permission</string>
     <string name="press_power_lock_nbutton_5_times">Press Power/Lock\nbutton 5 Times</string>
 
+    <string name="info_para_1">In the emerging era of the internet, people all over the world are connected to each other. In today’s world each and every person owns a personal mobile device. Even though technology has made major contributions towards the development of the human era, Crimes have increased either way, through the internet or physical. Although internet crimes are taken care of by cybersecurity, major steps have not been taken for physical crimes.</string>
+    <string name="info_para_2">Rapid helps you to defend yourself with just a few clicks on your Mobile Device.</string>
+    <string name="sub_para_2">- Choose your Trusted contacts and seek help from the nearest Rapid users.</string>
+    <string name="sub_para2_1">- Activate the Alert with just 5 clicks of your Power button.</string>
+
     <string-array name="report_reason">
         <item>Duplicate or Fake Account</item>
         <item>Misleading Information</item>
