@@ -9,7 +9,6 @@
     android:background="#F0EEEE">
 
     <LinearLayout
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -145,7 +144,8 @@
                     android:text="HELP REQUEST"
                     android:textSize="15sp"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/portal_icon"/>
+                    android:layout_below="@id/portal_icon"
+                    android:layout_marginTop="20dp"/>
 
             </RelativeLayout>
 
@@ -174,7 +174,8 @@
                     android:text="INFO"
                     android:textSize="15sp"
                     android:layout_below="@id/info_icon"
-                    android:layout_centerHorizontal="true"/>
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"/>
 
             </RelativeLayout>
 

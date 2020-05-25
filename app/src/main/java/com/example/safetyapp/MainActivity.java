@@ -23,6 +23,7 @@ import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
 import com.example.safetyapp.user.ReferalActivity;
+import com.example.safetyapp.user.TutorialActivity;
 import com.example.safetyapp.user.infoActivity;
 import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.portal;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Intent sirenIntent;
     Button btnsafetystatus;
     TextView pendingrequests;
-    RelativeLayout btnportal, info, mode;
+    RelativeLayout btnportal, info, mode, tutorial;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -143,6 +144,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 TextView mode_text = (TextView) findViewById(R.id.mode_text);
                 mode_text.setText("MODE | PUBLIC");
+            }
+        });
+
+        tutorial = (RelativeLayout) findViewById(R.id.tutorial);
+        tutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, TutorialActivity.class);
+                startActivity(i);
             }
         });
 
@@ -289,6 +299,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
         if (id == R.id.editprofile) {
             Intent i = new Intent(MainActivity.this,profile.class);
+            startActivity(i);
+        }
+        else if(id == R.id.home){
+            Intent i = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(i);
+        }
+        else if(id == R.id.terms){
+            Intent i = new Intent(MainActivity.this, termsAndConditionActivity.class);
             startActivity(i);
         }
         else if(id == R.id.emergencies_contacts){
