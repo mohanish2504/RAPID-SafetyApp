@@ -56,6 +56,7 @@ dependencies {
 
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    implementation files('D:\\Projects\\SafetyApp\\commons-io-2.5.jar')
 
 
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,10 +27,15 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.You
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import org.json.JSONObject;
+
+import java.net.URL;
 import java.util.ArrayList;
+import org.apache.commons.io.IOUtils;
 
 public class TutorialActivity extends AppCompatActivity {
 
+    public static String TAG = TutorialActivity.class.getSimpleName();
     RecyclerView listView;
     TutorialsAdapter tutorialsAdapter;
     @Override
@@ -48,6 +54,8 @@ public class TutorialActivity extends AppCompatActivity {
     public class TutorialsAdapter extends RecyclerView.Adapter<TutorialsAdapter.VideoHolder>{
 
         ArrayList<tutorial> tutoriallist ;
+        String youtubeURL = "https://www.youtube.com/watch?v=";
+        public String TAG = TutorialsAdapter.class.getSimpleName();
 
         public TutorialsAdapter() {
             tutoriallist = new ArrayList<>();
@@ -133,10 +141,13 @@ public class TutorialActivity extends AppCompatActivity {
 
         public class VideoHolder extends RecyclerView.ViewHolder{
             YouTubePlayerView youTubePlayerView;
+            TextView title ;
             public VideoHolder(@NonNull View itemView) {
                 super(itemView);
                 youTubePlayerView = itemView.findViewById(R.id.youtube_player_view);
+                title = itemView.findViewById(R.id.tutorial_title);
             }
+
         }
     }
 
@@ -157,4 +168,6 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
 }
+
+
     
