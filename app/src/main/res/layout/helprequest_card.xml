@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_margin="30dp"
         android:layout_gravity="center_horizontal"
         app:cardElevation="5dp"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="20dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
@@ -26,82 +25,87 @@
             <com.google.android.gms.maps.MapView
                 xmlns:map="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="100dp"
                 android:id="@+id/frag_map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 map:mapType="normal"
                 map:liteMode="true"
                 />
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Name" />
+
+                    <ImageView
+                        android:id="@+id/more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="5dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_more" />
+
+                </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Anjitha T. Raj"
-                    android:paddingLeft="150dp"/>
-
-                <ImageView
-                    android:id="@+id/more"
+                    android:id="@+id/user_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_more"
-                    android:layout_marginStart="110dp"
-                    android:clickable="true"
-                    android:focusable="true" />
+                    android:text="20"
+                    android:layout_gravity="center_horizontal"
+                    />
 
-            </LinearLayout>
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/dandt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Current Date And Time"
+                    android:textStyle="bold"
+                    android:textColor="#80000000"/>
 
-            <TextView
-                android:id="@+id/user_age"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="20"
-                android:paddingStart="180dp"/>
-
-            <TextView
-                android:id="@+id/dandt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Current Date And Time"
-                android:paddingStart="120dp"
-                android:textStyle="bold"
-                android:textColor="#80000000"/>
-
-            <TextView
-                android:id="@+id/txtDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="7"
-                android:scrollbars="vertical"
-                android:text="TextView"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:layout_gravity="center"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
+                <TextView
+                    android:id="@+id/txtDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="7"
+                    android:scrollbars="vertical"
+                    android:text="TextView"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"/>
 
                 <Button
                     android:id="@+id/share_contact"
-                    android:layout_width="220dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_horizontal"
                     android:background="@drawable/mybutton"
                     android:text="Share Contact"
+                    android:paddingStart="50dp"
+                    android:paddingEnd="50dp"
+                    android:paddingTop="15dp"
                     android:textAlignment="center"
-                    android:gravity="center"
-                    android:layout_marginLeft="85dp"/>
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"/>
 
             </LinearLayout>
+
+
 
         </LinearLayout>
 

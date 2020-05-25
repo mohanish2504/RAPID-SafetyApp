@@ -65,6 +65,7 @@ public class signUpActivity extends AppCompatActivity {
     String firstname,lastname;
     RadioButton male,female;
     boolean status ;
+    int ERROR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +147,8 @@ public class signUpActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), ReferalActivity.class);
                         startActivity(intent);
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(),"ERROR Encountered!",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -162,10 +165,11 @@ public class signUpActivity extends AppCompatActivity {
         });
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(year,month,dayOfMonth);
-                month = month+1;
-                String date = dayOfMonth+"-"+month+"-"+year;
+            public void onDateSet(DatePicker view, int y, int m, int d) {
+                calendar.set(y,m,d);
+                m = m+1;
+                year=y;month=m-1;day=d;
+                String date = d+"-"+m+"-"+y;
                 dob.setText(date);
             }
         };
@@ -190,9 +194,10 @@ public class signUpActivity extends AppCompatActivity {
 
                 if(!checkAgeValidation()){
                     textView_ERROR = findViewById(R.id.dob_error);
-                    textView_ERROR.setText("memeber must be above 13 years");
+                    textView_ERROR.setText("member must be above 13 years");
                     textView_ERROR.setVisibility(View.VISIBLE);
-                }
+                    ERROR = 1;
+                }else ERROR=0;
             }
         });
 
@@ -293,6 +298,9 @@ public class signUpActivity extends AppCompatActivity {
                     textView_ERROR = findViewById(R.id.city_error);
                     textView_ERROR.setText("City must be selected from the list");
                     textView_ERROR.setVisibility(View.VISIBLE);
+                    ERROR = 1;
+                }else{
+                    ERROR = 0;
                 }
             }
         });
@@ -303,11 +311,11 @@ public class signUpActivity extends AppCompatActivity {
     private boolean checkAllValidations(){
         int validateionspassed = 0;
 
-        if (checkFNameValidations()) validateionspassed++;
-        if (checkLNameValidations()) validateionspassed++;
-        if (checkGenderValidations())validateionspassed++;
-        if (checkCityValidations())validateionspassed++;
-        if (checkDateValidations())validateionspassed++;
+        if (checkFNameValidations())  validateionspassed++; else return false;
+        if (checkLNameValidations())  validateionspassed++; else return false;
+        if (checkDateValidations())   validateionspassed++; else return false;
+        if (checkCityValidations())   validateionspassed++; else return false;
+        if (checkGenderValidations()) validateionspassed++; else return false;
 
         if(validateionspassed==5){
             return true;
@@ -318,13 +326,17 @@ public class signUpActivity extends AppCompatActivity {
     }
 
     private boolean checkFNameValidations(){
-        textView_ERROR = (TextView) findViewById(R.id.fname_error);
 
-        if(!firstname.isEmpty()){
+
+        if(!firstname.isEmpty() && ERROR == 0){
             userDetails.setFirstName(firstname);
             getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("FirstName",firstname).apply();
             return true;
         }
+        else if(textView_ERROR == findViewById(R.id.fname_error) || ERROR==1){
+            return false;
+        }
+        textView_ERROR = (TextView) findViewById(R.id.fname_error);
         textView_ERROR.setVisibility(View.VISIBLE);
         textView_ERROR.setText("*this should not be Empty!");
         return false;
@@ -333,10 +345,13 @@ public class signUpActivity extends AppCompatActivity {
 
         textView_ERROR = (TextView) findViewById(R.id.lname_error);
 
-        if(!lastname.isEmpty()){
+        if(!lastname.isEmpty() && ERROR==0){
             userDetails.setLastName(lastname);
             getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("LastName",lastname).apply();
             return true;
+        }
+        else if(textView_ERROR == findViewById(R.id.lname_error) || ERROR==1){
+            return false;
         }
         textView_ERROR.setVisibility(View.VISIBLE);
         textView_ERROR.setText("*this should not be Empty!");
@@ -347,7 +362,7 @@ public class signUpActivity extends AppCompatActivity {
     private boolean checkGenderValidations(){
         int id = radioGroup.getCheckedRadioButtonId();
         textView_ERROR = findViewById(R.id.gender_error);
-        if(id!=-1){
+        if(id!=-1 && ERROR==0){
             String gen = "";
             if(id == R.id.radmale)gen = "Male";
             if(id == R.id.radfemale)gen = "Female";
@@ -365,10 +380,13 @@ public class signUpActivity extends AppCompatActivity {
 
         textView_ERROR = (TextView) findViewById(R.id.city_error);
 
-        if(!selectedcity.isEmpty()){
+        if(!selectedcity.isEmpty() && ERROR==0){
             userDetails.setCity(selectedcity);
             getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("City",selectedcity).apply();
             return true;
+        }
+        else if(textView_ERROR == findViewById(R.id.city_error) || ERROR==1){
+            return false;
         }
 
         textView_ERROR.setVisibility(View.VISIBLE);
@@ -377,10 +395,13 @@ public class signUpActivity extends AppCompatActivity {
         return false;
     }
     private boolean checkDateValidations(){
-        if(!dob.getText().toString().isEmpty()){
+        if(!dob.getText().toString().isEmpty() && ERROR==0){
             userDetails.setDOB(dob.getText().toString());
             getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("DOB",dob.getText().toString()).apply();
             return true;
+        }
+        else if(textView_ERROR == findViewById(R.id.dob_error) || ERROR==1){
+            return false;
         }
         textView_ERROR = findViewById(R.id.dob_error);
         textView_ERROR.setText("memeber must be above 13 years");
@@ -395,7 +416,9 @@ public class signUpActivity extends AppCompatActivity {
         long diff  = currentdate.getTime() - date.getTime();
         long years = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/365;
 
-        if(years>12)return true;
+        if(years>12){
+            return true;
+        }
 
         return false;
 
@@ -416,12 +439,14 @@ public class signUpActivity extends AppCompatActivity {
             sdf.parse(userDetails.getDOB());
             calendar = sdf.getCalendar();
 
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH) + 1;
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int y = calendar.get(Calendar.YEAR);
+            int m = calendar.get(Calendar.MONTH) + 1;
+            int d = calendar.get(Calendar.DAY_OF_MONTH);
 
-            String date = day + "-" + month + "-" + year;
+            String date = d + "-" + m + "-" + y;
 
+            year=y;month=m-1;day=d;
+            calendar.set(y,m,d);
             dob.setText(date);
         }catch (Exception e){
             e.printStackTrace();
