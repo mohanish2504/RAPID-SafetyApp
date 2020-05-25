@@ -15,5 +15,6 @@ public class Globals {
     public static int pendingrequests;
     public static UserDetails userDetails = new UserDetails();
     public static String[] tutorialIDs = {"T7aNSRoDCmg","Gx3_x6RH1J4","M4_8PoRQP8w","-V4vEyhWDZ0","KVpxP3ZZtAc","9m-x64bKfR4"};
+    public static String[] tutorialTITLEs = {"7 Self-Defense Techniques for Women from Professionals","27 SELF-DEFENSE TRICKS FOR WOMEN","Simple Self Defense Moves You Should Know","5 Choke Hold Defenses Women MUST Know | Self Defense | Aja Dang","5 Self-Defense Moves Every Woman Should Know | HER Network","Self Defence Techniques for girls by Delhi Police Part 1"};
     //
 }

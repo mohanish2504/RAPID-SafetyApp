@@ -36,16 +36,5 @@
         android:layout_below="@id/terms_condition_link"
         android:layout_margin="10dp"/>
 
-    <Button
-        android:id="@+id/accept_btn"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/accept"
-        android:background="@drawable/mybutton"
-        android:text="Accept"
-        android:layout_margin="10dp"/>
-
-
-
 
 </RelativeLayout>

@@ -4,12 +4,15 @@ import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,9 +26,12 @@ import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
 import com.example.safetyapp.user.ReferalActivity;
+import com.example.safetyapp.user.TutorialActivity;
+import com.example.safetyapp.user.infoActivity;
 import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.profile;
+import com.example.safetyapp.user.signUpActivity;
 import com.example.safetyapp.user.termsAndConditionActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -58,20 +64,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Intent sirenIntent;
     Button btnsafetystatus;
     TextView pendingrequests;
-    RelativeLayout btnportal, info;
+    RelativeLayout btnportal, info, mode, tutorial;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
-        Dialog dialog = new Dialog(this, R.style.MyDialogTheme);
+        final Dialog dialog = new Dialog(this, R.style.MyDialogTheme);
+        boolean dialogshown = getSharedPreferences("AcceptTerms",MODE_PRIVATE).getBoolean("status",false);
         dialog.setContentView(R.layout.terms_condition_dialog);
-        dialog.show();
+        dialog.setCancelable(false);
+        if(!dialogshown){
+            dialog.show();
+        }
 
         TextView textView = dialog.findViewById(R.id.terms_condition_link);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +88,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        CheckBox checkBox = dialog.findViewById(R.id.accept);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    dialog.dismiss();
+                    getSharedPreferences("AcceptTerms",MODE_PRIVATE).edit().putBoolean("status",true).apply();
+                }
+            }
+        });
 
+
+        info = findViewById(R.id.info);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), infoActivity.class);
+                startActivity(i);
+            }
+        });
         pendingrequests = findViewById(R.id.help_request_count);
 
         setPendingRequests();
@@ -102,11 +127,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(safetystatus.equals("OFF")) {
             btnsafetystatus.setBackgroundResource(R.drawable.unsafe_new);
-            btnsafetystatus.setText("Safe");
+            btnsafetystatus.setText("Unsafe");
             //btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
         }else if(safetystatus.equals("ON")){
             btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
-            btnsafetystatus.setText("Unsafe");
+            btnsafetystatus.setText("Safe");
             //btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
         }
 
@@ -146,6 +171,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
+        tutorial = (RelativeLayout) findViewById(R.id.tutorial);
+        tutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, TutorialActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAuth=FirebaseAuth.getInstance();
 
@@ -191,7 +225,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-
+                    Globals.userDetails = dataSnapshot.child(UID).getValue(UserDetails.class);
+                    getSharedPreferences("SignUpDetails",MODE_PRIVATE).edit().putBoolean("status",true).apply();
                 }else
                 {
                     databaseReference.child(UID).setValue(userDetails);
@@ -270,7 +305,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         if (id == R.id.editprofile) {
-            Intent i = new Intent(MainActivity.this,profile.class);
+            Intent i = new Intent(MainActivity.this, signUpActivity.class);
+            startActivity(i);
+        }
+        else if(id == R.id.home){
+            Intent i = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(i);
+        }
+        else if(id == R.id.terms){
+            Intent i = new Intent(MainActivity.this, termsAndConditionActivity.class);
             startActivity(i);
         }
         else if(id == R.id.emergencies_contacts){

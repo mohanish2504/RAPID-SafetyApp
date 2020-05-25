@@ -42,7 +42,6 @@ public class TutorialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
-
         listView = findViewById(R.id.listview_tutorial);
         listView.setHasFixedSize(true);
         listView.setLayoutManager(new LinearLayoutManager(this));
@@ -60,7 +59,7 @@ public class TutorialActivity extends AppCompatActivity {
         public TutorialsAdapter() {
             tutoriallist = new ArrayList<>();
             for(int i = 0;i<Globals.tutorialIDs.length;i++){
-                tutorial tut = new tutorial(Globals.tutorialIDs[i]);
+                tutorial tut = new tutorial(Globals.tutorialIDs[i],Globals.tutorialTITLEs[i]);
                 tutoriallist.add(tut);
             }
         }
@@ -74,6 +73,7 @@ public class TutorialActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull VideoHolder holder, final int position) {
+            holder.title.setText(tutoriallist.get(position).getTitle());
             holder.youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
                 @Override
                 public void onYouTubePlayer(YouTubePlayer youTubePlayer) {
@@ -153,6 +153,20 @@ public class TutorialActivity extends AppCompatActivity {
 
     public class tutorial{
         String id;
+        String title;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public tutorial(String id, String title) {
+            this.id = id;
+            this.title = title;
+        }
 
         public String getId() {
             return id;

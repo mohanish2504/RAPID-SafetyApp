@@ -71,18 +71,18 @@ public class verify_phone extends AppCompatActivity {
 
                 String code = phoneAuthCredential.getSmsCode();
 
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+              //  Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 if(code != null){
                     editTextcode.setText(code);
                     verifyVerificationCode(code);
                 }
                 Log.d("OnVerify","completed");
-                startActivity(intent);
+                //startActivity(intent);
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
-                Toast.makeText(verify_phone.this, "Error!", Toast.LENGTH_LONG).show();
+                Toast.makeText(verify_phone.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
             public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken){
