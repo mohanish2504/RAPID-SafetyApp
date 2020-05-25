@@ -23,6 +23,7 @@ import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
 import com.example.safetyapp.user.ReferalActivity;
+import com.example.safetyapp.user.infoActivity;
 import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.profile;
@@ -58,15 +59,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Intent sirenIntent;
     Button btnsafetystatus;
     TextView pendingrequests;
-    RelativeLayout btnportal, info;
+    RelativeLayout btnportal, info, mode;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
 
 
         Dialog dialog = new Dialog(this, R.style.MyDialogTheme);
@@ -81,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(i);
             }
         });
+
+
 
 
         pendingrequests = findViewById(R.id.help_request_count);
@@ -136,6 +136,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
+        mode = (RelativeLayout) findViewById(R.id.mode);
+        mode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView mode_text = (TextView) findViewById(R.id.mode_text);
+                mode_text.setText("MODE | PUBLIC");
+            }
+        });
+
+        info = (RelativeLayout) findViewById(R.id.info);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, infoActivity.class);
+                startActivity(i);
+            }
+        });
 
        btnportal = findViewById(R.id.portal);
        btnportal.setOnClickListener(new View.OnClickListener() {

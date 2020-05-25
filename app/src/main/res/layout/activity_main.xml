@@ -41,7 +41,7 @@
                     android:id="@+id/mode_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MODE|PRIVATE"
+                    android:text="MODE | PRIVATE"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center"
                     android:maxLines="1"
@@ -129,7 +129,8 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/portal_icon"
                     android:layout_marginLeft="35dp"
-                    android:layout_below="@id/help_request_count"/>
+                    android:layout_below="@id/help_request_count"
+                    android:layout_marginTop="-20dp"/>
 
                 <TextView
                     android:id="@+id/portal_text"
@@ -158,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/info_icon"
                     android:layout_marginLeft="35dp"
-                    android:layout_marginTop="40dp"/>
+                    android:layout_marginTop="20dp"/>
 
                 <TextView
                     android:id="@+id/info_text"
