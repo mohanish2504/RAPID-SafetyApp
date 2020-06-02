@@ -146,6 +146,7 @@ public class signUpActivity extends AppCompatActivity {
                     }else{
                         Intent intent = new Intent(getApplicationContext(), ReferalActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 }else{
                     Toast.makeText(getApplicationContext(),"ERROR Encountered!",Toast.LENGTH_LONG).show();

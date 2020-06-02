@@ -93,6 +93,10 @@ public class ReferalActivity extends AppCompatActivity {
         verifyContacts.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(numberset.size()==2){
+                    Toast.makeText(getApplicationContext(),"Sorry cant add more than 2 numbers",Toast.LENGTH_LONG).show();;
+                    return;
+                }
                 checkForAddedContact();
             }
         });
@@ -309,10 +313,6 @@ public class ReferalActivity extends AppCompatActivity {
                                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID
                                             + " = " + contactId, null, null);
                     while (phones.moveToNext()) {
-                        if(numberset.size()==2){
-                            Toast.makeText(getApplicationContext(),"Sorry cant add more than 2 numbers",Toast.LENGTH_LONG).show();;
-                            break;
-                        }
                         number = phones.getString(phones.getColumnIndex
                                 (ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[-() ]", "");
                         name = phones.getString(phones.getColumnIndex
