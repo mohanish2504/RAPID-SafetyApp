@@ -96,6 +96,11 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".user.portal" />
+        <receiver android:name=".MainActivity$NotificationReceiver" android:enabled="true" >
+            <intent-filter>
+                <action android:name=".messageservice.MessageService.android.action.broadcast" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".restarter.JobService"

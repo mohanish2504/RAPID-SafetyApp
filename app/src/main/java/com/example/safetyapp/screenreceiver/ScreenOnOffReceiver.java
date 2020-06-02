@@ -60,7 +60,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
     }
 
     private void alert(){
-        long minimumTriggerTime = 2*60*1000;
+        long minimumTriggerTime = 1000;
         long currentTriggerTime = System.currentTimeMillis();
         long previousTriggerTime = sharedPref.getLong("LastTrigger",currentTriggerTime);
 
@@ -88,7 +88,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
         }else if(pressCounter == 5) {
             pressCounter = 0;
             Log.d(TAG,"Trigger Not Accepted");
-            Toast.makeText(context,"You must wait for atleast 5 minutes to make new Trigger request",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"You must wait for atleast 2 minutes to make new Trigger request",Toast.LENGTH_LONG).show();
         }
     }
 

@@ -3,7 +3,10 @@ package com.example.safetyapp;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -65,11 +68,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Button btnsafetystatus;
     TextView pendingrequests;
     RelativeLayout btnportal, info, mode, tutorial;
+    BroadcastReceiver mynotificationreceiver;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pendingrequests = findViewById(R.id.help_request_count);
+        setPendingRequests();
+        mynotificationreceiver = new NotificationReceiver();
+        IntentFilter intentFilter = new IntentFilter(Globals.BROADCAST);
+        registerReceiver(mynotificationreceiver,intentFilter);
 
         final Dialog dialog = new Dialog(this, R.style.MyDialogTheme);
         boolean dialogshown = getSharedPreferences("AcceptTerms",MODE_PRIVATE).getBoolean("status",false);
@@ -108,9 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(i);
             }
         });
-        pendingrequests = findViewById(R.id.help_request_count);
 
-        setPendingRequests();
 
         /*final Intent intent = getIntent();
         overridePendingTransition(0, 0);
@@ -203,6 +211,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
         uploadUserData();
 
+    }
+
+    public class NotificationReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG,intent.getAction());
+            if(intent.getAction().equals(Globals.BROADCAST)) setPendingRequests();
+        }
     }
 
     private void setPendingRequests(){
@@ -334,4 +351,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onPostResume();
         setPendingRequests();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mynotificationreceiver);
+    }
+
 }
