@@ -3,6 +3,7 @@ package com.example.safetyapp.user;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.MenuInflater;
@@ -10,10 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +34,11 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +48,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.example.safetyapp.R.id.design_bottom_sheet;
+import static com.example.safetyapp.R.id.emergencies_contacts;
 import static com.example.safetyapp.R.id.frag_map;
 
 
@@ -109,6 +118,28 @@ public class portal extends AppCompatActivity {
             TextView DateTime = convertView.findViewById(R.id.dandt);
             TextView decription = convertView.findViewById(R.id.txtDetails);
 
+            Button button_shareContact =  convertView.findViewById(R.id.share_contact);
+            button_shareContact.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //sendSMS(userInNeedArrayList.get(position).)
+                    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Triggers/"+userInNeedArrayList.get(position).getTime().toString()+"/mobile");
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String userphone = dataSnapshot.getValue().toString();
+                            String phoneno = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+                            sendSMS(phoneno,"",userphone);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            });
+
             age.setText(getAge(userInNeedArrayList.get(position).getDOB()));
             DateTime.setText(getTime(userInNeedArrayList.get(position).getTime()));
 
@@ -150,6 +181,19 @@ public class portal extends AppCompatActivity {
             });
 
             return convertView;
+        }
+        public void sendSMS(String phoneNo, String msg,String userphone) {
+            msg="Hello this is my contact number"+ phoneNo +" I am ready to help!!";
+            try {
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(userphone, null, msg, null, null);
+                Toast.makeText(getApplicationContext(), "Message Sent",
+                        Toast.LENGTH_LONG).show();
+            } catch (Exception ex) {
+                Toast.makeText(getApplicationContext(),ex.getMessage().toString(),
+                        Toast.LENGTH_LONG).show();
+                ex.printStackTrace();
+            }
         }
         private void openDialog(final int pos) {
             AlertDialog.Builder builder = new AlertDialog.Builder(portal.this, R.style.MyDialogTheme);
