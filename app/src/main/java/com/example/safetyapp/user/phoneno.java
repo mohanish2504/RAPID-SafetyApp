@@ -32,7 +32,7 @@ public class phoneno extends AppCompatActivity {
                 String countrycode = ccp.getSelectedCountryCodeWithPlus();
                 String mobile = editTextMobile.getText().toString();
 
-                ReferalGenerator.checkForReferal(mobile);
+                //ReferalGenerator.checkForReferal(mobile);
 
                 if(mobile.isEmpty() || mobile.length() < 10){
                     editTextMobile.setError("Enter Vaild Number");

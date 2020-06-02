@@ -12,6 +12,7 @@ public class Globals {
     public static ArrayList<ReferalActivity.EmergencyContact> emergencyContactslist = new ArrayList<>();
     public static final String RESTART_INTENT = "com.example.project.restarter";
     public static final String RESTART_SCREEN_ONOFF_INTENT = "com.example.project.restarter";
+    public static String REFERAL;
     public static int pendingrequests;
     public static UserDetails userDetails = new UserDetails();
     public static String[] tutorialIDs = {"T7aNSRoDCmg","Gx3_x6RH1J4","M4_8PoRQP8w","-V4vEyhWDZ0","KVpxP3ZZtAc","9m-x64bKfR4"};

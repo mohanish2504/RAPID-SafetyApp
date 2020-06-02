@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // New Modifications Comment this
         UID = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
-        ReferalGenerator.checkForReferal(UID);
+        //ReferalGenerator.checkForReferal(UID);
         setToken();
         createMethod();
         scheduleJob();

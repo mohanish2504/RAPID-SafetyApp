@@ -66,7 +66,7 @@ public class ReferalActivity extends AppCompatActivity {
        // ReferalGenerator.checkForReferal(getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","811111111"));
         textView_userreferalcode = (TextView) findViewById(R.id.referalcode);
         //Log.d(TAG,ReferalGenerator.getReferal());
-        textView_userreferalcode.setText(ReferalGenerator.getReferal());
+        textView_userreferalcode.setText(Globals.REFERAL);
 
         msg="Hi I am inviting you to be my emergency contact please download the app share referal code";
 
@@ -205,7 +205,7 @@ public class ReferalActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
             if(convertView==null){
                 convertView = getLayoutInflater().inflate(R.layout.activity_contacts_listview, parent, false);
@@ -215,7 +215,7 @@ public class ReferalActivity extends AppCompatActivity {
 
             TextView textView_name = (TextView) convertView.findViewById(R.id.contacts_textview_name);
             EditText editText_code = (EditText) convertView.findViewById(R.id.contacts_textview_number);
-
+            Button button_remove = (Button) convertView.findViewById(R.id.contacts_button_remove);
             //Log.d(TAG,this.emergencyContacts.get(position).getName());
 
             textView_name.setText(emergencyContacts.get(position).getName());
@@ -223,6 +223,14 @@ public class ReferalActivity extends AppCompatActivity {
             if(referal==null) editText_code.setHint("xyz123");
             else editText_code.setText(emergencyContacts.get(position).getReferal());
 
+            button_remove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    numberset.remove(emergencyContacts.get(position).getNumber());
+                    emergencyContacts.remove(position);
+                    notifyDataSetChanged();
+                }
+            });
             //Log.d("Howdi","here");
 
             return convertView;
@@ -287,6 +295,7 @@ public class ReferalActivity extends AppCompatActivity {
 
             EmergencyContact emergencyContact_temp;
             try {
+
                 Uri contactData = data.getData();
                 String number = "";
                 String name = "";
@@ -300,6 +309,10 @@ public class ReferalActivity extends AppCompatActivity {
                                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID
                                             + " = " + contactId, null, null);
                     while (phones.moveToNext()) {
+                        if(numberset.size()==2){
+                            Toast.makeText(getApplicationContext(),"Sorry cant add more than 2 numbers",Toast.LENGTH_LONG).show();;
+                            break;
+                        }
                         number = phones.getString(phones.getColumnIndex
                                 (ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[-() ]", "");
                         name = phones.getString(phones.getColumnIndex

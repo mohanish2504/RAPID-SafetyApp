@@ -1,9 +1,15 @@
 package com.example.safetyapp;
 
+import android.app.LauncherActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.safetyapp.user.ReferalActivity;
+import com.example.safetyapp.user.signUpActivity;
+import com.example.safetyapp.user.verify_phone;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +35,7 @@ public class ReferalGenerator {
         Log.d("Referal",referal);
     }
 
-    public static void checkForReferal(final String phone){
+    public static void checkForReferal(final String phone, final Context context, final boolean isNewUser){
        // Log.d("here",referal);
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Referals");
         databaseReference.orderByKey().equalTo(phone).addValueEventListener(new ValueEventListener() {
@@ -45,6 +51,9 @@ public class ReferalGenerator {
                     }
                 }
                 Log.d("Referal",referal);
+                Globals.REFERAL=referal;
+                if(isNewUser)LaunchActivitySignUp(context);
+                else LaunchActivityReferal(context);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -54,5 +63,15 @@ public class ReferalGenerator {
     }
 
     public static String getReferal(){return referal;}
+    public static void LaunchActivityReferal(Context context){
+        Intent i = new Intent(context, ReferalActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(i);
+    }
+    public static void LaunchActivitySignUp(Context context){
+        Intent intent = new Intent(context, signUpActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+    }
 
 }
