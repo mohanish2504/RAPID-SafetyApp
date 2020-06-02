@@ -93,7 +93,7 @@ public class ReferalActivity extends AppCompatActivity {
         verifyContacts.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(numberset.size()==2){
+                if(numberset.size()>2){
                     Toast.makeText(getApplicationContext(),"Sorry cant add more than 2 numbers",Toast.LENGTH_LONG).show();;
                     return;
                 }

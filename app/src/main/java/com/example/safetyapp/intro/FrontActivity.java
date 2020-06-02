@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
+import com.example.safetyapp.ReferalGenerator;
 import com.example.safetyapp.user.ReferalActivity;
 import com.example.safetyapp.user.phoneno;
 
@@ -70,7 +71,10 @@ public class FrontActivity extends AppCompatActivity {
             intent = new Intent(getApplicationContext(), HighlightsIntro.class);
         }else{
             Toast.makeText(this,"PLease Add atleast 1 contact",Toast.LENGTH_SHORT).show();
-            intent = new Intent(getApplicationContext(), ReferalActivity.class);
+            String mobile= getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+            ReferalGenerator.checkForReferal(mobile,getApplicationContext(),false);
+            finish();
+            return;
         }
         new Handler().postDelayed(new Runnable() {
             @Override
