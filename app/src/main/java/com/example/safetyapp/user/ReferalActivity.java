@@ -332,7 +332,7 @@ public class ReferalActivity extends AppCompatActivity {
                             return;
                         }
 
-                        EmergencyContact emergencyContact = new EmergencyContact(name, null, number);
+                        EmergencyContact emergencyContact = new EmergencyContact(name+"("+number+")", null, number);
                         if (!numberset.contains(number)) {
                             emergencyContacts.add(emergencyContact);
                             myAdapter.notifyDataSetChanged();
