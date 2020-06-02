@@ -105,6 +105,10 @@ public class ReferalActivity extends AppCompatActivity {
         sendInvitation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(numberset.size()==0){
+                    Toast.makeText(getApplicationContext(),"Please add atleast one contact",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 for(String n : numberset){
                     sendSMS(n,msg);
                 }
@@ -225,7 +229,7 @@ public class ReferalActivity extends AppCompatActivity {
 
             textView_name.setText(emergencyContacts.get(position).getName());
             String referal = emergencyContacts.get(position).getReferal();
-            if(referal==null) editText_code.setHint("xyz123");
+            if(referal==null) editText_code.setHint("referal");
             else editText_code.setText(emergencyContacts.get(position).getReferal());
 
             button_remove.setOnClickListener(new View.OnClickListener() {
