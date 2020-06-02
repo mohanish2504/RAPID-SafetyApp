@@ -112,11 +112,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setPendingRequests();
 
-        final Intent intent = getIntent();
+        /*final Intent intent = getIntent();
         overridePendingTransition(0, 0);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-
-        overridePendingTransition(0, 0);
+        overridePendingTransition(0, 0);*/
 
         sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
         btnsafetystatus = (Button) findViewById(R.id.safe);

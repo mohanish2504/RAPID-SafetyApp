@@ -118,11 +118,11 @@ public class verify_phone extends AppCompatActivity {
                             getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("Status",true).apply();
                             if(isNewUser){
                                 ReferalGenerator.checkForReferal(mobile,verify_phone.this,true);
-                                finish();
+                                //finish();
                             }
                             else{
                                 ReferalGenerator.checkForReferal(mobile,verify_phone.this,false);
-                                finish();
+                                //finish();
                             }
                             //getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",true).apply();
                             //getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
