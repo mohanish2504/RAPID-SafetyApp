@@ -101,7 +101,7 @@ public class AlertAndPermissions extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             Intent intent = new Intent(this,phoneno.class);
             startActivity(intent);
-            requestDNDPermissions();
+            //requestDNDPermissions();
         }
     }
 
