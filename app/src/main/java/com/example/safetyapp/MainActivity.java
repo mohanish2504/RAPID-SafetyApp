@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +32,6 @@ import com.example.safetyapp.user.TutorialActivity;
 import com.example.safetyapp.user.infoActivity;
 import com.example.safetyapp.user.phoneno;
 import com.example.safetyapp.user.portal;
-import com.example.safetyapp.user.profile;
 import com.example.safetyapp.user.signUpActivity;
 import com.example.safetyapp.user.termsAndConditionActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,20 +53,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private ScreenOnOffReceiver screenOnOffReceiver = null;
     private static String TAG = MainActivity.class.getSimpleName();
-
     DatabaseReference databaseReference;
-
     private ActionBarDrawerToggle mToggle;
     MenuItem btnlogout;
-    private FirebaseAuth mAuth;
+    private static boolean activityRunning;
     private String UID;
-
     private static UserDetails userDetails;
     Intent sirenIntent;
     Button btnsafetystatus;
     TextView pendingrequests;
     RelativeLayout btnportal, info, mode, tutorial;
-    BroadcastReceiver mynotificationreceiver;
+    BroadcastReceiver mynotificationreceiver,alertreceiver;
+    String str;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -77,10 +74,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         pendingrequests = findViewById(R.id.help_request_count);
         setPendingRequests();
+
         mynotificationreceiver = new NotificationReceiver();
         IntentFilter intentFilter = new IntentFilter(Globals.BROADCAST);
         registerReceiver(mynotificationreceiver,intentFilter);
 
+        alertreceiver = new AlertRecevier();
+        intentFilter = new IntentFilter(Globals.BROADCAST_SAFETY);
+        registerReceiver(alertreceiver,intentFilter);
         final Dialog dialog = new Dialog(this, R.style.MyDialogTheme);
         boolean dialogshown = getSharedPreferences("AcceptTerms",MODE_PRIVATE).getBoolean("status",false);
         dialog.setContentView(R.layout.terms_condition_dialog);
@@ -88,6 +89,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(!dialogshown){
             dialog.show();
         }
+
+        TextView exit = dialog.findViewById(R.id.exit);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        final TextView ok = dialog.findViewById(R.id.ok);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                getSharedPreferences("AcceptTerms",MODE_PRIVATE).edit().putBoolean("status",true).apply();
+
+            }
+        });
 
         TextView textView = dialog.findViewById(R.id.terms_condition_link);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -98,12 +117,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
+
         CheckBox checkBox = dialog.findViewById(R.id.accept);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    dialog.dismiss();
+                    //dialog.dismiss();
+                    ok.setEnabled(true);
                     getSharedPreferences("AcceptTerms",MODE_PRIVATE).edit().putBoolean("status",true).apply();
                 }
             }
@@ -141,30 +163,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             btnsafetystatus.setText("Safe");
             //btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
         }
-
+        str = safetystatus;
         btnsafetystatus.setOnClickListener(new View.OnClickListener() {
-            String str = safetystatus;
             @Override
             public void onClick(View v) {
                 Log.d(TAG,str);
-                if(str.equals("OFF")) {
-                    Log.d(TAG,"OFF to ON");
-                    stopService(sirenIntent);
-                    getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","ON").apply();
-                    str = "ON";
-                    btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
-                    btnsafetystatus.setText("Safe");
-
-                    //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.green));
-                }else if(str.equals("ON")){
-                    Log.d(TAG,"ON to OFF");
-                    startService(sirenIntent);
-                    getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
-                    str = "OFF";
-                    btnsafetystatus.setBackgroundResource(R.drawable.unsafe_new);
-                    btnsafetystatus.setText("Unsafe");
-                    //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.red));
-                }
+                str = ALERT(str);
             }
         });
 
@@ -213,12 +217,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    public String ALERT(String str){
+        if(str.equals("OFF")) {
+            Log.d(TAG,"OFF to ON");
+            stopService(sirenIntent);
+            getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","ON").apply();
+            str = "ON";
+            btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
+            btnsafetystatus.setText("Safe");
+            return str;
+
+            //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.green));
+        }else if(str.equals("ON")){
+            Log.d(TAG,"ON to OFF");
+            startService(sirenIntent);
+            getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
+            str = "OFF";
+            btnsafetystatus.setBackgroundResource(R.drawable.unsafe_new);
+            btnsafetystatus.setText("Unsafe");
+            return str;
+            //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.red));
+        }
+        return str;
+    }
+
     public class NotificationReceiver extends BroadcastReceiver{
 
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG,intent.getAction());
             if(intent.getAction().equals(Globals.BROADCAST)) setPendingRequests();
+        }
+    }
+
+    public class AlertRecevier extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equals(Globals.BROADCAST_SAFETY)){
+                Log.d(TAG,"SAFETY ALAERT");
+                str = ALERT("ON");
+                if(!activityRunning){
+                    startActivity(getIntent());
+                    finish();
+                }
+
+            }
         }
     }
 
@@ -355,7 +399,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        activityRunning = false;
         unregisterReceiver(mynotificationreceiver);
+        unregisterReceiver(alertreceiver);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        activityRunning = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        activityRunning = true;
+    }
 }

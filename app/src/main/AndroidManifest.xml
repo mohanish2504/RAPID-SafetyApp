@@ -101,6 +101,11 @@
                 <action android:name=".messageservice.MessageService.android.action.broadcast" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".MainActivity$AlertRecevier" android:enabled="true" >
+            <intent-filter>
+                <action android:name=".screenreceiver.MessageService.android.action.broadcast" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".restarter.JobService"

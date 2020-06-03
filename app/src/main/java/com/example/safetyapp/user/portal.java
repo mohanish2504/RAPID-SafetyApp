@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.safetyapp.Globals;
@@ -50,45 +53,43 @@ import java.util.concurrent.TimeUnit;
 import static com.example.safetyapp.R.id.design_bottom_sheet;
 import static com.example.safetyapp.R.id.emergencies_contacts;
 import static com.example.safetyapp.R.id.frag_map;
+import static com.example.safetyapp.screenreceiver.ScreenOnOffReceiver.getContext;
 
 
 public class portal extends AppCompatActivity {
 
     private static String TAG = portal.class.getSimpleName();
-    public static ListView listView ;
-    public static ListViewAdapter listViewAdapter;
+    public static RecyclerView listView ;
+    //public static ListViewAdapter listViewAdapter;
+    public static  RecyclerAdapter recyclerAdapter;
 
-    public void init(){
-        listView = findViewById(R.id.listview_helps);
-        listViewAdapter = new ListViewAdapter(this,R.layout.helprequest_card);
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portal);
 
-        init();
-        listView.setAdapter(listViewAdapter);
+        listView = findViewById(R.id.listview_helps);
+        listView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerAdapter = new RecyclerAdapter();
+        listView.setAdapter(recyclerAdapter);
 
         Globals.pendingrequests=0;
         //listViewAdapter.notifyDataSetChanged();
 
     }
 
-    public class ListViewAdapter extends ArrayAdapter<EmergencyContact> implements OnMapReadyCallback{
+    public class RecyclerAdapter extends  RecyclerView.Adapter<RecyclerAdapter.ViewHolder> implements OnMapReadyCallback{
 
         ArrayList<HelpRequests.UserInNeed> userInNeedArrayList;
         GoogleMap gmap;
         int currposition;
 
-        final String[] list = getContext().getResources().getStringArray(R.array.report_reason);
+        final String[] list = getApplicationContext().getResources().getStringArray(R.array.report_reason);
         final boolean[] result = new boolean[list.length];
         ArrayList<String> reports = new ArrayList<>();
 
-        public ListViewAdapter(@NonNull Context context, int resource) {
-            super(context, resource);
+        public RecyclerAdapter() {
             Map<Long, HelpRequests.UserInNeed> helprequests = HelpRequests.getUsers();
 
             userInNeedArrayList = new ArrayList<>();
@@ -96,30 +97,23 @@ public class portal extends AppCompatActivity {
             userInNeedArrayList.addAll(helprequests.values());
         }
 
-        @Override
-        public int getCount() {
-           // Log.d(TAG, String.valueOf(userInNeedArrayAdapter.size()));
-            return userInNeedArrayList.size();
-        }
-
         @NonNull
         @Override
-        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.helprequest_card,parent,false);
+            return new ViewHolder(view);
+        }
 
-            if(convertView==null){
-                convertView = getLayoutInflater().inflate(R.layout.helprequest_card, parent, false);
-            }
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+            String desc = userInNeedArrayList.get(position).getFirstName() + " has requested for your help!\n" +
+                    "It would be ideal if you share your \n" +
+                    "contact details and use location to \n" +
+                    "get across before any incident occurs.";
 
-            currposition = position;
-            TextView name = convertView.findViewById(R.id.user_name);
-            name.setText(userInNeedArrayList.get(position).getFirstName());
 
-            TextView age = convertView.findViewById(R.id.user_age);
-            TextView DateTime = convertView.findViewById(R.id.dandt);
-            TextView decription = convertView.findViewById(R.id.txtDetails);
-
-            Button button_shareContact =  convertView.findViewById(R.id.share_contact);
-            button_shareContact.setOnClickListener(new View.OnClickListener() {
+            holder.name.setText(userInNeedArrayList.get(position).getFirstName());
+            holder.button_shareContact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //sendSMS(userInNeedArrayList.get(position).)
@@ -140,24 +134,16 @@ public class portal extends AppCompatActivity {
                 }
             });
 
-            age.setText(getAge(userInNeedArrayList.get(position).getDOB()));
-            DateTime.setText(getTime(userInNeedArrayList.get(position).getTime()));
-
-            String desc = userInNeedArrayList.get(position).getFirstName() + " has requested for your help!\n" +
-                    "It would be ideal if you share your \n" +
-                    "contact details and use location to \n" +
-                    "get across before any incident occurs.";
-            decription.setText(desc);
-            MapView mapView = convertView.findViewById(frag_map);
-            if(mapView!=null){
-                mapView.onCreate(null);
-                mapView.onResume();
-                mapView.getMapAsync(getNewOnReadyCallBack(position));
+            holder.age.setText(getAge(userInNeedArrayList.get(position).getDOB()));
+            holder.DateTime.setText(getTime(userInNeedArrayList.get(position).getTime()));
+            holder.description.setText(desc);
+            if(holder.mapView!=null){
+                holder.mapView.onCreate(null);
+                holder.mapView.onResume();
+                holder.mapView.getMapAsync(getNewOnReadyCallBack(position));
             }
 
-            ImageView more;
-            more = (ImageView) convertView.findViewById(R.id.more);
-            more.setOnClickListener(new View.OnClickListener() {
+            holder.more.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     PopupMenu popupMenu = new PopupMenu(getContext(), v);
@@ -179,9 +165,31 @@ public class portal extends AppCompatActivity {
                     });
                 }
             });
-
-            return convertView;
         }
+
+        @Override
+        public int getItemCount() {
+            return userInNeedArrayList.size();
+        }
+
+        class ViewHolder extends RecyclerView.ViewHolder{
+            TextView name,age,DateTime,description;
+            Button button_shareContact;
+            MapView mapView;
+            ImageView more;
+
+            public ViewHolder(@NonNull View convertView) {
+                super(convertView);
+                name = convertView.findViewById(R.id.user_name);
+                age = convertView.findViewById(R.id.user_age);
+                DateTime = convertView.findViewById(R.id.dandt);
+                description = convertView.findViewById(R.id.txtDetails);
+                button_shareContact =  convertView.findViewById(R.id.share_contact);
+                mapView = convertView.findViewById(frag_map);
+                more = convertView.findViewById(R.id.more);
+            }
+        }
+
         public void sendSMS(String phoneNo, String msg,String userphone) {
             msg="Hello this is my contact number"+ phoneNo +" I am ready to help!!";
             try {
@@ -254,7 +262,7 @@ public class portal extends AppCompatActivity {
 
         private String getAge(String dt){
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-           // Log.d(TAG,dt);
+            // Log.d(TAG,dt);
             try{
                 sdf.parse(dt);
                 Calendar cal = sdf.getCalendar();
@@ -280,6 +288,6 @@ public class portal extends AppCompatActivity {
             System.out.println(sdf.format(resultdate));
             return sdf.format(resultdate);
         }
-
     }
+
 }
