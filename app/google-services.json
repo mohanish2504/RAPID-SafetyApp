@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "502181782828-uevlci8pljbbpv5pcr5j9hmtt33tnnl3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.location",
+            "certificate_hash": "ab0804a5846c6fe95cd2d07ae0be0bada7e964c5"
+          }
+        },
+        {
+          "client_id": "502181782828-eeptb3tc466kt1h7aqqt6729oflqi5j4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.location",
+            "certificate_hash": "a614f4ee425ad491ed09063d27eea01fcd4c2e71"
+          }
+        },
+        {
           "client_id": "502181782828-j5k915lf4bdkql0go6vt3gkhhetmioo5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -52,7 +68,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "502181782828-ck9149o939kl7ns63l6shneed20qhd0g.apps.googleusercontent.com",
+          "client_id": "502181782828-srg7upfbd245l4i7sbubom571irmqp38.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.safetyapp",
@@ -60,35 +76,19 @@
           }
         },
         {
-          "client_id": "502181782828-3pje18unbljq0veceqagpaupk1148k17.apps.googleusercontent.com",
+          "client_id": "502181782828-s8gc2i5iue8j71th0i9tka4i8piotjbb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.safetyapp",
-            "certificate_hash": "a614f4ee425ad491ed09063d27eea01fcd4c2e71"
+            "certificate_hash": "6db31e7d34d1ebaa98d730e5a395b7856361ad10"
           }
         },
         {
-          "client_id": "502181782828-epsb86i7166i0mcquuoma6of8ua3cbb7.apps.googleusercontent.com",
+          "client_id": "502181782828-kk5dd4dcsurmj7420du8nku77eflqjc1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.safetyapp",
-            "certificate_hash": "8775749670736718d176026c6fbb1aa46e969780"
-          }
-        },
-        {
-          "client_id": "502181782828-oh5vqfhrmp808tvsci9f8q5k1d6mfa1k.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.safetyapp",
-            "certificate_hash": "e8c871606e96f39ca76bde71d8a869875abca16c"
-          }
-        },
-        {
-          "client_id": "502181782828-iqfv58obmh3fqc9bhgjf1pffcqofl22p.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.safetyapp",
-            "certificate_hash": "71758e79f4ee363524fd67a95989c4b96bba4792"
+            "certificate_hash": "c0ebb7145d6c2bfe47a3ea2b272eb6ca335c431a"
           }
         },
         {

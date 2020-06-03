@@ -30,6 +30,20 @@
                 android:focusable="true"
                 android:layout_gravity="center">
 
+                <TextView
+                    android:id="@+id/mode_dialog"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/mode_dialog"
+                    android:gravity="center"
+                    android:text="\?"
+                    android:textColor="#FFFFFF"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
                 <ImageView
                     android:id="@+id/mode_icon"
                     android:layout_width="wrap_content"

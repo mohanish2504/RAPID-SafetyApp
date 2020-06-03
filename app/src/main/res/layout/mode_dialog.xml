@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/private_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PRIVATE"
+        android:layout_margin="10dp"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/private_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="When you trigger while the mode is private, your location/help request would be sent to your Emergency Contacts only."
+        android:layout_below="@id/private_title"
+        android:textSize="20sp"
+        android:layout_margin="15dp"/>
+
+    <TextView
+        android:id="@+id/public_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PUBLIC"
+        android:layout_margin="10dp"
+        android:textSize="25sp"
+        android:layout_below="@id/private_content"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/public_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="When you trigger while the Mode is Public, your location/help request would be sent to your Emergency Contacts as well as to the users with the Rapid App within the radius of 3km."
+        android:layout_below="@id/public_title"
+        android:layout_margin="15dp"
+        android:textSize="20sp"/>
+
+</RelativeLayout>

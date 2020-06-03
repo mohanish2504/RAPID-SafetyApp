@@ -40,7 +40,7 @@ public class ThirdFragment extends Fragment {
     int IDs[] = {R.drawable.medical,R.drawable.personal,R.drawable.senior};
     String TEXTs[] = {"Medical \n Emergencies","Physical Abuse","Senior Citizen's Help"};
 
-    Highlightsadapter highlightsadapter;
+    private Highlightsadapter highlightsadapter;
     private static String TAG = ThirdFragment.class.getSimpleName();
 
     @Override
