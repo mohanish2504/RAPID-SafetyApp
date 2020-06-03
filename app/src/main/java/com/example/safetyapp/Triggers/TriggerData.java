@@ -62,7 +62,7 @@ public class TriggerData {
 
                 CurrentUserInfo currentInfo = new CurrentUserInfo(mobile,location,emergencyContacts,currentTime.toString());
 
-                dbref.child(String.valueOf(System.currentTimeMillis())).setValue(currentInfo);
+                if(Globals.MODE.equals("PUBLIC"))dbref.child(String.valueOf(System.currentTimeMillis())).setValue(currentInfo);
             }
         });
 
