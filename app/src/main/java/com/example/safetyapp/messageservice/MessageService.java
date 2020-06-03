@@ -2,6 +2,7 @@ package com.example.safetyapp.messageservice;
 
 import android.app.Notification;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
@@ -15,11 +16,13 @@ import androidx.core.app.NotificationManagerCompat;
 import com.example.safetyapp.Firebase.SendData;
 import com.example.safetyapp.Globals;
 import com.example.safetyapp.HelpRequests;
+import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.example.safetyapp.UserDetails;
 import com.example.safetyapp.user.portal;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -75,6 +78,8 @@ public class MessageService extends FirebaseMessagingService {
                 notifyFunc(map.get("title"),map.get("body"));
             }
             Globals.pendingrequests++;
+            Intent sendBroadcastIntent = new Intent(Globals.BROADCAST);
+            sendBroadcast(sendBroadcastIntent);
         }
     }
 

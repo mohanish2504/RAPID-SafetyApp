@@ -45,8 +45,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-import org.w3c.dom.Text;
-
 import java.util.Map;
 
 
@@ -72,17 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final Dialog mode_dialog =  new Dialog(this, R.style.MyDialogTheme);
-
-        TextView mode_dialog_text = findViewById(R.id.mode_dialog);
-        mode_dialog_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mode_dialog.setContentView(R.layout.mode_dialog);
-                mode_dialog.show();
-            }
-        });
 
         final Dialog dialog = new Dialog(this, R.style.MyDialogTheme);
         boolean dialogshown = getSharedPreferences("AcceptTerms",MODE_PRIVATE).getBoolean("status",false);
