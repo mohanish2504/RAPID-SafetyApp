@@ -11,7 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="7.5">
+        android:weightSum="7.7">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -20,74 +20,77 @@
             android:background="@drawable/rect_c"
             android:orientation="horizontal"
             android:elevation="10dp"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            >
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginRight="-20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/phone" />
 
             <TextView
-                android:layout_width="254dp"
-                android:layout_height="88dp"
-                android:layout_margin="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:text="@string/press_power_lock_nbutton_5_times"
                 android:textColor="#FFFFFF"
                 android:textSize="25sp" />
 
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="4">
+            android:layout_weight="4.2"
+            android:weightSum="4.2"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            >
 
             <TextView
+                android:layout_margin="4dp"
+                android:layout_weight="1.4"
+                android:layout_height="0dp"
                 android:id="@+id/highlights_1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:text="• User will click the Power Button of their mobile devices 5 times, letting the screen on and off frequently till the alarm goes on."
-                android:layout_margin="10dp"
                 android:textColor="#000000"
-                android:autoSizeTextType="uniform"
-                android:autoSizeMinTextSize="12sp"
-                android:autoSizeMaxTextSize="100sp"
-                android:autoSizeStepGranularity="2sp"/>
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/highlights_2"
+                android:layout_weight="1.4"
+                android:layout_height="0dp"
+                android:layout_margin="4dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:text=" • System will receive the alert and broadcast the Victim's Information and location to the group nearby within a range of 3km."
-                android:layout_below="@id/highlights_1"
-                android:layout_margin="10dp"
-                android:textSize="17sp"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/highlights_3"
+                android:layout_margin="4dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/highlights_2"
-                android:layout_margin="10dp"
-                android:textSize="17sp"
+                android:layout_weight="1.4"
+                android:layout_height="0dp"
                 android:text=" • After the rescue, the groups are notified by the victim themselves, through the Safe/Unsafe Button"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:textSize="18sp"
+                />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
             android:background="@drawable/rect_c"
             android:orientation="vertical"
             android:elevation="10dp"
@@ -96,6 +99,8 @@
             <LinearLayout
                 android:id="@+id/icon"
                 android:layout_width="wrap_content"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
@@ -138,7 +143,7 @@
                 android:layout_width="150dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_margin="25dp"
+                android:layout_margin="20dp"
                 android:background="@drawable/mybutton"
                 android:gravity="center"
                 android:text="@string/allow_permission"
