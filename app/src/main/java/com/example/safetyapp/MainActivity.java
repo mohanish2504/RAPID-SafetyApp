@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     SharedPreferences sharedPref = null;
     SharedPreferences.Editor editor = null;
     String safetystatus;
+    NavigationView navigationView;
+    DrawerLayout mDrawerLayout;
 
     Uri ringtoneUri = Uri.parse("android.resource://com.example.safetyapp/raw/siren");
     private static Ringtone siren ;
@@ -205,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mAuth=FirebaseAuth.getInstance();
 
-        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        mDrawerLayout  = (DrawerLayout) findViewById(R.id.drawerlayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         btnlogout =(MenuItem) findViewById(R.id.logout);
 
@@ -214,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         mode = findViewById(R.id.mode);
@@ -411,15 +413,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(i);
         }
         else if(id == R.id.home){
-            Intent i = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(i);
+            mDrawerLayout.closeDrawers();
         }
         else if(id == R.id.terms){
             Intent i = new Intent(MainActivity.this, termsAndConditionActivity.class);
             startActivity(i);
         }
         else if(id == R.id.emergencies_contacts) {
-            //Log.d("You are here","hello");
             if (REFERAL == null) {
                 String phone = getSharedPreferences("UserDetails", MODE_PRIVATE).getString("Number", "");
                 ReferalGenerator.checkForReferal(phone, MainActivity.this, false);

@@ -53,7 +53,6 @@ public class TutorialActivity extends AppCompatActivity {
     public class TutorialsAdapter extends RecyclerView.Adapter<TutorialsAdapter.VideoHolder>{
 
         ArrayList<tutorial> tutoriallist ;
-        String youtubeURL = "https://www.youtube.com/watch?v=";
         public String TAG = TutorialsAdapter.class.getSimpleName();
 
         public TutorialsAdapter() {
@@ -74,12 +73,6 @@ public class TutorialActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull VideoHolder holder, final int position) {
             holder.title.setText(tutoriallist.get(position).getTitle());
-            holder.youTubePlayerView.getYouTubePlayerWhenReady(new YouTubePlayerCallback() {
-                @Override
-                public void onYouTubePlayer(YouTubePlayer youTubePlayer) {
-                    youTubePlayer.cueVideo(tutoriallist.get(position).getId(),0);
-                }
-            });
             holder.youTubePlayerView.addYouTubePlayerListener(new YouTubePlayerListener() {
                 @Override
                 public void onReady(YouTubePlayer youTubePlayer) {
