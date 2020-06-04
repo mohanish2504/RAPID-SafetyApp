@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,10 +9,10 @@
         android:id="@+id/textContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contacts"
+        android:text="@string/contacts"
         android:layout_marginTop="30dp"
         android:textSize="30sp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         style="?android:attr/listSeparatorTextViewStyle" />
 
     <TextView
@@ -27,25 +26,25 @@
         android:background="#DB5757" />
 
     <TextView
-        android:text="Selected Contact Number Display Here "
+        android:text="@string/selected_contact_number_display_here"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"
         android:id="@+id/textView"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:gravity="center"
         android:textColor="#0288D1"
         android:layout_marginTop="270dp"/>
 
     <TextView
-        android:text="Selected Contact Name Display Here"
+        android:text="@string/selected_contact_name_display_here"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="12dp"
         android:id="@+id/textView2"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:gravity="center"
         android:textColor="#0288D1"
         android:layout_below="@id/textView"

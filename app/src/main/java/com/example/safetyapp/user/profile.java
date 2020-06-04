@@ -157,4 +157,7 @@ public class profile<CircleImageView> extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
     }
+
+    public void handleImageClick(View view) {
+    }
 }

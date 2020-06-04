@@ -8,15 +8,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,8 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.safetyapp.R;
 
 import java.util.ArrayList;
-
-import static com.example.safetyapp.screenreceiver.ScreenOnOffReceiver.getContext;
 
 
 public class HighlightsIntro extends AppCompatActivity {
@@ -47,7 +42,7 @@ public class HighlightsIntro extends AppCompatActivity {
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.fragment_third);
+        setContentView(R.layout.thirdfragement);
 
 
         highlights = (ListView) findViewById(R.id.listview_highlights);

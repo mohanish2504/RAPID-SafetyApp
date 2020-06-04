@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:contentDescription="@string/logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,12 +24,12 @@
 
         <TextView
             android:id="@+id/slideOneNext"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:gravity="bottom|end"
             android:layout_weight="1"
-            android:text="Next"
+            android:text="@string/next"
             android:textSize="20sp"
             android:clickable="true"
             android:focusable="true"/>

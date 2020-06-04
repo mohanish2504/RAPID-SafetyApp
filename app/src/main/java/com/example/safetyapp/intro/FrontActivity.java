@@ -17,8 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.example.safetyapp.ReferalGenerator;
-import com.example.safetyapp.user.ReferalActivity;
-import com.example.safetyapp.user.phoneno;
 
 public class FrontActivity extends AppCompatActivity {
     private static String TAG = FrontActivity.class.getSimpleName();
@@ -26,7 +24,7 @@ public class FrontActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_first);
+        setContentView(R.layout.firstslider);
         if(!isNetworkAvailable()){
             AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyDialogTheme);
             builder.setTitle("No Internet");

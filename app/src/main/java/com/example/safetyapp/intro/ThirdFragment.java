@@ -9,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.load.engine.Resource;
 import com.example.safetyapp.R;
 
 import java.util.ArrayList;
@@ -46,7 +43,7 @@ public class ThirdFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View currentView = inflater.inflate(R.layout.fragment_third, container, false);
+        View currentView = inflater.inflate(R.layout.thirdfragement, container, false);
         highlights = (ListView) currentView.findViewById(R.id.listview_highlights);
 
         highlightsadapter = new Highlightsadapter(getContext(),R.layout.layout_highlights);

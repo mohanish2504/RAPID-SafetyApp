@@ -2,7 +2,6 @@ package com.example.safetyapp.intro;
 
 import android.Manifest;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
@@ -20,10 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
-import com.example.safetyapp.user.ReferalActivity;
-import com.example.safetyapp.user.phoneno;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -43,7 +39,7 @@ public class FirstFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         getPermissions();
-        View view = inflater.inflate(R.layout.fragment_first, container, false);
+        View view = inflater.inflate(R.layout.firstslider, container, false);
         // Initialize ViewPager from Main Activity
         viewPager = getActivity().findViewById(R.id.viewpager);
         next = view.findViewById(R.id.slideOneNext);
