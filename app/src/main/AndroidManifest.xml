@@ -95,17 +95,24 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".user.portal" />
-        <receiver android:name=".MainActivity$NotificationReceiver" android:enabled="true" >
+
+        <receiver android:name=".MainActivity$NotificationReceiver" android:enabled="true"  android:exported="false" >
+
             <intent-filter>
                 <action android:name=".messageservice.MessageService.android.action.broadcast" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".MainActivity$AlertRecevier" android:enabled="true" >
+        <receiver android:name=".MainActivity$AlertRecevier" android:enabled="true" android:exported="false">
             <intent-filter>
                 <action android:name=".screenreceiver.MessageService.android.action.broadcast" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".MainActivity$AlertRecevier" android:enabled="true" android:exported="false">
+            <intent-filter>
+                <action android:name=".screenreceiver.MessageService.android.action.broadcast" />
+            </intent-filter>
+        </receiver>
+
 
         <service
             android:name=".restarter.JobService"
@@ -124,7 +131,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".Services.RingtonePlayingService" />
     </application>
 
 </manifest>

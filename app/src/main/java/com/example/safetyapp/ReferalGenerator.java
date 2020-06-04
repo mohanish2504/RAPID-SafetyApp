@@ -65,12 +65,12 @@ public class ReferalGenerator {
     public static String getReferal(){return referal;}
     public static void LaunchActivityReferal(Context context){
         Intent i = new Intent(context, ReferalActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(i);
     }
     public static void LaunchActivitySignUp(Context context){
         Intent intent = new Intent(context, signUpActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+       // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
     }
 

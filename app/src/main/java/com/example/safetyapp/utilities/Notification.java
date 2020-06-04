@@ -36,7 +36,7 @@ public class Notification {
             //mContext.getString(R.string.channel_name);
             int importance = NotificationManager.IMPORTANCE_LOW;
 
-            String CHANNEL_ID = "com.example.project.channel";
+            String CHANNEL_ID = "com.example.safety.channel";
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             //String description = mContext.getString(R.string.notifications_description);
             String description = "I would like to receive travel alerts and notifications for:";

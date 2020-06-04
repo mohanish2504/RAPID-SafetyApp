@@ -8,9 +8,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.safetyapp.Globals;
-import com.example.safetyapp.MainActivity;
-import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.Triggers.Trigger;
+
+import static com.example.safetyapp.Globals.currentTriggerTime;
 
 public class ScreenOnOffReceiver extends BroadcastReceiver {
 
@@ -61,22 +61,15 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
     }
 
     private void alert(){
-        long minimumTriggerTime = 2*60*1000;
-        long currentTriggerTime = System.currentTimeMillis();
-        long previousTriggerTime = sharedPref.getLong("LastTrigger",currentTriggerTime);
 
-        if(pressCounter==5 && ((currentTriggerTime-previousTriggerTime>=minimumTriggerTime) || (currentTriggerTime-previousTriggerTime == 0))){
+        if(pressCounter==5 && Trigger.isAcceptable(context)){
             pressCounter = 0;
             try {
                 Log.d(TAG,"Trigger Accepted");
-
                 editor.putLong("LastTrigger",currentTriggerTime).apply();
                 trigger.registerTrigger(context);
-
                 editor.putString("SafetyStatus","OFF").apply();
-
-                Log.d(TAG,"Starting New Activity");
-
+                //Log.d(TAG,"Starting New Activity");
                 Intent intent = new Intent(Globals.BROADCAST_SAFETY);
                 context.sendBroadcast(intent);
 
@@ -85,7 +78,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
             }
         }else if(pressCounter == 5) {
             pressCounter = 0;
-            Log.d(TAG,"Trigger Not Accepted");
+           // Log.d(TAG,"Trigger Not Accepted");
             Toast.makeText(context,"You must wait for atleast 2 minutes to make new Trigger request",Toast.LENGTH_LONG).show();
         }
     }

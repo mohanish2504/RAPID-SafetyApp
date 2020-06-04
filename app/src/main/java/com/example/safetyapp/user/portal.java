@@ -63,11 +63,17 @@ public class portal extends AppCompatActivity {
     //public static ListViewAdapter listViewAdapter;
     public static  RecyclerAdapter recyclerAdapter;
 
+    String[] list;
+    boolean[] result ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portal);
+
+        list = getResources().getStringArray(R.array.report_reason);
+        result = new boolean[list.length];
 
         listView = findViewById(R.id.listview_helps);
         listView.setLayoutManager(new LinearLayoutManager(this));
@@ -85,8 +91,6 @@ public class portal extends AppCompatActivity {
         GoogleMap gmap;
         int currposition;
 
-        final String[] list = getApplicationContext().getResources().getStringArray(R.array.report_reason);
-        final boolean[] result = new boolean[list.length];
         ArrayList<String> reports = new ArrayList<>();
 
         public RecyclerAdapter() {
@@ -105,13 +109,11 @@ public class portal extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
             String desc = userInNeedArrayList.get(position).getFirstName() + " has requested for your help!\n" +
                     "It would be ideal if you share your \n" +
                     "contact details and use location to \n" +
                     "get across before any incident occurs.";
-
-
             holder.name.setText(userInNeedArrayList.get(position).getFirstName());
             holder.button_shareContact.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -146,7 +148,7 @@ public class portal extends AppCompatActivity {
             holder.more.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PopupMenu popupMenu = new PopupMenu(getContext(), v);
+                    PopupMenu popupMenu = new PopupMenu(portal.this, holder.more);
                     MenuInflater menuInflater = popupMenu.getMenuInflater();
                     menuInflater.inflate(R.menu.report_menu, popupMenu.getMenu());
 

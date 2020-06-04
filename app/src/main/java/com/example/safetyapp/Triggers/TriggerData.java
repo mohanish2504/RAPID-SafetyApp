@@ -29,19 +29,10 @@ public class TriggerData {
 
     }
 
-    public List<String> getTokens() {
-        return Tokens;
-    }
-
-    public void setTokens(List<String> tokens) {
-        Tokens = tokens;
-    }
 
     public void setData(final Context context){
         this.context = context;
         Log.d(TAG,"setting Data");
-
-        if(!Tokens.isEmpty())Tokens.clear();
 
         final Date currentTime = Calendar.getInstance().getTime();
         final DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Triggers");

@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,11 +29,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.safetyapp.Services.RingtonePlayingService;
 import com.example.safetyapp.Triggers.Trigger;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
-import com.example.safetyapp.user.ReferalActivity;
 import com.example.safetyapp.user.TutorialActivity;
 import com.example.safetyapp.user.infoActivity;
 import com.example.safetyapp.user.phoneno;
@@ -51,6 +52,8 @@ import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Map;
 
+import static com.example.safetyapp.Globals.*;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -67,13 +70,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView pendingrequests;
     RelativeLayout btnportal, info, mode, tutorial;
     BroadcastReceiver mynotificationreceiver,alertreceiver;
-    String str;
     FirebaseAuth mAuth;
-    long minimumTriggerTime = 2*60*1000;
-    long currentTriggerTime = System.currentTimeMillis();
-    long previousTriggerTime;
-    private static SharedPreferences sharedPref = null;
-    private static SharedPreferences.Editor editor = null;
+    SharedPreferences sharedPref = null;
+    SharedPreferences.Editor editor = null;
+    String safetystatus;
+
+    Uri ringtoneUri = Uri.parse("android.resource://com.example.safetyapp/raw/siren");
+    private static Ringtone siren ;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -166,36 +169,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
-        /*final Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        overridePendingTransition(0, 0);*/
-
-        sirenIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
         btnsafetystatus = (Button) findViewById(R.id.safe);
 
 
-        final String safetystatus = getSharedPreferences("Info",MODE_PRIVATE).getString("SafetyStatus","ON");
-        Log.d(TAG,safetystatus);
+        SAFETYSTATUS = getSharedPreferences("Info",MODE_PRIVATE).getString("SafetyStatus","ON");
+        //Log.d(TAG,safetystatus);
+        setSafetyButton();
 
-        if(safetystatus.equals("OFF")) {
-            btnsafetystatus.setBackgroundResource(R.drawable.unsafe_new);
-            btnsafetystatus.setText("Unsafe");
-            //btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
-        }else if(safetystatus.equals("ON")){
-            btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
-            btnsafetystatus.setText("Safe");
-            //btnsafetystatus.setBackgroundColor(Color.parseColor("#008000"));
-        }
-        str = safetystatus;
         btnsafetystatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG,str);
-                currentTriggerTime = System.currentTimeMillis();
-                previousTriggerTime = sharedPref.getLong("LastTrigger",currentTriggerTime);
-                str = ALERT(str);
+                Log.d(TAG,SAFETYSTATUS);
+                ALERT();
             }
         });
 
@@ -235,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mode = findViewById(R.id.mode);
         final TextView modeText = findViewById(R.id.mode_text);
+        modeText.setText(MODE);
         mode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,9 +234,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        // New Modifications Comment this
         UID = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
-        //ReferalGenerator.checkForReferal(UID);
         setToken();
         createMethod();
         scheduleJob();
@@ -259,43 +243,62 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public String ALERT(String str){
-        if(str.equals("OFF")) {
-            //Log.d(TAG,"OFF to ON");
-            stopService(sirenIntent);
-            getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","ON").apply();
-            str = "ON";
-            btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
-            btnsafetystatus.setText("Safe");
-            return str;
-
-            //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.green));
-        }else if(str.equals("ON") && ((currentTriggerTime-previousTriggerTime>=minimumTriggerTime) || (currentTriggerTime-previousTriggerTime == 0)) ){
-           // Log.d(TAG, String.valueOf(currentTriggerTime-previousTriggerTime) + " " + String.valueOf(minimumTriggerTime));
-            //Log.d(TAG,"ON to OFF");
-            startService(sirenIntent);
-            getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
-            str = "OFF";
+    private void setSafetyButton(){
+        if(SAFETYSTATUS.equals("OFF")) {
             btnsafetystatus.setBackgroundResource(R.drawable.unsafe_new);
             btnsafetystatus.setText("Unsafe");
-            editor.putLong("LastTrigger",currentTriggerTime).apply();
-            Trigger trigger = new Trigger();
-            trigger.registerTrigger(getApplicationContext());
-
-            return str;
-            //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.red));
+            //btnsafetystatus.setBackgroundColor(Color.parseColor("#FF0000"));
+        }else if(SAFETYSTATUS.equals("ON")){
+            btnsafetystatus.setBackgroundResource(R.drawable.safe_new);
+            btnsafetystatus.setText("Safe");
+        }
+    }
+    private void playSiren() {
+        if (siren == null) siren = RingtoneManager.getRingtone(this, ringtoneUri);
+        siren.play();
+    }
+    private void stopSiren(){
+        if(siren == null)siren = RingtoneManager.getRingtone(this, ringtoneUri);
+        siren.stop();
+    }
+    private void STARTALERT(){
+       // startService(sirenIntent);
+        playSiren();
+        getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
+        SAFETYSTATUS = "OFF";
+        setSafetyButton();
+        editor.putLong("LastTrigger",currentTriggerTime).apply();
+        Trigger trigger = new Trigger();
+        trigger.registerTrigger(getApplicationContext());
+    }
+    private void STOPALERT(){
+     //   stopService(sirenIntent)
+        stopSiren();
+        getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","ON").apply();
+        SAFETYSTATUS = "ON";
+        setSafetyButton();
+    }
+    public void ALERT(){
+        if(SAFETYSTATUS.equals("OFF")) {
+            //Log.d(TAG,"OFF to ON")
+            STOPALERT();
+            //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.green));
+        }
+        else if(SAFETYSTATUS.equals("ON") && Trigger.isAcceptable(getApplicationContext()) ){
+           // Log.d(TAG, String.valueOf(currentTriggerTime-previousTriggerTime) + " " + String.valueOf(minimumTriggerTime));
+            //Log.d(TAG,"ON to OFF");
+            STARTALERT();
         }else{
             Toast.makeText(getApplicationContext(),"You must wait for atleast 2 minutes to make new Trigger request",Toast.LENGTH_LONG).show();
 
         }
-        return str;
     }
 
     public class NotificationReceiver extends BroadcastReceiver{
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG,intent.getAction());
+           // Log.d(TAG,intent.getAction());
             if(intent.getAction().equals(Globals.BROADCAST)) setPendingRequests();
         }
     }
@@ -306,7 +309,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(Globals.BROADCAST_SAFETY)){
                 Log.d(TAG,"SAFETY ALAERT");
-                str = ALERT("ON");
+                SAFETYSTATUS= "ON";
+                STARTALERT();
+               // str = "ON";
                 if(!activityRunning){
                     startActivity(getIntent());
                     finish();
@@ -397,7 +402,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-
     }
 
     private void scheduleJob() {
@@ -426,10 +430,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent i = new Intent(MainActivity.this, termsAndConditionActivity.class);
             startActivity(i);
         }
-        else if(id == R.id.emergencies_contacts){
-            Log.d("You are here","hello");
-            String phone = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
-            ReferalGenerator.checkForReferal(phone,getApplicationContext(),false);
+        else if(id == R.id.emergencies_contacts) {
+            //Log.d("You are here","hello");
+            if (REFERAL == null) {
+                String phone = getSharedPreferences("UserDetails", MODE_PRIVATE).getString("Number", "");
+                ReferalGenerator.checkForReferal(phone, MainActivity.this, false);
+            }else{
+                ReferalGenerator.LaunchActivityReferal(MainActivity.this);
+            }
         }
         else if(id == R.id.logout){
             FirebaseAuth.getInstance().signOut();
@@ -441,23 +449,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        setPendingRequests();
+    protected void onPause() {
+        super.onPause();
+        activityRunning = false;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        activityRunning = false;
         unregisterReceiver(mynotificationreceiver);
         unregisterReceiver(alertreceiver);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        activityRunning = false;
     }
 
     @Override
@@ -465,4 +466,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         activityRunning = true;
     }
+
+
 }

@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -119,7 +120,8 @@ public class Service extends android.app.Service {
                 sendScreenBroadcast();
                 startLocationUpdates();
             }catch (Exception e){
-                Log.i(TAG,"Error during placing notification");
+                Log.d(TAG,e.getLocalizedMessage());
+                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
             }
         }
     }

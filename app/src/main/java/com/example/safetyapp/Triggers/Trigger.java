@@ -14,6 +14,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static com.example.safetyapp.Globals.currentTriggerTime;
+import static com.example.safetyapp.Globals.minimumTriggerTime;
+import static com.example.safetyapp.Globals.previousTriggerTime;
+
 public class Trigger {
     private static String TAG = Trigger.class.getSimpleName();
     private static DatabaseReference databaseReference;
@@ -71,6 +75,17 @@ public class Trigger {
 
             }
         });
+    }
+    public static boolean isAcceptable(Context context){
+        currentTriggerTime = System.currentTimeMillis();
+        previousTriggerTime = context.getSharedPreferences("Info",Context.MODE_PRIVATE).getLong("LastTrigger",currentTriggerTime);
+        //Log.d(TAG,currentTriggerTime + " " + previousTriggerTime + " " + (currentTriggerTime - previousTriggerTime));
+        if((currentTriggerTime-previousTriggerTime>=minimumTriggerTime) || (currentTriggerTime-previousTriggerTime == 0)){
+         //   Log.d(TAG,"TRUE");
+            return true;
+        }
+       // Log.d(TAG,"FALSE");
+        return false;
     }
 
 

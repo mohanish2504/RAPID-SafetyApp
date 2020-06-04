@@ -39,7 +39,7 @@ public class JobService extends android.app.job.JobService {
 
 
     private void registerRestarterReceiver() {
-
+        Log.d(TAG,"REGISTER RESTARTER");
         if (restartSensorServiceReceiver == null)
             restartSensorServiceReceiver = new RestartServiceBroadcastReceiver();
         else try{
