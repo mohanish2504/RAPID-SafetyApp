@@ -39,7 +39,7 @@
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/mode_dialog"
                     android:gravity="center"
-                    android:text="\?"
+                    android:text="@string/question_mark"
                     android:textColor="#FFFFFF"
                     android:clickable="true"
                     android:focusable="true"/>
@@ -50,13 +50,14 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/mode_icon"
                     android:layout_marginStart="35dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="@string/mode_icon" />
 
                 <TextView
                     android:id="@+id/mode_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MODE | PUBLIC"
+                    android:text="@string/mode_private"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center"
                     android:maxLines="1"
@@ -83,7 +84,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="35dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/tutorial_icon" />
+                    android:src="@drawable/tutorial_icon"
+                    android:contentDescription="@string/tutorial_icon" />
 
                 <TextView
                     android:id="@+id/tutorial_text"
@@ -92,7 +94,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:maxLines="1"
-                    android:text="TUTORIAL"
+                    android:text="@string/tutorial"
                     android:textSize="15sp"
                     android:layout_below="@id/tutorial_icon"
                     android:layout_centerHorizontal="true"/>
@@ -108,7 +110,7 @@
             android:background="@drawable/safe_new"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
-            android:text="Safe"
+            android:text="@string/safe"
             android:textColor="#FFF"
             android:textStyle="bold"
             android:paddingTop="40dp"/>
@@ -139,7 +141,7 @@
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/item_count"
                     android:gravity="center"
-                    android:text="1"
+                    android:text="@string/_1"
                     android:textColor="#FFFFFF" />
 
                 <ImageView
@@ -147,15 +149,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/portal_icon"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginStart="35dp"
                     android:layout_below="@id/help_request_count"
-                    android:layout_marginTop="-20dp"/>
+                    android:layout_marginTop="-20dp"
+                    android:contentDescription="@string/portal_icon" />
 
                 <TextView
                     android:id="@+id/portal_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="HELP REQUEST"
+                    android:text="@string/help_request"
                     android:textSize="15sp"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@id/portal_icon"
@@ -178,14 +181,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/info_icon"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="@string/info_logo" />
 
                 <TextView
                     android:id="@+id/info_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="INFO"
+                    android:text="@string/info"
                     android:textSize="15sp"
                     android:layout_below="@id/info_icon"
                     android:layout_centerHorizontal="true"

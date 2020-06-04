@@ -35,7 +35,7 @@
         android:layout_below="@id/phone_no"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Verify Number"
+        android:text="@string/verify_number"
         android:id="@+id/verify" />
 
 </RelativeLayout>

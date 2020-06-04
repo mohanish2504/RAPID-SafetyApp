@@ -8,13 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="6"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/contacts_textview_name"
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:text="ContactName(9876543210)"
+            android:text="@string/contactname_9876543210"
             android:layout_weight="3"
             android:gravity="center">
         </TextView>
@@ -24,19 +24,18 @@
             android:id="@+id/contacts_textview_number"
             android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:hint="referal"
+            android:hint="@string/referal"
             android:layout_weight="2.5"
-            android:gravity="center"
-            >
-        </EditText>
+            android:gravity="center"/>
+
         <Button
             android:id="@+id/contacts_button_remove"
             android:layout_weight=".5"
             android:layout_width="0px"
             android:background="@drawable/ic_cancel"
             android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"/>
     </LinearLayout>
 
 </RelativeLayout>

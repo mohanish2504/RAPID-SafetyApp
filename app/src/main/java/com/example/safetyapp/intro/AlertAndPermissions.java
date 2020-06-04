@@ -42,7 +42,7 @@ public class AlertAndPermissions extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_fourth);
+        setContentView(R.layout.fourthslider);
 
         Button button_allowpermissions = findViewById(R.id.allow_permission);
         button_allowpermissions.setOnClickListener(new View.OnClickListener() {
