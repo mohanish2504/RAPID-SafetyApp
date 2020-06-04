@@ -60,7 +60,6 @@ public class portal extends AppCompatActivity {
 
     private static String TAG = portal.class.getSimpleName();
     public static RecyclerView listView ;
-    //public static ListViewAdapter listViewAdapter;
     public static  RecyclerAdapter recyclerAdapter;
 
     String[] list;

@@ -65,19 +65,10 @@ public class AlertAndPermissions extends AppCompatActivity {
         return true;
     }
     private void getPermissions(){
-        //requestDNDPermissions();
         if (!hasPermissions(this, PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_CODE);
         }
 
-
-        /*requestLocationPermission();
-        requestMicrophonePermission();
-        requestContactsAndSMSPermission();
-
-
-        Intent intent = new Intent(this, phoneno.class);
-        //startActivity(intent);*/
     }
 
     public void requestDNDPermissions(){
@@ -90,7 +81,6 @@ public class AlertAndPermissions extends AppCompatActivity {
                 startActivity(intent);
                 requestDND = 1;
             }
-
         }
     }
 
@@ -101,21 +91,8 @@ public class AlertAndPermissions extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             Intent intent = new Intent(this,phoneno.class);
             startActivity(intent);
-            //requestDNDPermissions();
         }
     }
-
-
-    private void handleLocationUpdates() {
-        //foreground and background
-        //Toast.makeText(getApplicationContext(),"Start Foreground and Background Location Updates",Toast.LENGTH_SHORT).show();
-    }
-
-    private void handleForegroundLocationUpdates() {
-        //handleForeground Location Updates
-        //Toast.makeText(getApplicationContext(),"Start foreground location updates",Toast.LENGTH_SHORT).show();
-    }
-
 
 }
 

@@ -55,8 +55,6 @@ public class MessageService extends FirebaseMessagingService {
         Map<String,String> map;
         map = remoteMessage.getData();
 
-       // for(String k : map.keySet())Log.d(TAG,k);
-
         HelpRequests.UserInNeed userInNeed = new HelpRequests.UserInNeed(map);
         Long time = Long.valueOf(map.get("time"));
 

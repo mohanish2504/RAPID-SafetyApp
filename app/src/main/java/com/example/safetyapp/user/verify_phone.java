@@ -72,13 +72,11 @@ public class verify_phone extends AppCompatActivity {
 
                 String code = phoneAuthCredential.getSmsCode();
 
-              //  Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 if(code != null){
                     editTextcode.setText(code);
                     verifyVerificationCode(code);
                 }
                 Log.d("OnVerify","completed");
-                //startActivity(intent);
             }
 
             @Override
@@ -91,8 +89,6 @@ public class verify_phone extends AppCompatActivity {
                 mVerificationId = s;
             }
         };
-
-        //Log.d(TAG,countrycode+mobile);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 countrycode + mobile,
                 60,
@@ -118,17 +114,13 @@ public class verify_phone extends AppCompatActivity {
                             getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("Status",true).apply();
                             if(isNewUser){
                                 ReferalGenerator.checkForReferal(mobile,verify_phone.this,true);
-                                //finish();
                             }
                             else{
                                 ReferalGenerator.checkForReferal(mobile,verify_phone.this,false);
-                                //finish();
                             }
-                            //getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",true).apply();
-                            //getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
+
                         } else {
 
-                            //verification unsuccessful.. display an error message
 
                             String message = "Something is wrong, we will fix it soon...";
 

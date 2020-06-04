@@ -26,7 +26,6 @@ public class RestartServiceBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.P){
-            // Toast.makeText(mcontext, "Version Checked", Toast.LENGTH_LONG).show();
             JobService.launchDirectService(context);
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             scheduleJob(context);

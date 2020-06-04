@@ -173,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         SAFETYSTATUS = getSharedPreferences("Info",MODE_PRIVATE).getString("SafetyStatus","ON");
-        //Log.d(TAG,safetystatus);
         setSafetyButton();
 
         btnsafetystatus.setOnClickListener(new View.OnClickListener() {
@@ -262,7 +261,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         siren.stop();
     }
     private void STARTALERT(){
-       // startService(sirenIntent);
         playSiren();
         getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","OFF").apply();
         SAFETYSTATUS = "OFF";
@@ -272,7 +270,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         trigger.registerTrigger(getApplicationContext());
     }
     private void STOPALERT(){
-     //   stopService(sirenIntent)
         stopSiren();
         getSharedPreferences("Info",MODE_PRIVATE).edit().putString("SafetyStatus","ON").apply();
         SAFETYSTATUS = "ON";
@@ -280,14 +277,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void ALERT(){
         if(SAFETYSTATUS.equals("OFF")) {
-            //Log.d(TAG,"OFF to ON")
             STOPALERT();
-            //btnsafetystatus.setBackgroundColor(getResources().getColor(R.color.green));
         }
         else if(SAFETYSTATUS.equals("ON") && Trigger.isAcceptable(getApplicationContext()) ){
-           // Log.d(TAG, String.valueOf(currentTriggerTime-previousTriggerTime) + " " + String.valueOf(minimumTriggerTime));
-            //Log.d(TAG,"ON to OFF");
-            STARTALERT();
+           STARTALERT();
         }else{
             Toast.makeText(getApplicationContext(),"You must wait for atleast 2 minutes to make new Trigger request",Toast.LENGTH_LONG).show();
 
@@ -298,7 +291,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         public void onReceive(Context context, Intent intent) {
-           // Log.d(TAG,intent.getAction());
             if(intent.getAction().equals(Globals.BROADCAST)) setPendingRequests();
         }
     }
@@ -335,7 +327,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void uploadUserData() {
         databaseReference = FirebaseDatabase.getInstance().getReference("UserDetails");
-        //Log.d("UID",UID);
         databaseReference.orderByKey().equalTo(UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -397,8 +388,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String channelID = "Notification Channel";
             NotificationChannel channel = new NotificationChannel(channelID, name, importance);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
@@ -406,7 +395,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void scheduleJob() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // Log.d("MainActivity","Starting Process");
             RestartServiceBroadcastReceiver.scheduleJob(getApplicationContext());
         } else {
             Log.d(TAG,"i m here");

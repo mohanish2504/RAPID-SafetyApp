@@ -79,12 +79,9 @@ public class Trigger {
     public static boolean isAcceptable(Context context){
         currentTriggerTime = System.currentTimeMillis();
         previousTriggerTime = context.getSharedPreferences("Info",Context.MODE_PRIVATE).getLong("LastTrigger",currentTriggerTime);
-        //Log.d(TAG,currentTriggerTime + " " + previousTriggerTime + " " + (currentTriggerTime - previousTriggerTime));
-        if((currentTriggerTime-previousTriggerTime>=minimumTriggerTime) || (currentTriggerTime-previousTriggerTime == 0)){
-         //   Log.d(TAG,"TRUE");
+         if((currentTriggerTime-previousTriggerTime>=minimumTriggerTime) || (currentTriggerTime-previousTriggerTime == 0)){
             return true;
         }
-       // Log.d(TAG,"FALSE");
         return false;
     }
 

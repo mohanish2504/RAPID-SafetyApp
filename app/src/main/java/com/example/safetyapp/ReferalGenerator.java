@@ -36,7 +36,6 @@ public class ReferalGenerator {
     }
 
     public static void checkForReferal(final String phone, final Context context, final boolean isNewUser){
-       // Log.d("here",referal);
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Referals");
         databaseReference.orderByKey().equalTo(phone).addValueEventListener(new ValueEventListener() {
             @Override
@@ -45,7 +44,6 @@ public class ReferalGenerator {
                     generateReferal();
                     databaseReference.child(phone).setValue(referal);
                 }else{
-                    //DataSnapshot dataSnapshot1 = dataSnapshot.getValue();
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                         referal = (String) dataSnapshot1.getValue();
                     }

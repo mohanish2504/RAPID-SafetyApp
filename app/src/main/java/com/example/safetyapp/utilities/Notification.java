@@ -33,12 +33,9 @@ public class Notification {
         // OREO
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             CharSequence name = "Permanent Notification";
-            //mContext.getString(R.string.channel_name);
             int importance = NotificationManager.IMPORTANCE_LOW;
-
             String CHANNEL_ID = "com.example.safety.channel";
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            //String description = mContext.getString(R.string.notifications_description);
             String description = "I would like to receive travel alerts and notifications for:";
             channel.setDescription(description);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID);
@@ -63,7 +60,6 @@ public class Notification {
                     .setContentIntent(notificationPendingIntent).build();
         } else {
             notification = new NotificationCompat.Builder(context, "channel")
-                    // to be defined in the MainActivity of the app
                     .setSmallIcon(icon)
                     .setContentTitle(title)
                     .setContentText(text)

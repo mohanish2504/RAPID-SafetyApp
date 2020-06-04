@@ -25,7 +25,6 @@ public class JobService extends android.app.job.JobService {
         bck.launchService(this);
 
         registerRestarterReceiver();
-       // instance = this;
         JobService.jobParameters = params;
         return false;
     }
@@ -34,7 +33,6 @@ public class JobService extends android.app.job.JobService {
     public static void launchDirectService(Context context){
         ProcessMainClass bck = new ProcessMainClass();
         bck.launchService(context);
-        //registerRestarterReceiver();
     }
 
 
@@ -70,7 +68,6 @@ public class JobService extends android.app.job.JobService {
         Log.i(TAG, "Stopping job");
         Intent broadcastIntent = new Intent(Globals.RESTART_INTENT);
         sendBroadcast(broadcastIntent);
-        // give the time to run
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

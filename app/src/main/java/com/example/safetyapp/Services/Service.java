@@ -70,8 +70,6 @@ public class Service extends android.app.Service {
         super.onStartCommand(intent, flags, startId);
 
         Log.d(TAG,"Restarting Service from on start Command");
-        //count = 0;
-
         if (intent == null) {
             Log.d(TAG,"intent is null launching new process");
             ProcessMainClass bck = new ProcessMainClass();
@@ -111,12 +109,10 @@ public class Service extends android.app.Service {
     public void restartForeground(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             Log.i(TAG,"restarting Foreground");
-           // unregisterScreenReceiver();
             try{
                 Notification notification = new Notification();
                 startForeground(NOTIFICATION_ID,notification.setNotification(getApplicationContext(),"App","App is Running", R.drawable.ic_launcher_background));
                 Log.i(TAG,"RestartingForeground");
-                //startTimer();
                 sendScreenBroadcast();
                 startLocationUpdates();
             }catch (Exception e){

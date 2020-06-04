@@ -30,14 +30,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".user.termsAndConditionActivity"></activity>
+        <activity android:name=".user.termsAndConditionActivity" />
         <activity android:name=".user.infoActivity" />
         <activity android:name=".user.TutorialActivity" />
-        <activity android:name=".intro.FirstIntro" />
         <activity
             android:name=".user.ReferalActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".user.EmergencyContact" />
         <activity
             android:name=".user.signUpActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -49,11 +47,7 @@
             android:value="@string/map_key" />
 
         <activity android:name=".user.portal" />
-        <activity android:name=".user.profile" />
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".user.welcome"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".intro.FrontActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">

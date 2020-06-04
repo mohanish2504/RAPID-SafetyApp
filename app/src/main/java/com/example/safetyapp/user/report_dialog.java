@@ -44,9 +44,7 @@ public class report_dialog extends AppCompatDialogFragment {
             Log.d(TAG,String.valueOf(context));
             try {
                 mListener = (onMultiChoiceListener) context;
-                //setlistener(context);
             } catch (Exception e) {
-                //throw new ClassCastException(getActivity().toString()+"onMultiChoiceListener must implemented");
                 Log.d(TAG,e.getMessage());
             }
         }

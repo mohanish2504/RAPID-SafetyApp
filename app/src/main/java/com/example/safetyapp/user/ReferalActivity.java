@@ -44,12 +44,12 @@ import java.util.Set;
 
 import io.michaelrocks.libphonenumber.android.Phonenumber;
 
-import static com.example.safetyapp.user.EmergencyContact.RequestPermissionCode;
+
 
 public class ReferalActivity extends AppCompatActivity {
 
     ListView listView;
-
+    int RequestPermissionCode = 1212;
     private String TAG= ReferalActivity.class.getSimpleName();
     private static ArrayList<EmergencyContact> emergencyContacts=new ArrayList<EmergencyContact>();;
     private MyAdapter myAdapter;
@@ -63,9 +63,7 @@ public class ReferalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_referal);
 
         EnableRuntimePermission();
-       // ReferalGenerator.checkForReferal(getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","811111111"));
         textView_userreferalcode = (TextView) findViewById(R.id.referalcode);
-        //Log.d(TAG,ReferalGenerator.getReferal());
         textView_userreferalcode.setText(Globals.REFERAL);
 
         msg="Hi I am inviting you to be my emergency contact please download the app share referal code";
@@ -73,7 +71,7 @@ public class ReferalActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list);
 
 
-        myAdapter = new MyAdapter(this,R.layout.activity_emergency_contact);
+        myAdapter = new MyAdapter(this,R.layout.activity_contacts_listview);
         listView.setAdapter(myAdapter);
 
         Button selectContact = (Button) findViewById(R.id.selectContact);
@@ -83,8 +81,6 @@ public class ReferalActivity extends AppCompatActivity {
                 if (emergencyContacts.size() < 2) {
                     Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                     startActivityForResult(intent, 7);
-                    //myAdapter.notifyDataSetChanged();
-                    //Log.d(TAG,Integer.toString(emergencyContacts.size()));
                 }
             }
         });
@@ -198,13 +194,11 @@ public class ReferalActivity extends AppCompatActivity {
 
     class MyAdapter extends ArrayAdapter<EmergencyContact>{
 
-        //ArrayList<EmergencyContact> emergencyContacts;
         Context context;
         private String TAG= MyAdapter.class.getSimpleName();
         public MyAdapter(@NonNull Context context, int resource) {
             super(context, resource);
             this.context = context;
-            //this.emergencyContacts = emergencyContacts;
         }
 
         @Override
@@ -225,7 +219,6 @@ public class ReferalActivity extends AppCompatActivity {
             TextView textView_name = (TextView) convertView.findViewById(R.id.contacts_textview_name);
             EditText editText_code = (EditText) convertView.findViewById(R.id.contacts_textview_number);
             Button button_remove = (Button) convertView.findViewById(R.id.contacts_button_remove);
-            //Log.d(TAG,this.emergencyContacts.get(position).getName());
 
             textView_name.setText(emergencyContacts.get(position).getName());
             String referal = emergencyContacts.get(position).getReferal();
@@ -240,7 +233,6 @@ public class ReferalActivity extends AppCompatActivity {
                     notifyDataSetChanged();
                 }
             });
-            //Log.d("Howdi","here");
 
             return convertView;
 
@@ -349,7 +341,6 @@ public class ReferalActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "This contact has no phone number", Toast.LENGTH_LONG).show();
                 }
                 cursor.close();
-                //}
 
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(),"Error Please Try Again!",Toast.LENGTH_SHORT).show();

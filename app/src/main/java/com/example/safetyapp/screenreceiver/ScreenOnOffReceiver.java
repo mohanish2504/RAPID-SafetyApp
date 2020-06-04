@@ -69,7 +69,6 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
                 editor.putLong("LastTrigger",currentTriggerTime).apply();
                 trigger.registerTrigger(context);
                 editor.putString("SafetyStatus","OFF").apply();
-                //Log.d(TAG,"Starting New Activity");
                 Intent intent = new Intent(Globals.BROADCAST_SAFETY);
                 context.sendBroadcast(intent);
 
@@ -78,7 +77,6 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
             }
         }else if(pressCounter == 5) {
             pressCounter = 0;
-           // Log.d(TAG,"Trigger Not Accepted");
             Toast.makeText(context,"You must wait for atleast 2 minutes to make new Trigger request",Toast.LENGTH_LONG).show();
         }
     }

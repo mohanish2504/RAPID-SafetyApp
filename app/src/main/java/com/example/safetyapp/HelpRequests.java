@@ -13,7 +13,6 @@ public class HelpRequests {
            return true;
        }
        return false;
-       //Log.d("Size", String.valueOf(usersinneed.size()));
     }
 
     public static Map<Long, UserInNeed> getUsers(){return usersinneed;}

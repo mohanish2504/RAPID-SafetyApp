@@ -32,7 +32,6 @@ public class phoneno extends AppCompatActivity {
                 String countrycode = ccp.getSelectedCountryCodeWithPlus();
                 String mobile = editTextMobile.getText().toString();
 
-                //ReferalGenerator.checkForReferal(mobile);
 
                 if(mobile.isEmpty() || mobile.length() < 10){
                     editTextMobile.setError("Enter Vaild Number");
@@ -46,7 +45,6 @@ public class phoneno extends AppCompatActivity {
                 intent.putExtra("countrycode" , countrycode);
                 startActivity(intent);
                 finish();
-                //CCSession(/);
             }
         });
     }

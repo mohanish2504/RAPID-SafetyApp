@@ -223,16 +223,11 @@ public class signUpActivity extends AppCompatActivity {
         String json=null;
         try
         {
-            // Opening cities.json file
             InputStream is = getAssets().open("city.json");
-            // is there any content in the file
             int size = is.available();
             byte[] buffer = new byte[size];
-            // read values in the byte array
             is.read(buffer);
-            // close the stream --- very important
             is.close();
-            // convert byte to string
             json = new String(buffer, "UTF-8");
         }
         catch (IOException ex)
@@ -265,9 +260,7 @@ public class signUpActivity extends AppCompatActivity {
 
     public void addToATC() {
         AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.city);
-        // Adapter for spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listAll);
-        // adapter.setDropDownViewResource(android.R.layout.);
         autoCompleteTextView.setAdapter(adapter);
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -422,8 +415,6 @@ public class signUpActivity extends AppCompatActivity {
         }
 
         return false;
-
-        //Log.d(TAG,String.valueOf(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)/365));
     }
 
 
