@@ -72,6 +72,8 @@ public class portal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portal);
 
+        Globals.pendingrequests=0;
+
         list = getResources().getStringArray(R.array.report_reason);
         result = new boolean[list.length];
 
@@ -80,7 +82,7 @@ public class portal extends AppCompatActivity {
         recyclerAdapter = new RecyclerAdapter();
         listView.setAdapter(recyclerAdapter);
 
-        Globals.pendingrequests=0;
+
         //listViewAdapter.notifyDataSetChanged();
 
     }

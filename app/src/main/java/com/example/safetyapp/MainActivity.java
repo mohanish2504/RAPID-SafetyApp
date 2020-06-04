@@ -442,8 +442,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if(id == R.id.logout){
             FirebaseAuth.getInstance().signOut();
             getSharedPreferences("Info",MODE_PRIVATE).edit().putBoolean("LoginStatus",false).apply();
+            getSharedPreferences("SignUpDetails",MODE_PRIVATE).edit().putBoolean("status",false).apply();
             finish();
             startActivity(new Intent(this, phoneno.class));
+
         }
         return false;
     }
@@ -465,6 +467,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         activityRunning = true;
+        setPendingRequests();
     }
 
 
