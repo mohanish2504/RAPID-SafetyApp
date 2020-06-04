@@ -61,7 +61,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
     }
 
     private void alert(){
-        long minimumTriggerTime = 1000;
+        long minimumTriggerTime = 2*60*1000;
         long currentTriggerTime = System.currentTimeMillis();
         long previousTriggerTime = sharedPref.getLong("LastTrigger",currentTriggerTime);
 
@@ -70,7 +70,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
             try {
                 Log.d(TAG,"Trigger Accepted");
 
-                editor.putLong("LastTrigger",currentTriggerTime);
+                editor.putLong("LastTrigger",currentTriggerTime).apply();
                 trigger.registerTrigger(context);
 
                 editor.putString("SafetyStatus","OFF").apply();
