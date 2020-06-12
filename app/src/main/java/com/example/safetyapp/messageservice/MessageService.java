@@ -34,7 +34,7 @@ public class MessageService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DeviceTokens");
-        String number = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+        String number = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number",null);
 
         if(number!=null){
             databaseReference.child(number).setValue(s);
