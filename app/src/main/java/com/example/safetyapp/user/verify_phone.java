@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.safetyapp.Globals;
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
 import com.example.safetyapp.ReferalGenerator;
@@ -99,8 +100,12 @@ public class verify_phone extends AppCompatActivity {
 
 
     private void verifyVerificationCode(String code){
+        try{
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
         signInWithPhoneAuthCredential(credential);
+        }catch(Exception e){
+            Toast.makeText(this,"Please try again later!",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
@@ -110,6 +115,7 @@ public class verify_phone extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
+                            Globals.USERNUMBER = mobile;
                             getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
                             getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("Status",true).apply();
                             if(isNewUser){

@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG,"I am in MainActivity");
+
         if(sharedPref == null || editor == null){
             sharedPref =getSharedPreferences("Info",Context.MODE_PRIVATE);
             editor = sharedPref.edit();
@@ -374,10 +376,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         String token = task.getResult().getToken();
                         getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Token",token).apply();
                         DatabaseReference mdatabaseReference;
-                        mdatabaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
-                        String mobile = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+                        mdatabaseReference = FirebaseDatabase.getInstance().getReference("DeviceTokens");
+                        String mobile = USERNUMBER;
                         mdatabaseReference.child(mobile).setValue(token);
-
                     }
                 });
     }
