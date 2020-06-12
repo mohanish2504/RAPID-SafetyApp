@@ -43,7 +43,7 @@ public class HighlightsIntro extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_third);
+        setContentView(R.layout.thirdfragement);
 
 
         highlights = (ListView) findViewById(R.id.listview_highlights);
