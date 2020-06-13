@@ -310,7 +310,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                // str = "ON";
                 if(!activityRunning){
                     startActivity(getIntent());
-                    finish();
                 }
 
             }

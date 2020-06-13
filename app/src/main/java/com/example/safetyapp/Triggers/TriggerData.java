@@ -39,6 +39,7 @@ public class TriggerData {
 
 
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+        try{
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
@@ -56,6 +57,9 @@ public class TriggerData {
                 if(Globals.MODE.equals("MODE | PUBLIC"))dbref.child(String.valueOf(System.currentTimeMillis())).setValue(currentInfo);
             }
         });
+        }catch (Exception e){
+           Toast.makeText(context,"Location Permissions are not allowed",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
