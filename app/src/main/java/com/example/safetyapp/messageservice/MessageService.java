@@ -2,8 +2,11 @@ package com.example.safetyapp.messageservice;
 
 import android.app.Notification;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -20,10 +23,14 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MessageService extends FirebaseMessagingService {
     private static String channelID = "Notification Channel";
+    private static Ringtone siren ;
     private static String TAG = FirebaseMessagingService.class.getSimpleName();
+    Uri ringtoneUri = Uri.parse("android.resource://com.example.safetyapp/raw/siren");
     @Override
     public void onCreate() {
         super.onCreate();
@@ -60,7 +67,7 @@ public class MessageService extends FirebaseMessagingService {
         Long time = Long.valueOf(map.get("time"));
 
         boolean alert = Boolean.parseBoolean(map.get("alert"));
-        //Log.d(TAG,String.valueOf(alert));
+        Log.d(TAG,"ALERT ==>" + String.valueOf(alert));
         if(HelpRequests.addUser(time,userInNeed)){
             //Log.d(TAG, String.valueOf(HelpRequests.currentRequests()));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -83,8 +90,15 @@ public class MessageService extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setSmallIcon(R.drawable.ic_launcher_background);
 
-        Uri ringtoneUri = Uri.parse("android.resource://com.example.safetyapp/raw/siren");
-        if(alert) notification.setSound(ringtoneUri);
+        if(alert){
+            playSiren();
+            final Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                public void run() {
+                    stopSiren();
+                }
+            }, 5000);
+        }
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(998,notification.build());
@@ -99,11 +113,29 @@ public class MessageService extends FirebaseMessagingService {
                 .setContentText(body)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        Uri ringtoneUri = Uri.parse("android.resource://com.example.safetyapp/raw/siren");
-        if(alert) notification.setSound(ringtoneUri);
+
+        if(alert){
+            playSiren();
+            final Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                public void run() {
+                    stopSiren();
+                }
+            }, 5000);
+        }
+
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(999,notification.build());
+    }
+
+    private void playSiren() {
+        if (siren == null) siren = RingtoneManager.getRingtone(this, ringtoneUri);
+        siren.play();
+    }
+    private void stopSiren(){
+        if(siren == null)siren = RingtoneManager.getRingtone(this, ringtoneUri);
+        siren.stop();
     }
 
 

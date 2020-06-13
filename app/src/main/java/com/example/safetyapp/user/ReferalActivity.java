@@ -229,6 +229,7 @@ public class ReferalActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     numberset.remove(emergencyContacts.get(position).getNumber());
+                    Globals.emergencyContactslist.remove(emergencyContacts.get(position));
                     emergencyContacts.remove(position);
                     notifyDataSetChanged();
                 }
