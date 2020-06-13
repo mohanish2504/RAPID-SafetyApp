@@ -377,8 +377,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Token",token).apply();
                         DatabaseReference mdatabaseReference;
                         mdatabaseReference = FirebaseDatabase.getInstance().getReference("DeviceTokens");
-                        String mobile = USERNUMBER;
-                        mdatabaseReference.child(mobile).setValue(token);
+                        String mobile = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number",null);
+                        if(mobile!=null)mdatabaseReference.child(mobile).setValue(token);
                     }
                 });
     }

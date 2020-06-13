@@ -64,10 +64,13 @@ public class FrontActivity extends AppCompatActivity {
         final Intent intent;
         Log.d(TAG,Boolean.toString(loginstatus));
         if(loginstatus && contactsVerified){
+            Log.d(TAG,"Going to main activity");
             intent = new Intent(getApplicationContext(), MainActivity.class);
         }else if(!loginstatus){
+            Log.d(TAG,"Going to Highlights");
             intent = new Intent(getApplicationContext(), HighlightsIntro.class);
         }else{
+            Log.d(TAG,"Going to Contacts");
             Toast.makeText(this,"PLease Add atleast 1 contact",Toast.LENGTH_SHORT).show();
             String mobile= getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
             ReferalGenerator.checkForReferal(mobile,getApplicationContext(),false);
@@ -81,8 +84,6 @@ public class FrontActivity extends AppCompatActivity {
                 finish();
             }
         },500);
-
-
 
     }
 }
