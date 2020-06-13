@@ -4,6 +4,13 @@
 
 package com.example.safetyapp;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+
+import androidx.core.app.ActivityCompat;
+
 import com.example.safetyapp.user.ReferalActivity;
 
 import java.util.ArrayList;
@@ -24,5 +31,36 @@ public class Globals {
     public static long currentTriggerTime , previousTriggerTime ;
     public static String SAFETYSTATUS = "OFF";
     public static String USERNUMBER= null;
+    public static Context servicecontext;
+    private static int REQUEST_CODE = 1;
+
+
+    private static String[] PERMISSIONS = {
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.READ_SMS,
+            Manifest.permission.SEND_SMS,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public static void getPermissions(Context context, Activity activity){
+        if (!hasPermissions(context, PERMISSIONS)) {
+            ActivityCompat.requestPermissions(activity, PERMISSIONS, REQUEST_CODE);
+        }
+
+    }
     //
 }

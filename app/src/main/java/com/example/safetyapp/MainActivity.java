@@ -1,5 +1,6 @@
 package com.example.safetyapp;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     Uri ringtoneUri = Uri.parse("android.resource://com.example.safetyapp/raw/siren");
     private static Ringtone siren ;
+    Activity activity;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         Log.d(TAG,"I am in MainActivity");
+        activity = (Activity) this;
 
         if(sharedPref == null || editor == null){
             sharedPref =getSharedPreferences("Info",Context.MODE_PRIVATE);

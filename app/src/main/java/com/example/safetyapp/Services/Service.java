@@ -187,6 +187,7 @@ public class Service extends android.app.Service {
     }
 
     private void initializeLocationResources(){
+        Globals.servicecontext = this;
         if(request==null){
             request = new LocationRequest();
             request.setInterval(45*60*1000);

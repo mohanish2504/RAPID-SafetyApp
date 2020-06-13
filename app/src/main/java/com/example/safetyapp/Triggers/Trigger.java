@@ -1,5 +1,6 @@
 package com.example.safetyapp.Triggers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class Trigger {
 
 
     }
+
 
     public void registerTrigger(Context context){
         setReference(context);

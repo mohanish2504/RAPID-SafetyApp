@@ -1,5 +1,6 @@
 package com.example.safetyapp.Triggers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.telephony.SmsManager;
@@ -31,35 +32,39 @@ public class TriggerData {
 
 
     public void setData(final Context context){
-        this.context = context;
         Log.d(TAG,"setting Data");
-
+        this.context = context;
         final Date currentTime = Calendar.getInstance().getTime();
         final DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Triggers");
 
+       // Globals.getPermissions(context,activity);
 
-        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
-        try{
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(Globals.servicecontext);
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                String mobile = context.getSharedPreferences("UserDetails",Context.MODE_PRIVATE).getString("Number","");
-                ArrayList<String> emergencyContacts= new ArrayList<>();
-                String uri = "http://maps.google.com/maps?saddr=" +location.getLatitude()+","+location.getLongitude();
-                String mynum = context.getSharedPreferences("UserDetails",Context.MODE_PRIVATE).getString("Number","");
-                for(int j = 0;j<Globals.emergencyContactslist.size();j++){
-                    emergencyContacts.add(Globals.emergencyContactslist.get(j).getNumber());
-                    sendSMS(mynum,uri,Globals.emergencyContactslist.get(j).getNumber());
+
+                if (location == null) {
+                    Log.d(TAG, "NULL LOCATION");
+                    Toast.makeText(context.getApplicationContext(), "Ferching Location Error", Toast.LENGTH_LONG).show();
+                    return;
                 }
 
-                CurrentUserInfo currentInfo = new CurrentUserInfo(mobile,location,emergencyContacts,currentTime.toString());
+                String mobile = context.getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("Number", "");
+                ArrayList<String> emergencyContacts = new ArrayList<>();
+                String uri = "http://maps.google.com/maps?saddr=" + location.getLatitude() + "," + location.getLongitude();
+                String mynum = context.getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("Number", "");
+                for (int j = 0; j < Globals.emergencyContactslist.size(); j++) {
+                    emergencyContacts.add(Globals.emergencyContactslist.get(j).getNumber());
+                    sendSMS(mynum, uri, Globals.emergencyContactslist.get(j).getNumber());
+                }
 
-                if(Globals.MODE.equals("MODE | PUBLIC"))dbref.child(String.valueOf(System.currentTimeMillis())).setValue(currentInfo);
+                CurrentUserInfo currentInfo = new CurrentUserInfo(mobile, location, emergencyContacts, currentTime.toString());
+
+                if (Globals.MODE.equals("MODE | PUBLIC"))
+                    dbref.child(String.valueOf(System.currentTimeMillis())).setValue(currentInfo);
             }
         });
-        }catch (Exception e){
-           Toast.makeText(context,"Location Permissions are not allowed",Toast.LENGTH_SHORT).show();
-        }
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.safetyapp.intro;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.safetyapp.Globals;
 import com.example.safetyapp.R;
 import com.example.safetyapp.user.phoneno;
 
@@ -38,38 +40,23 @@ public class AlertAndPermissions extends AppCompatActivity {
             Manifest.permission.ACCESS_BACKGROUND_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
     };
-
+    Activity activity;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fourthslider);
-
+        activity = (Activity)this;
         Button button_allowpermissions = findViewById(R.id.allow_permission);
         button_allowpermissions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPermissions();
+                Globals.getPermissions(getApplicationContext(),activity);
             }
         });
 
     }
 
-    public static boolean hasPermissions(Context context, String... permissions) {
-        if (context != null && permissions != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    private void getPermissions(){
-        if (!hasPermissions(this, PERMISSIONS)) {
-            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_CODE);
-        }
 
-    }
 
     public void requestDNDPermissions(){
 
