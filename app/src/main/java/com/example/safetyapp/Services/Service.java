@@ -111,7 +111,7 @@ public class Service extends android.app.Service {
             Log.i(TAG,"restarting Foreground");
             try{
                 Notification notification = new Notification();
-                startForeground(NOTIFICATION_ID,notification.setNotification(getApplicationContext(),"App","App is Running", R.drawable.ic_launcher_background));
+                startForeground(NOTIFICATION_ID,notification.setNotification(getApplicationContext(),"RAPID","Stay Safe with Rapid", R.drawable.appicon));
                 Log.i(TAG,"RestartingForeground");
                 sendScreenBroadcast();
                 startLocationUpdates();
@@ -196,7 +196,7 @@ public class Service extends android.app.Service {
         if(locationClient==null)
             locationClient = LocationServices.getFusedLocationProviderClient(this);
         if(locationRef == null)
-            locationRef = FirebaseDatabase.getInstance().getReference("Locations");
+            locationRef = FirebaseDatabase.getInstance().getReference("NewLocations");
         if(geoFireLoc == null){
             geoFireLoc = new GeoFire(locationRef);
             geoFireTrigger = new GeoFire(locationRef);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:id="@+id/drawerlayout"
-    android:background="#F0EEEE">
+    android:background="#E8E8E8">
 
     <LinearLayout
         android:layout_width="wrap_content"

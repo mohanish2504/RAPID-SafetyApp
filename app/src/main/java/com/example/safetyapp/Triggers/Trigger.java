@@ -36,7 +36,7 @@ public class Trigger {
 
     public void registerTrigger(Context context){
         setReference(context);
-        registerGeoFire();
+        //registerGeoFire();
     }
 
     private void registerGeoFire(){
