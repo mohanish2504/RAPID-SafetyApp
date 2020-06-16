@@ -20,7 +20,7 @@ import com.example.safetyapp.ReferalGenerator;
 
 public class FrontActivity extends AppCompatActivity {
     private static String TAG = FrontActivity.class.getSimpleName();
-
+    Intent intent;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,29 +61,38 @@ public class FrontActivity extends AppCompatActivity {
     public void checkRequiredValidations(){
         boolean loginstatus = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("Status",false);
         boolean contactsVerified = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("ContactsVerification",false);
-        final Intent intent;
         Log.d(TAG,Boolean.toString(loginstatus));
         if(loginstatus && contactsVerified){
             Log.d(TAG,"Going to main activity");
             intent = new Intent(getApplicationContext(), MainActivity.class);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(intent);
+                    finish();
+                }
+            },500);
         }else if(!loginstatus){
             Log.d(TAG,"Going to Highlights");
             intent = new Intent(getApplicationContext(), HighlightsIntro.class);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(intent);
+                    finish();
+                }
+            },500);
+
         }else{
             Log.d(TAG,"Going to Contacts");
             Toast.makeText(this,"PLease Add atleast 1 contact",Toast.LENGTH_SHORT).show();
-            String mobile= getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
-            ReferalGenerator.checkForReferal(mobile,getApplicationContext(),false);
-            finish();
-            return;
+            final String mobile = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ReferalGenerator.checkForReferal(mobile,getApplicationContext(),false,false);
+                }
+            },500);
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(intent);
-                finish();
-            }
-        },500);
-
     }
 }

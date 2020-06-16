@@ -230,12 +230,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Globals.MODE.equals("PRIVATE")){
+                if(Globals.MODE.equals("MODE | PRIVATE")){
                     modeText.setText("MODE | PUBLIC");
-                    Globals.MODE = "PUBLIC";
-                }else{
+                    Globals.MODE = "MODE | PUBLIC";
+                }else if(Globals.MODE.equals("MODE | PUBLIC")){
                     modeText.setText("MODE | PRIVATE");
-                    Globals.MODE="PRIVATE";
+                    Globals.MODE="MODE | PRIVATE";
                 }
             }
         });
@@ -425,9 +425,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else if(id == R.id.emergencies_contacts) {
             if (REFERAL == null) {
                 String phone = getSharedPreferences("UserDetails", MODE_PRIVATE).getString("Number", "");
-                ReferalGenerator.checkForReferal(phone, MainActivity.this, false);
+                ReferalGenerator.checkForReferal(phone, MainActivity.this, false,true);
             }else{
-                ReferalGenerator.LaunchActivityReferal(MainActivity.this);
+                ReferalGenerator.LaunchActivityReferal_withNoFlags(MainActivity.this);
             }
         }
         else if(id == R.id.logout){

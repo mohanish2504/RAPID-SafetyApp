@@ -46,6 +46,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -126,7 +127,7 @@ public class portal extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String userphone = dataSnapshot.getValue().toString();
                             String phoneno = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
-                            sendSMS(phoneno,"",userphone);
+                            sendSMS(phoneno,"",userphone,userInNeedArrayList.get(position).getFirstName());
                         }
 
                         @Override
@@ -193,12 +194,12 @@ public class portal extends AppCompatActivity {
             }
         }
 
-        public void sendSMS(String phoneNo, String msg,String userphone) {
-            msg="Hello this is my contact number"+ phoneNo +" I am ready to help!!";
+        public void sendSMS(String phoneNo, String msg,String userphone,String name) {
+            msg="Hello this is my contact number "+ phoneNo +" I am ready to help!!";
             try {
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(userphone, null, msg, null, null);
-                Toast.makeText(getApplicationContext(), "Message Sent",
+                Toast.makeText(getApplicationContext(), "Your contact details have been sent to "+name,
                         Toast.LENGTH_LONG).show();
             } catch (Exception ex) {
                 Toast.makeText(getApplicationContext(),ex.getMessage().toString(),

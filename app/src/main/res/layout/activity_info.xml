@@ -202,7 +202,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/anjitha_email"
                 android:layout_below="@id/ARaj"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp"/>
 
         </RelativeLayout>
 

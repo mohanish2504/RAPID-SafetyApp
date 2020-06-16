@@ -52,7 +52,7 @@ public class TriggerData {
 
                 String mobile = context.getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("Number", "");
                 ArrayList<String> emergencyContacts = new ArrayList<>();
-                String uri = "http://maps.google.com/maps?saddr=" + location.getLatitude() + "," + location.getLongitude();
+                String uri = "http://maps.google.com/maps?daddr=" + location.getLatitude() + "," + location.getLongitude();
                 String mynum = context.getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("Number", "");
                 for (int j = 0; j < Globals.emergencyContactslist.size(); j++) {
                     emergencyContacts.add(Globals.emergencyContactslist.get(j).getNumber());
@@ -60,9 +60,8 @@ public class TriggerData {
                 }
 
                 CurrentUserInfo currentInfo = new CurrentUserInfo(mobile, location, emergencyContacts, currentTime.toString());
-
-                if (Globals.MODE.equals("MODE | PUBLIC"))
-                    dbref.child(String.valueOf(System.currentTimeMillis())).setValue(currentInfo);
+                Log.d(TAG,Globals.MODE);
+                if (Globals.MODE.equals("MODE | PUBLIC"))dbref.child(String.valueOf(System.currentTimeMillis())).setValue(currentInfo);
             }
         });
 

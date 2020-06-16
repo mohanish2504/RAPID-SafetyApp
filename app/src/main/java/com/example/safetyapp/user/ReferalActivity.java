@@ -3,8 +3,10 @@ package com.example.safetyapp.user;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
@@ -26,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.safetyapp.BuildConfig;
 import com.example.safetyapp.Globals;
 import com.example.safetyapp.MainActivity;
 import com.example.safetyapp.R;
@@ -66,7 +69,7 @@ public class ReferalActivity extends AppCompatActivity {
         textView_userreferalcode = (TextView) findViewById(R.id.referalcode);
         textView_userreferalcode.setText(Globals.REFERAL);
 
-        msg="Hi I am inviting you to be my emergency contact please download the app share referal code";
+        msg="Hi I am inviting you to be my emergency contact please download the Rapid app share referal code Link: https://drive.google.com/file/d/1Sd1ic4HetX-DXh-k-VT3c3knc_w59H1g/view?usp=sharing";
 
         listView = (ListView) findViewById(R.id.list);
 
@@ -101,13 +104,25 @@ public class ReferalActivity extends AppCompatActivity {
         sendInvitation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(numberset.size()==0){
-                    Toast.makeText(getApplicationContext(),"Please add atleast one contact",Toast.LENGTH_LONG).show();
-                    return;
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                    String shareMessage= "\nLet me recommend you this application\n\n";
+                    shareMessage = msg +"\n\n";
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                } catch(Exception e) {
+                    //e.toString();
                 }
-                for(String n : numberset){
-                    sendSMS(n,msg);
-                }
+
+                /*if(isSMSPermissionGranted()){
+                    for(String n : numberset){
+                        sendSMS(n,msg);
+                    }
+                }*/
+
+
             }
         });
 
@@ -118,11 +133,31 @@ public class ReferalActivity extends AppCompatActivity {
 
     }
 
+
+    public  boolean isSMSPermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.SEND_SMS)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
+
+                Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 0);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG,"Permission is granted");
+            return true;
+        }
+    }
+
     public void sendSMS(String phoneNo, String msg) {
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNo, null, msg, null, null);
-            Toast.makeText(getApplicationContext(), "Message Sent",
+            Toast.makeText(getApplicationContext(), "Message Sent to "+ phoneNo,
                     Toast.LENGTH_LONG).show();
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(),ex.getMessage().toString(),
@@ -167,9 +202,14 @@ public class ReferalActivity extends AppCompatActivity {
                }
 
                 Globals.emergencyContactslist.addAll(emergencyContacts);
+                Toast.makeText(getApplicationContext(),"All Contacts Verified Sucessfully!",Toast.LENGTH_SHORT).show();
+
+                boolean loginstatus = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("Status",false);
+                boolean contactsVerified = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("ContactsVerification",false);
+
+                if(contactsVerified && loginstatus)return;
 
                 getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("ContactsVerification",true).apply();
-                Toast.makeText(getApplicationContext(),"All Contacts Verified Sucessfully!",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             }
@@ -229,8 +269,9 @@ public class ReferalActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     numberset.remove(emergencyContacts.get(position).getNumber());
-                    Globals.emergencyContactslist.remove(emergencyContacts.get(position));
+                    Globals.emergencyContactslist.clear();
                     emergencyContacts.remove(position);
+                    Globals.emergencyContactslist.addAll(emergencyContacts);
                     notifyDataSetChanged();
                 }
             });

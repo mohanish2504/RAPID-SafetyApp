@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.Inet4Address;
 import java.util.Random;
 
 public class ReferalGenerator {
@@ -35,7 +36,7 @@ public class ReferalGenerator {
         Log.d("Referal",referal);
     }
 
-    public static void checkForReferal(final String phone, final Context context, final boolean isNewUser){
+    public static void checkForReferal(final String phone, final Context context, final boolean isNewUser, final boolean noFlags){
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Referals");
         databaseReference.orderByKey().equalTo(phone).addValueEventListener(new ValueEventListener() {
             @Override
@@ -51,6 +52,7 @@ public class ReferalGenerator {
                 Log.d("Referal",referal);
                 Globals.REFERAL=referal;
                 if(isNewUser)LaunchActivitySignUp(context);
+                else if(noFlags) LaunchActivityReferal_withNoFlags(context);
                 else LaunchActivityReferal(context);
             }
             @Override
@@ -63,12 +65,18 @@ public class ReferalGenerator {
     public static String getReferal(){return referal;}
     public static void LaunchActivityReferal(Context context){
         Intent i = new Intent(context, ReferalActivity.class);
-       // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(i);
     }
+
+    public static void LaunchActivityReferal_withNoFlags(Context context){
+        Intent i = new Intent(context, ReferalActivity.class);
+        context.startActivity(i);
+    }
+
     public static void LaunchActivitySignUp(Context context){
         Intent intent = new Intent(context, signUpActivity.class);
-       // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 

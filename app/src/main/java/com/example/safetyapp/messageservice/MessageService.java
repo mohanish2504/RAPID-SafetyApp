@@ -69,7 +69,7 @@ public class MessageService extends FirebaseMessagingService {
         boolean alert = Boolean.parseBoolean(map.get("alert"));
         Log.d(TAG,"ALERT ==>" + String.valueOf(alert));
         if(HelpRequests.addUser(time,userInNeed)){
-            //Log.d(TAG, String.valueOf(HelpRequests.currentRequests()));
+            Log.d(TAG, String.valueOf(HelpRequests.currentRequests()));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 showNotification(map.get("title"),map.get("body"),alert);
             }

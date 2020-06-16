@@ -76,6 +76,12 @@ public class verify_phone extends AppCompatActivity {
                 if(code != null){
                     editTextcode.setText(code);
                     verifyVerificationCode(code);
+                }else{
+                    try{
+                        signInWithPhoneAuthCredential(phoneAuthCredential);
+                    }catch(Exception e){
+                        Log.d(TAG,"Error Verifying without code");
+                    }
                 }
                 Log.d("OnVerify","completed");
             }
@@ -113,35 +119,23 @@ public class verify_phone extends AppCompatActivity {
                 .addOnCompleteListener(verify_phone.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
-                            Globals.USERNUMBER = mobile;
-                            getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
-                            getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("Status",true).apply();
-                            if(isNewUser){
-                                ReferalGenerator.checkForReferal(mobile,verify_phone.this,true);
-                            }
-                            else{
-                                ReferalGenerator.checkForReferal(mobile,verify_phone.this,false);
-                            }
-
-                        } else {
-
-
-                            String message = "Something is wrong, we will fix it soon...";
-
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                message = "Invalid code entered...";
-                            }
-
-                            Snackbar snackbar = Snackbar.make(findViewById(R.id.parent), message, Snackbar.LENGTH_LONG);
-                            snackbar.setAction("Dismiss", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
+                        try{
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(),"Verification Successfully",Toast.LENGTH_SHORT).show();
+                                boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
+                                Globals.USERNUMBER = mobile;
+                                getSharedPreferences("UserDetails",MODE_PRIVATE).edit().putString("Number",mobile).apply();
+                                getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("Status",true).apply();
+                                if(isNewUser){
+                                    ReferalGenerator.checkForReferal(mobile,verify_phone.this,true,false);
                                 }
-                            });
-                            snackbar.show();
+                                else{
+                                    ReferalGenerator.checkForReferal(mobile,verify_phone.this,false,false);
+                                }
+
+                            }
+                        } catch (Exception e){
+                            Toast.makeText(getApplicationContext(),"Error wrong code",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -67,7 +67,7 @@ public class ScreenOnOffReceiver extends BroadcastReceiver {
             try {
                 Log.d(TAG,"Trigger Accepted");
                 editor.putLong("LastTrigger",currentTriggerTime).apply();
-                trigger.registerTrigger(context);
+                //trigger.registerTrigger(context);
                 editor.putString("SafetyStatus","OFF").apply();
                 Intent intent = new Intent(Globals.BROADCAST_SAFETY);
                 context.sendBroadcast(intent);
