@@ -15,6 +15,8 @@ public class ReportUser {
     public static class ReportFormat{
         String From,To,Msg;
 
+        public ReportFormat(){}
+
         public ReportFormat(String from, String to, String msg) {
             From = from;
             To = to;

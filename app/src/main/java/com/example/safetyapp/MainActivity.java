@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -33,6 +34,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.safetyapp.Triggers.Trigger;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
+import com.example.safetyapp.user.ReportUser;
 import com.example.safetyapp.user.TutorialActivity;
 import com.example.safetyapp.user.infoActivity;
 import com.example.safetyapp.user.phoneno;
@@ -40,17 +42,23 @@ import com.example.safetyapp.user.portal;
 import com.example.safetyapp.user.signUpActivity;
 import com.example.safetyapp.user.termsAndConditionActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.example.safetyapp.Globals.*;
@@ -241,11 +249,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         UID = getSharedPreferences("UserDetails",MODE_PRIVATE).getString("Number","");
+
         setToken();
         createMethod();
         scheduleJob();
         setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
         uploadUserData();
+        //moveReports_FireStore();
 
     }
 
@@ -365,6 +375,108 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void moveReports_FireStore(){
+
+        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Reports");
+        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                for(DataSnapshot values : dataSnapshot.getChildren()){
+                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
+                    String key = values.getKey();
+                    ReportUser.ReportFormat val = values.getValue(ReportUser.ReportFormat.class);
+
+                    if(key!=null && val!=null)db.collection("Reports").document(key).set(val);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void moveUsers_FireStore(){
+
+        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("UserDetails");
+        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                for(DataSnapshot values : dataSnapshot.getChildren()){
+                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
+                    String key = values.getKey();
+                    UserDetails val = values.getValue(UserDetails.class);
+
+                    if(key!=null && val!=null)db.collection("Users").document(key).set(val);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void moveTokens_FireStore(){
+
+        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("DeviceTokens");
+        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                for(DataSnapshot values : dataSnapshot.getChildren()){
+                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
+                    String key = values.getKey();
+                    String val = (String) values.getValue();
+                    HashMap<String,String> map = new HashMap<>();
+                    map.put("token",val);
+                    if(key!=null && val!=null)db.collection("Tokens").document(key).set(map);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void moveReferals_FireStore(){
+
+        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Referals");
+        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                for(DataSnapshot values : dataSnapshot.getChildren()){
+                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
+                    String key = values.getKey();
+                    String val = (String) values.getValue();
+                    HashMap<String,String> map = new HashMap<>();
+                    map.put("code",val);
+                    if(key!=null && val!=null)db.collection("Referals").document(key).set(map);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
     private void setToken() {
         FirebaseInstanceId.getInstance().getInstanceId()
