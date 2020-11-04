@@ -172,34 +172,26 @@ public class ReferalActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Please select atleast one emergency contact!",Toast.LENGTH_SHORT).show();
             return;
         }
+        if(numberset.size()>2){
+            emergencyContacts.clear();
+            emergencyContacts.addAll(Globals.emergencyContactslist);
+            Toast.makeText(getApplicationContext(),"Cant add more than 2 numbers",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Referals");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        Globals.emergencyContactslist.addAll(emergencyContacts);
+        Toast.makeText(getApplicationContext(),"All Contacts Saved Sucessfully!",Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        boolean loginstatus = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("Status",false);
+        boolean contactsVerified = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("ContactsVerification",false);
+
+        if(contactsVerified && loginstatus)return;
+
+        getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("ContactsVerification",true).apply();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        finish();
 
 
-
-
-                Globals.emergencyContactslist.addAll(emergencyContacts);
-                Toast.makeText(getApplicationContext(),"All Contacts Saved Sucessfully!",Toast.LENGTH_SHORT).show();
-
-                boolean loginstatus = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("Status",false);
-                boolean contactsVerified = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("ContactsVerification",false);
-
-                if(contactsVerified && loginstatus)return;
-
-                getSharedPreferences("LoginDetails",MODE_PRIVATE).edit().putBoolean("ContactsVerification",true).apply();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
     }
 

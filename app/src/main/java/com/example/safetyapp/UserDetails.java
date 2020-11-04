@@ -1,5 +1,9 @@
 package com.example.safetyapp;
 
+import android.util.Log;
+
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.Map;
 
 public class UserDetails {
@@ -13,6 +17,8 @@ public class UserDetails {
             DOB = (String) userdetails.get("DOB");
             Gender = (String) userdetails.get("Gender");
             City = (String) userdetails.get("City");
+
+            Log.d("Data",FirstName+Gender);
     }
 
     public UserDetails(String firstName, String lastName, String DOB, String gender, String city) {

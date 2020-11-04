@@ -72,6 +72,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static com.example.safetyapp.Globals.*;
@@ -352,6 +353,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     void setUserData(Map userdetails_map){
+
         userDetails = new UserDetails(userdetails_map);
     }
     private void setToken() {
@@ -377,12 +379,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         databaseReference.orderByKey().equalTo(UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Log.d("Exists", String.valueOf(dataSnapshot.exists()) + UID);
                 if(dataSnapshot.exists()){
+
                     Globals.userDetails = dataSnapshot.child(UID).getValue(UserDetails.class);
+                    //Log.d("Data",userDetails.getGender());
                     getSharedPreferences("SignUpDetails",MODE_PRIVATE).edit().putBoolean("status",true).apply();
                 }else
                 {
-                    databaseReference.child(UID).push().setValue(userDetails);
+                    databaseReference.child(UID).setValue(userDetails);
                 }
             }
 
@@ -429,6 +434,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         if (id == R.id.editprofile) {
+            uploadUserData();
             Intent i = new Intent(MainActivity.this, signUpActivity.class);
             startActivity(i);
         }

@@ -133,7 +133,7 @@ public class signUpActivity extends AppCompatActivity {
             }
         });
 
-        //uploadUserData();
+        uploadUserData();
         status = getSharedPreferences("SignUpDetails",MODE_PRIVATE).getBoolean("status",false);
         setUserData();
         Submit.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +144,10 @@ public class signUpActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Details Saved Succesfully",Toast.LENGTH_SHORT).show();
                         uploadUserData();
                     }else{
+
+
+
+
                         Intent intent = new Intent(getApplicationContext(), ReferalActivity.class);
                         startActivity(intent);
                         finish();
@@ -419,8 +423,10 @@ public class signUpActivity extends AppCompatActivity {
 
 
 
-    private void setUserData(){
+    public void setUserData(){
         if(!status)return;
+
+      //  Log.d("Data",userDetails.getFirstName());
 
         fname.setText(userDetails.getFirstName());
         lname.setText(userDetails.getLastName());
@@ -447,7 +453,6 @@ public class signUpActivity extends AppCompatActivity {
         String gender = userDetails.getGender();
         male = findViewById(R.id.radmale);
         female = findViewById(R.id.radfemale);
-
         if(gender.equals("Male"))male.setChecked(true);
         else female.setChecked(true);
     }

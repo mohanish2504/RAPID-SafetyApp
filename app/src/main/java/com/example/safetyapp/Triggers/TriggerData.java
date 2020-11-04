@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.safetyapp.Globals;
+import com.example.safetyapp.user.ReferalActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,10 +55,13 @@ public class TriggerData {
                 ArrayList<String> emergencyContacts = new ArrayList<>();
                 String uri = "http://maps.google.com/maps?daddr=" + location.getLatitude() + "," + location.getLongitude();
                 String mynum = context.getSharedPreferences("UserDetails", Context.MODE_PRIVATE).getString("Number", "");
-                for (int j = 0; j < Globals.emergencyContactslist.size(); j++) {
-                    emergencyContacts.add(Globals.emergencyContactslist.get(j).getNumber());
-                    sendSMS(mynum, uri, Globals.emergencyContactslist.get(j).getNumber());
+
+                for(ReferalActivity.EmergencyContact e : Globals.emergencyContactslist){
+                    emergencyContacts.add(e.getNumber());
+                    sendSMS(mynum,uri,e.getNumber());
                 }
+
+
 
                 CurrentUserInfo currentInfo = new CurrentUserInfo(mobile, location, emergencyContacts, currentTime.toString());
                 Log.d(TAG,Globals.MODE);

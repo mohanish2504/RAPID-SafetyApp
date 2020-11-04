@@ -9,14 +9,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import androidx.collection.ArraySet;
 import androidx.core.app.ActivityCompat;
 
 import com.example.safetyapp.user.ReferalActivity;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Globals {
-    public static ArrayList<ReferalActivity.EmergencyContact> emergencyContactslist = new ArrayList<>();
+    public static Set<ReferalActivity.EmergencyContact> emergencyContactslist = new ArraySet<>();
     public static final String RESTART_INTENT = "com.example.project.restarter";
     public static final String RESTART_SCREEN_ONOFF_INTENT = "com.example.project.restarter";
     public static String REFERAL;
