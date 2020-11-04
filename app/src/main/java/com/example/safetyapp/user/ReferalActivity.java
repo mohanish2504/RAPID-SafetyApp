@@ -66,8 +66,8 @@ public class ReferalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_referal);
 
         EnableRuntimePermission();
-        textView_userreferalcode = (TextView) findViewById(R.id.referalcode);
-        textView_userreferalcode.setText(Globals.REFERAL);
+        /*textView_userreferalcode = (TextView) findViewById(R.id.referalcode);
+        textView_userreferalcode.setText(Globals.REFERAL);*/
 
         msg="Hi I am inviting you to be my emergency contact please download the Rapid app share referal code Link: https://drive.google.com/file/d/1Sd1ic4HetX-DXh-k-VT3c3knc_w59H1g/view?usp=sharing";
 
@@ -88,7 +88,7 @@ public class ReferalActivity extends AppCompatActivity {
             }
         });
 
-        verifyContacts = (Button) findViewById(R.id.verifyContact);
+        verifyContacts = (Button) findViewById(R.id.Done);
         verifyContacts.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -178,31 +178,12 @@ public class ReferalActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int numberstoVerify = emergencyContacts.size();
-                for(int i = 0 ; i<emergencyContacts.size();i++){
-                    View view  = listView.getChildAt(i);
-                    String number = emergencyContacts.get(i).getNumber();
-                    EditText editTextcode = (EditText) view.findViewById(R.id.contacts_textview_number);
 
-                    if(dataSnapshot.hasChild(number)){
-                        String databasecode = (String) dataSnapshot.child(number).getValue();
-                        String code = editTextcode.getText().toString();
-                        if(!databasecode.equals(code)) {
-                            Toast.makeText(getApplicationContext(),"One of the entered code is wrong",Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        emergencyContacts.get(i).setReferal(databasecode);
-                        numberstoVerify--;
-                    }
-                }
 
-               if(numberstoVerify>0){
-                   Toast.makeText(getApplicationContext(),"Contacts are not verified please check",Toast.LENGTH_SHORT).show();
-                   return;
-               }
+
 
                 Globals.emergencyContactslist.addAll(emergencyContacts);
-                Toast.makeText(getApplicationContext(),"All Contacts Verified Sucessfully!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"All Contacts Saved Sucessfully!",Toast.LENGTH_SHORT).show();
 
                 boolean loginstatus = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("Status",false);
                 boolean contactsVerified = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE).getBoolean("ContactsVerification",false);
@@ -257,13 +238,13 @@ public class ReferalActivity extends AppCompatActivity {
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 
             TextView textView_name = (TextView) convertView.findViewById(R.id.contacts_textview_name);
-            EditText editText_code = (EditText) convertView.findViewById(R.id.contacts_textview_number);
+            //EditText editText_code = (EditText) convertView.findViewById(R.id.contacts_textview_number);
             Button button_remove = (Button) convertView.findViewById(R.id.contacts_button_remove);
 
             textView_name.setText(emergencyContacts.get(position).getName());
-            String referal = emergencyContacts.get(position).getReferal();
-            if(referal==null) editText_code.setHint("referal");
-            else editText_code.setText(emergencyContacts.get(position).getReferal());
+
+           // if(referal==null) editText_code.setHint("referal");
+          //  else editText_code.setText(emergencyContacts.get(position).getReferal());
 
             button_remove.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -283,7 +264,6 @@ public class ReferalActivity extends AppCompatActivity {
 
     public class EmergencyContact{
         String name;
-        String referal;
         String number;
         int index;
 
@@ -305,20 +285,15 @@ public class ReferalActivity extends AppCompatActivity {
 
         public EmergencyContact(String name, String referal,String number) {
             this.name = name;
-            this.referal = referal;
             this.number = number;
         }
 
         public EmergencyContact() {
         }
 
-        public String getReferal() {
-            return referal;
-        }
 
-        public void setReferal(String referal) {
-            this.referal = referal;
-        }
+
+
 
         public String getName() {
             if(name==null)name = "Name";

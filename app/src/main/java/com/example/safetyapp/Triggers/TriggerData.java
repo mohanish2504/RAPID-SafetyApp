@@ -68,7 +68,7 @@ public class TriggerData {
     }
 
     public void sendSMS(String phoneNo, String uri,String userphone) {
-        String msg="Hello I am facing issues pls help out! Here is my location " + uri;
+        String msg="Hello I am facing issues please help out! Here is my location " + uri;
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(userphone, null, msg, null, null);

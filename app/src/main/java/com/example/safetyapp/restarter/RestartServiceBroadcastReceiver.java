@@ -11,7 +11,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 import com.example.safetyapp.Globals;
 import com.example.safetyapp.ProcessMainClass;
@@ -24,7 +27,6 @@ public class RestartServiceBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.P){
             JobService.launchDirectService(context);
         }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
@@ -44,10 +46,12 @@ public class RestartServiceBroadcastReceiver extends BroadcastReceiver {
         ComponentName componentName = new ComponentName(context, JobService.class);
         JobInfo jobInfo = new JobInfo.Builder(1, componentName)
                 .setOverrideDeadline(0)
-                .setPersisted(true).build();
+                .setPersisted(true)
+                .build();
         jobScheduler.schedule(jobInfo);
 
     }
+
 
     private void registerRestarterReceiver(final Context context) {
 

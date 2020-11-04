@@ -43,7 +43,7 @@ public class ReferalGenerator {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists()){
                     generateReferal();
-                    databaseReference.child(phone).setValue(referal);
+                    databaseReference.child(phone).push().setValue(referal);
                 }else{
                     for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                         referal = (String) dataSnapshot1.getValue();

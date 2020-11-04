@@ -5,10 +5,13 @@ import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -30,8 +33,16 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 import com.example.safetyapp.Triggers.Trigger;
+import com.example.safetyapp.restarter.JobService;
+import com.example.safetyapp.restarter.MyWorker;
 import com.example.safetyapp.restarter.RestartServiceBroadcastReceiver;
 import com.example.safetyapp.screenreceiver.ScreenOnOffReceiver;
 import com.example.safetyapp.user.ReportUser;
@@ -59,7 +70,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static com.example.safetyapp.Globals.*;
 
@@ -255,8 +268,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         scheduleJob();
         setUserData(getSharedPreferences("UserDetails",MODE_PRIVATE).getAll());
         uploadUserData();
-        //moveReports_FireStore();
-
     }
 
     private void setSafetyButton(){
@@ -311,7 +322,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(intent.getAction().equals(Globals.BROADCAST)) setPendingRequests();
         }
     }
-
     public class AlertRecevier extends BroadcastReceiver{
 
         @Override
@@ -341,143 +351,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void uploadUserData() {
-        databaseReference = FirebaseDatabase.getInstance().getReference("UserDetails");
-        databaseReference.orderByKey().equalTo(UID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    Globals.userDetails = dataSnapshot.child(UID).getValue(UserDetails.class);
-                    getSharedPreferences("SignUpDetails",MODE_PRIVATE).edit().putBoolean("status",true).apply();
-                }else
-                {
-                    databaseReference.child(UID).setValue(userDetails);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
-
     void setUserData(Map userdetails_map){
         userDetails = new UserDetails(userdetails_map);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void moveReports_FireStore(){
-
-        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Reports");
-        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                for(DataSnapshot values : dataSnapshot.getChildren()){
-                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
-                    String key = values.getKey();
-                    ReportUser.ReportFormat val = values.getValue(ReportUser.ReportFormat.class);
-
-                    if(key!=null && val!=null)db.collection("Reports").document(key).set(val);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void moveUsers_FireStore(){
-
-        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("UserDetails");
-        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                for(DataSnapshot values : dataSnapshot.getChildren()){
-                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
-                    String key = values.getKey();
-                    UserDetails val = values.getValue(UserDetails.class);
-
-                    if(key!=null && val!=null)db.collection("Users").document(key).set(val);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
-    private void moveTokens_FireStore(){
-
-        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("DeviceTokens");
-        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                for(DataSnapshot values : dataSnapshot.getChildren()){
-                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
-                    String key = values.getKey();
-                    String val = (String) values.getValue();
-                    HashMap<String,String> map = new HashMap<>();
-                    map.put("token",val);
-                    if(key!=null && val!=null)db.collection("Tokens").document(key).set(map);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
-    private void moveReferals_FireStore(){
-
-        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Referals");
-        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                for(DataSnapshot values : dataSnapshot.getChildren()){
-                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
-                    String key = values.getKey();
-                    String val = (String) values.getValue();
-                    HashMap<String,String> map = new HashMap<>();
-                    map.put("code",val);
-                    if(key!=null && val!=null)db.collection("Referals").document(key).set(map);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
-
     private void setToken() {
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -496,6 +372,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
     }
+    private void uploadUserData() {
+        databaseReference = FirebaseDatabase.getInstance().getReference("UserDetails");
+        databaseReference.orderByKey().equalTo(UID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    Globals.userDetails = dataSnapshot.child(UID).getValue(UserDetails.class);
+                    getSharedPreferences("SignUpDetails",MODE_PRIVATE).edit().putBoolean("status",true).apply();
+                }else
+                {
+                    databaseReference.child(UID).push().setValue(userDetails);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
 
     private void createMethod() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -509,8 +407,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             notificationManager.createNotificationChannel(channel);
         }
     }
-
     private void scheduleJob() {
+        Log.d(TAG,"SCHEDULING JOB");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             RestartServiceBroadcastReceiver.scheduleJob(getApplicationContext());
         } else {
@@ -520,6 +418,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (mToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
@@ -558,14 +463,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onPause();
         activityRunning = false;
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mynotificationreceiver);
         unregisterReceiver(alertreceiver);
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -573,5 +476,152 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setPendingRequests();
     }
 
+
+    // CHECKING FOR CHINESE ROMS
+    void C_ROM(){
+        try {
+            Intent intent = new Intent();
+            String manufacturer = android.os.Build.MANUFACTURER;
+            if ("xiaomi".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+            } else if ("oppo".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity"));
+            } else if ("vivo".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"));
+            } else if ("oneplus".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.oneplus.security", "com.oneplus.security.chainlaunch.view.ChainLaunchAppListAct‌​ivity"));
+            } else if ("Letv".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.AutobootManageActivity"));
+            } else if ("Honor".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
+            }
+            else if ("huawei".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
+            }
+            else if ("asus".equalsIgnoreCase(manufacturer)) {
+                intent.setComponent(new ComponentName("com.asus.mobilemanager","com.asus.mobilemanager.autostart.AutoStartActivity"));
+            }
+            else {
+                Log.e("other phone ", "===>");
+            }
+            List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+            if (list.size() > 0) {
+                startActivity(intent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // set Periodic Work Request
+    void PW(){
+       /*WorkRequest uploadWorkRequest =
+                new OneTimeWorkRequest.Builder(MyWorker.class)
+                        .build();*/
+
+        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(MyWorker.class, 20, TimeUnit.MINUTES)
+                .build();
+        WorkManager.getInstance(this).enqueue(periodicWork);
+    }
+
+
+    // for moving data to Firestore don't ever make changes here
+    private void moveReports_FireStore(){
+
+        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Reports");
+        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                for(DataSnapshot values : dataSnapshot.getChildren()){
+                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
+                    String key = values.getKey();
+                    ReportUser.ReportFormat val = values.getValue(ReportUser.ReportFormat.class);
+
+                    if(key!=null && val!=null)db.collection("Reports").document(key).set(val);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void moveUsers_FireStore(){
+
+        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("UserDetails");
+        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                for(DataSnapshot values : dataSnapshot.getChildren()){
+                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
+                    String key = values.getKey();
+                    UserDetails val = values.getValue(UserDetails.class);
+
+                    if(key!=null && val!=null)db.collection("Users").document(key).set(val);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    private void moveTokens_FireStore(){
+
+        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("DeviceTokens");
+        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                for(DataSnapshot values : dataSnapshot.getChildren()){
+                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
+                    String key = values.getKey();
+                    String val = (String) values.getValue();
+                    HashMap<String,String> map = new HashMap<>();
+                    map.put("token",val);
+                    if(key!=null && val!=null)db.collection("Tokens").document(key).set(map);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    private void moveReferals_FireStore(){
+
+        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference("Referals");
+        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                for(DataSnapshot values : dataSnapshot.getChildren()){
+                    //Log.d(TAG,"KEY:: "+ values.getKey() + "Value:: " + values.getValue());
+                    String key = values.getKey();
+                    String val = (String) values.getValue();
+                    HashMap<String,String> map = new HashMap<>();
+                    map.put("code",val);
+                    if(key!=null && val!=null)db.collection("Referals").document(key).set(map);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
 }
