@@ -8,4 +8,4 @@ Using the Application:
 3. Done! your setup is finished, now you can click on your power buttons 5 to 6 times that will genrate an alarm on your device and in your security contact as well.
    it will also notify users within the 3km of range.
    
-Download : https://drive.google.com/drive/folders/19NrATVK1_wLjS8f5HK5kre4DI_VULbdG?usp=sharing
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/unQY0mwypME/0.jpg)](http://www.youtube.com/watch?v=unQY0mwypME "Rapid")
